@@ -20,17 +20,13 @@ class Line(Graph):
 	stacked = False
 	"Fill in the area under the plot"
 	area_fill = False
-	
+
 	scale_divisions = None
 
 	#override some defaults
 	top_align = top_font = right_align = right_font = True
-	
-	stylesheet_names = Graph.stylesheet_names + ['plot.css']
 
-	def __init__(self, fields, *args, **kargs):
-		self.fields = fields
-		super(Line, self).__init__(*args, **kargs)
+	stylesheet_names = Graph.stylesheet_names + ['plot.css']
 
 	def max_value(self):
 		data = map(itemgetter('data'), self.data)
@@ -72,15 +68,15 @@ class Line(Graph):
 		range = max_value - min_value
 		top_pad = (range / 20.0) or 10
 		scale_range = (max_value + top_pad) - min_value
-		
+
 		scale_division = self.scale_divisions or (scale_range / 10.0)
-		
+
 		if self.scale_integers:
 		  scale_division = max(1, round(scale_division))
-		  
-		if max_value % scale_division != 0: 
+
+		if max_value % scale_division != 0:
 			max_value += scale_division
-    	
+
 		labels = tuple(float_range(min_value, max_value, scale_division))
 		return labels
 
@@ -103,20 +99,20 @@ class Line(Graph):
 		y_label_values = self.get_y_label_values()
 		y_label_span = max(y_label_values) - min(y_label_values)
 		field_height /= float(y_label_span)
-		
+
 		field_width = self.field_width()
 		#line = len(self.data)
-		
+
 		prev_sum = [0]*len(self.fields)
 		cum_sum = [-min_value]*len(self.fields)
 
 		coord_format = lambda c: '%(x)s %(y)s' % c
-		
+
 		for line_n, data in reversed(list(enumerate(self.data, 1))):
 			apath = ''
-			
+
 			if not self.stacked: cum_sum = [-min_value]*len(self.fields)
-		
+
 			cum_sum = map(add, cum_sum, data['data'])
 			get_coords = lambda (i, val): self.calc_coords(i,
 														 val,
@@ -157,7 +153,7 @@ class Line(Graph):
 				'd': 'M0 %s L%s' % (self.graph_height, line_path),
 				'class': 'line%(line_n)s' % vars(),
 				})
-			
+
 			if self.show_data_points or self.show_data_values:
 				for i, value in enumerate(cum_sum):
 					if self.show_data_points:

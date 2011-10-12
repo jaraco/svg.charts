@@ -82,8 +82,6 @@ Changes
 2.0.9
 ~~~~~
 
-* Adds dedicated initializer to line.py consistent with bar.py to define
-  the fields (thanks to Emmanuel Blot).
 * Corrected buggy logic in y-axis label rendering (thanks to Emmanuel
   Blot).
 * Converted to Unix line endings.
