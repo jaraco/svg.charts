@@ -1,5 +1,3 @@
-.. -*- restructuredtext -*-
-
 ``svg.charts`` - Package for generating SVG Charts in Python
 ============================================================
 
@@ -15,11 +13,10 @@ in SVG, originally based on the SVG::Graph Ruby package by Sean E. Russel.
 
 ``svg.charts`` is written by Jason R. Coombs.  It is licensed under an
 `MIT-style permissive license
-<http://svg-charts.hg.sourceforge.net/hgweb/svg-charts/py-svg/raw-file/tip/docs/license.txt>`_.
+<http://svg-charts.hg.sourceforge.net/hgweb/svg-charts/svg-charts/raw-file/tip/docs/license.txt>`_.
 
-You can install it with ``easy_install svg.charts``, or from the
-`mercurial repository source <http://svg-charts.hg.sourceforge.net:8000/hgroot/svg-charts/svg-charts#egg=svg.charts-dev>`_ with
-``easy_install svg.charts==dev``.
+You can install it with ``easy_install svg.charts``, or check out the
+`mercurial repository source <http://svg-charts.hg.sourceforge.net:8000/hgroot/svg-charts/svg-charts>`_.
 
 Acknowledgements
 ----------------
@@ -81,6 +78,15 @@ reporting bugs and requesting help. Patches are also welcome.
 
 Changes
 -------
+
+2.0.9
+~~~~~
+
+* Adds dedicated initializer to line.py consistent with bar.py to define
+  the fields (thanks to Emmanuel Blot).
+* Corrected buggy logic in y-axis label rendering (thanks to Emmanuel
+  Blot).
+* Converted to Unix line endings.
 
 2.0.8
 ~~~~~
