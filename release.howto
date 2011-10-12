@@ -1,5 +1,7 @@
 How to make a release:
 
+- Double-check that readme includes historical changes.
+- Use Mercurial to tag the released version.
 - Run release-package (from jaraco.util) in the current directory. This uploads to pypi.
 - upload released packages to sourceforge (can we automate this)?
 - announce release on python-announce-list@python.org
