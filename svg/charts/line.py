@@ -74,8 +74,10 @@ class Line(Graph):
 		if self.scale_integers:
 			scale_division = max(1, round(scale_division))
 
-		if max_value % scale_division != 0:
-			max_value += scale_division
+		# float_range excludes the stop value, so to ensure we always
+		#  have the last label rendered, add a scale_division. Think like
+		#  xrange(1,11) for 1-10.
+		max_value += scale_division
 
 		labels = tuple(float_range(min_value, max_value, scale_division))
 		return labels
