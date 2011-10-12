@@ -72,7 +72,7 @@ class Line(Graph):
 		scale_division = self.scale_divisions or (scale_range / 10.0)
 
 		if self.scale_integers:
-		  scale_division = max(1, round(scale_division))
+			scale_division = max(1, round(scale_division))
 
 		if max_value % scale_division != 0:
 			max_value += scale_division
