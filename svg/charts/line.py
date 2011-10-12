@@ -28,6 +28,10 @@ class Line(Graph):
 	
 	stylesheet_names = Graph.stylesheet_names + ['plot.css']
 
+	def __init__(self, fields, *args, **kargs):
+		self.fields = fields
+		super(Line, self).__init__(*args, **kargs)
+
 	def max_value(self):
 		data = map(itemgetter('data'), self.data)
 		if self.stacked:
@@ -72,10 +76,11 @@ class Line(Graph):
 		scale_division = self.scale_divisions or (scale_range / 10.0)
 		
 		if self.scale_integers:
-		  scale_division = min(1, round(scale_division))
-		
-		if max_value % scale_division == 0: 
+		  scale_division = max(1, round(scale_division))
+		  
+		if max_value % scale_division != 0: 
 			max_value += scale_division
+    	
 		labels = tuple(float_range(min_value, max_value, scale_division))
 		return labels
 
