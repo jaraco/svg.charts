@@ -6,7 +6,57 @@ from svg.charts.graph import Graph
 __all__ = ('VerticalBar', 'HorizontalBar')
 
 class Bar(Graph):
-	"A superclass for bar-style graphs.  Do not instantiate directly."
+	"""
+	Create presentation quality SVG bar graphs easily.
+
+	Synopsis
+	========
+
+	from svg.charts import bar
+
+
+	fields = 'Jan Feb Mar'.split()
+	data_sales_02 = [12, 45, 21]
+
+	bc = bar.VerticalBar(fields, {'width': 300, 'height': 500})
+
+	bc.add_data({'data': data_sales_02, 'title': 'Sales 2002'})
+
+	print("Content-type: image/svg+xml\r\n\r\n")
+	print(bc.burn())
+
+	Description
+	===========
+
+	This object aims to allow you to easily create high quality
+	`SVG <http://www.w3c.org/tr/svg>`_ bar graphs. You can either use the default
+	style sheet or supply your own. Either way there are many options which
+	can be configured to give you control over how the graph is generated -
+	with or without a key, data elements at each point, title, subtitle etc.
+
+	Notes
+	=====
+
+	The default stylesheet handles upto 12 data sets, if you
+	use more you must create your own stylesheet and add the
+	additional settings for the extra data sets. You will know
+	if you go over 12 data sets as they will have no style and
+	be in black.
+
+	Examples
+	========
+
+	See the example usage in tests/samples.py
+
+	See also
+	========
+
+	* svg.charts.graph
+	* svg.charts.line
+	* svg.charts.pie
+	* svg.charts.plot
+	* svg.charts.timeseries
+	"""
 
 	# gap between bars
 	bar_gap = True
@@ -15,7 +65,7 @@ class Bar(Graph):
 	# top - stack bars on top of one another
 	# side - stack bars side-by-side
 	stack = 'overlap'
-	
+
 	scale_divisions = None
 
 	stylesheet_names = Graph.stylesheet_names + ['bar.css']
@@ -31,7 +81,7 @@ class Bar(Graph):
 		if self.scale_integers:
 			result = map(int, result)
 		return result
-	
+
 	# adapted from plot (very much like calling data_range('y'))
 	def data_range(self):
 		min_value = self.data_min()
@@ -40,12 +90,12 @@ class Bar(Graph):
 
 		data_pad = range / 20.0 or 10
 		scale_range = (max_value + data_pad) - min_value
-		
+
 		scale_division = self.scale_divisions or (scale_range / 10.0)
-		
+
 		if self.scale_integers:
 			scale_division = round(scale_division) or 1
-			
+
 		return min_value, max_value, scale_division
 
 	def get_field_labels(self):
@@ -58,7 +108,7 @@ class Bar(Graph):
 		return max(chain(*map(lambda set: set['data'], self.data)))
 		# above is same as
 		# return max(map(lambda set: max(set['data']), self.data))
-		
+
 	def data_min(self):
 		if not getattr(self, 'min_scale_value') is None: return self.min_scale_value
 		min_value = min(chain(*map(lambda set: set['data'], self.data)))
@@ -82,58 +132,6 @@ def float_range(start = 0, stop = None, step = 1):
 
 
 class VerticalBar(Bar):
-	"""    # === Create presentation quality SVG bar graphs easily
-    #
-    # = Synopsis
-    #
-    #   require 'SVG/Graph/Bar'
-    #
-    #   fields = %w(Jan Feb Mar);
-    #   data_sales_02 = [12, 45, 21]
-    #
-    #   graph = SVG::Graph::Bar.new(
-    #     :height => 500,
-    #     :width => 300,
-    #     :fields => fields
-    #  )
-    #
-    #   graph.add_data(
-    #     :data => data_sales_02,
-    #     :title => 'Sales 2002'
-    #  )
-    #
-    #   print "Content-type: image/svg+xml\r\n\r\n"
-    #   print graph.burn
-    #
-    # = Description
-    #
-    # This object aims to allow you to easily create high quality
-    # SVG[http://www.w3c.org/tr/svg bar graphs. You can either use the default
-    # style sheet or supply your own. Either way there are many options which
-    # can be configured to give you control over how the graph is generated -
-    # with or without a key, data elements at each point, title, subtitle etc.
-    #
-    # = Notes
-    #
-    # The default stylesheet handles upto 12 data sets, if you
-    # use more you must create your own stylesheet and add the
-    # additional settings for the extra data sets. You will know
-    # if you go over 12 data sets as they will have no style and
-    # be in black.
-    #
-    # = Examples
-    #
-    # * http://germane-software.com/repositories/public/SVG/test/test.rb
-    #
-    # = See also
-    #
-    # * SVG::Graph::Graph
-    # * SVG::Graph::BarHorizontal
-    # * SVG::Graph::Line
-    # * SVG::Graph::Pie
-    # * SVG::Graph::Plot
-    # * SVG::Graph::TimeSeries
-"""
 	top_align = top_font = 1
 
 	def get_x_labels(self):
@@ -150,18 +148,18 @@ class VerticalBar(Bar):
 		unit_size = (float(self.graph_height) - self.font_size*2*self.top_font)
 		unit_size /= (max(self.get_data_values()) - min(self.get_data_values()))
 
-		bar_gap = self.get_bar_gap(self.get_field_width())		
+		bar_gap = self.get_bar_gap(self.get_field_width())
 
 		bar_width = self.get_field_width() - bar_gap
 		if self.stack == 'side':
 			bar_width /= len(self.data)
-		
+
 		x_mod = (self.graph_width - bar_gap)/2
 		if self.stack == 'side':
 			x_mod -= bar_width/2
 
 		bottom = self.graph_height
-		
+
 		for field_count, field in enumerate(self.fields):
 			for dataset_count, dataset in enumerate(self.data):
 				# cases (assume 0 = +ve):
@@ -170,9 +168,9 @@ class VerticalBar(Bar):
 				#    +ve   -ve  value - 0
 				#    -ve   -ve  value.abs - 0
 				value = dataset['data'][field_count]
-				
+
 				left = self.get_field_width() * field_count
-				
+
 				length = (abs(value) - max(min_value, 0)) * unit_size
 				# top is 0 if value is negative
 				top = bottom - ((max(value,0) - min_value) * unit_size)
@@ -186,7 +184,7 @@ class VerticalBar(Bar):
 					'height': str(length),
 					'class': 'fill%s' % (dataset_count+1),
 				})
-				
+
 				self.make_datapoint_text(left + bar_width/2.0, top-6, value)
 
 class HorizontalBar(Bar):
@@ -194,24 +192,24 @@ class HorizontalBar(Bar):
 	show_x_guidelines = True
 	show_y_guidelines = False
 	right_align = right_font = True
-	
+
 
 	def get_x_labels(self):
 		return self.get_data_labels()
-	
+
 	def get_y_labels(self):
 		return self.get_field_labels()
 
 	def y_label_offset(self, height):
 		return height / -2.0
-	
+
 	def draw_data(self):
 		min_value = self.data_min()
 
 		unit_size = float(self.graph_width)
 		unit_size -= self.font_size*2*self.right_font
 		unit_size /= max(self.get_data_values()) - min(self.get_data_values())
-		
+
 		bar_gap = self.get_bar_gap(self.get_field_height())
 
 		bar_height = self.get_field_height() - bar_gap
@@ -223,7 +221,7 @@ class HorizontalBar(Bar):
 		for field_count, field in enumerate(self.fields):
 			for dataset_count, dataset in enumerate(self.data):
 				value = dataset['data'][field_count]
-		
+
 				top = self.graph_height - (self.get_field_height() * (field_count+1))
 				if self.stack == 'side':
 					top += (bar_height * dataset_count)
@@ -243,6 +241,6 @@ class HorizontalBar(Bar):
 					'height': str(bar_height),
 					'class': 'fill%s' % (dataset_count+1),
 				})
-				
+
 				self.make_datapoint_text(left+length+5, top+y_mod, value,
 										 "text-anchor: start; ")

@@ -20,61 +20,65 @@ if sys.version >= '3':
 		return func()
 
 class Plot(Graph):
-	"""=== For creating SVG plots of scalar data
+	"""
+	An SVG plot of scalar data.
 
-	= Synopsis
+	Synopsis
+	========
 
-	  require 'SVG/Graph/Plot'
+	from svg.charts import plot
 
-	  # Data sets are x,y pairs
-	  # Note that multiple data sets can differ in length, and that the
-	  # data in the datasets needn't be in order; they will be ordered
-	  # by the plot along the X-axis.
-	  projection = [
-		6, 11,    0, 5,   18, 7,   1, 11,   13, 9,   1, 2,   19, 0,   3, 13,
-		7, 9
-	 ]
-	  actual = [
-		0, 18,    8, 15,    9, 4,   18, 14,   10, 2,   11, 6,  14, 12,
-		15, 6,   4, 17,   2, 12
-	 ]
+	# Data sets are x,y pairs
+	# Note that multiple data sets can differ in length, and that the
+	# data in the datasets needn't be in order; they will be ordered
+	# by the plot along the x-axis.
+	projection = [
+		6, 11,  0, 5,  18, 7,  1, 11,  13, 9,  1, 2,  19, 0,  3, 13,  7, 9,
+	]
+	actual = [
+		0, 18,  8, 15,  9, 4,  18, 14,  10, 2,  11, 6,  14, 12,  15, 6,
+		4, 17,  2, 12,
+	]
 
-	  graph = SVG::Graph::Plot.new({
-	   :height => 500,
-		   :width => 300,
-		:key => true,
-		:scale_x_integers => true,
-		:scale_y_integerrs => true,
-	 })
+	p = plot.Plot(dict(
+		height = 500,
+		width = 300,
+		key = true,
+		scale_x_integers = True,
+		scale_y_integerrs = True,
+	))
 
-	  graph.add_data({
-	   :data => projection
-		 :title => 'Projected',
-	 })
+	p.add_data({
+		'data': projection,
+		'title': 'Projected',
+	})
 
-	  graph.add_data({
-	   :data => actual,
-		 :title => 'Actual',
-	 })
+	p.add_data({
+		'data': actual,
+		'title': 'Actual',
+	})
 
-	  print graph.burn()
+	print(p.burn())
 
-	= Description
+	Description
+	===========
 
 	Produces a graph of scalar data.
 
 	This object aims to allow you to easily create high quality
-	SVG[http://www.w3c.org/tr/svg] scalar plots. You can either use the
+	`SVG <http://www.w3c.org/tr/svg>`_ scalar plots. You can either use the
 	default style sheet or supply your own. Either way there are many options
 	which can be configured to give you control over how the graph is
 	generated - with or without a key, data elements at each point, title,
 	subtitle etc.
 
-	= Examples
+	Examples
+	========
 
-	http://www.germane-software/repositories/public/SVG/test/plot.rb
+	See the examples in tests/samples.py
 
-	= Notes
+	Notes
+	=====
 
 	The default stylesheet handles upto 10 data sets, if you
 	use more you must create your own stylesheet and add the
@@ -82,56 +86,44 @@ class Plot(Graph):
 	if you go over 10 data sets as they will have no style and
 	be in black.
 
-	Unlike the other types of charts, data sets must contain x,y pairs:
+	Unlike the other types of charts, data sets must contain x,y pairs::
 
-	  [1, 2]    # A data set with 1 point: (1,2)
+	  [1, 2]     # A data set with 1 point: (1,2)
 	  [1,2, 5,6] # A data set with 2 points: (1,2) and (5,6)
 
-	= See also
-
-	* SVG::Graph::Graph
-	* SVG::Graph::BarHorizontal
-	* SVG::Graph::Bar
-	* SVG::Graph::Line
-	* SVG::Graph::Pie
-	* SVG::Graph::TimeSeries
-
-	== Author
-
-	Sean E. Russell <serATgermaneHYPHENsoftwareDOTcom>
-
-	Copyright 2004 Sean E. Russell
-	This software is available under the Ruby license[LICENSE.txt]"""
+	"""
 
 	top_align = right_align = top_font = right_font = 1
 
 
-	"""Determines the scaling for the Y axis divisions.
-
-	  graph.scale_y_divisions = 0.5
-
-	would cause the graph to attempt to generate labels stepped by 0.5; EG:
-	0, 0.5, 1, 1.5, 2, ..."""
 	scale_y_divisions = None
-	"Make the X axis labels integers"
+	"""
+	Determines the scaling for the Y axis divisions.
+
+	  Plot.scale_y_divisions = 0.5
+
+	would cause the graph to attempt to generate labels stepped by 0.5; e.g.:
+	0, 0.5, 1, 1.5, 2, ...
+	"""
 	scale_x_integers = False
-	"Make the Y axis labels integers"
+	"Make the X axis labels integers"
 	scale_y_integers = False
-	"Fill the area under the line"
+	"Make the Y axis labels integers"
 	area_fill = False
+	"Fill the area under the line"
+	show_data_points = True
 	"""Show a small circle on the graph where the line
 	goes from one point to the next."""
-	show_data_points = True
-	"Indicate whether the lines should be drawn between points"
 	draw_lines_between_points = True
-	"Set the minimum value of the X axis"
+	"Indicate whether the lines should be drawn between points"
 	min_x_value = None
-	"Set the minimum value of the Y axis"
+	"Set the minimum value of the X axis"
 	min_y_value = None
-	"Set the maximum value of the X axis"
+	"Set the minimum value of the Y axis"
 	max_x_value = None
-	"Set the maximum value of the Y axis"
+	"Set the maximum value of the X axis"
 	max_y_value = None
+	"Set the maximum value of the Y axis"
 
 	stacked = False
 
@@ -139,12 +131,14 @@ class Plot(Graph):
 
 	@apply
 	def scale_x_divisions():
-		doc = """Determines the scaling for the X axis divisions.
+		doc = """
+			Determines the scaling for the X axis divisions.
 
 			graph.scale_x_divisions = 2
 
-			would cause the graph to attempt to generate labels stepped by 2; EG:
-			0,2,4,6,8..."""
+			would cause the graph to attempt to generate labels stepped by 2; e.g.:
+			0,2,4,6,8...
+			"""
 		def fget(self):
 			return getattr(self, '_scale_x_divisions', None)
 		def fset(self, val):
@@ -176,7 +170,7 @@ class Plot(Graph):
 		# above is same as
 		#max_value = max(map(lambda set: max(set['data'][data_index]), self.data))
 		spec_max = getattr(self, 'max_%s_value' % axis)
-		# Python 3 doesn't allow comparing None to int, so use -∞
+		# Python 3 doesn't allow comparing None to int, so use -8
 		if spec_max is None: spec_max = float('-Inf')
 		max_value = max(max_value, spec_max)
 		return max_value
