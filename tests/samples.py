@@ -43,6 +43,7 @@ def generate_samples():
 	yield 'VerticalBar', SampleBar.vertical()
 	yield 'HorizontalBar', SampleBar.horizontal()
 	yield 'VerticalBarLarge', SampleBar.vertical_large()
+	yield 'VerticalBarStackTop', SampleBar.vertical_top()
 	yield 'Pie', sample_Pie()
 	yield 'Schedule', sample_Schedule()
 	yield 'Line', sample_Line()
@@ -96,6 +97,21 @@ class SampleBar:
 
 		g.add_data(dict(data=[2,22,98,143,82], title='intermediate'))
 		g.add_data(dict(data=[2,26,106,193,105], title='old'))
+		return g
+
+	@classmethod
+	def vertical_top(cls):
+		g = bar.VerticalBar(cls.fields, dict(stack='top'))
+		assert g.stack == 'top'
+
+		g.scale_integers = True
+		g.width, g.height = 640,480
+		g.graph_title = 'Question 7'
+		g.show_graph_title = True
+
+		g.add_data({'data': [-2, 3, 1, 3, 1], 'title': 'Female'})
+		g.add_data({'data': [0, 2, 1, 5, 4], 'title': 'Male'})
+
 		return g
 
 def sample_Line():
