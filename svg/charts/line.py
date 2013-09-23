@@ -83,7 +83,7 @@ class Line(Graph):
 		return labels
 
 	def get_y_labels(self):
-		return map(str, self.get_y_label_values())
+		return list(map(str, self.get_y_label_values()))
 
 	def calc_coords(self, field, value, width = None, height = None):
 		if width is None: width = self.field_width

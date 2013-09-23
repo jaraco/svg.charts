@@ -102,7 +102,7 @@ class Bar(Graph):
 		return self.fields
 
 	def get_data_labels(self):
-		return map(str, self.get_data_values())
+		return list(map(str, self.get_data_values()))
 
 	def data_max(self):
 		return max(chain(*map(lambda set: set['data'], self.data)))

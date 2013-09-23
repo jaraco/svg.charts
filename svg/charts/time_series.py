@@ -135,7 +135,7 @@ class Plot(svg.charts.plot.Plot):
 	def process_data(self, data):
 		super(Plot, self).process_data(data)
 		# the date should be in the first element, so parse it out
-		data['data'][0] = map(self.parse_date, data['data'][0])
+		data['data'][0] = list(map(self.parse_date, data['data'][0]))
 
 	_min_x_value = svg.charts.plot.Plot.min_x_value
 	def get_min_x_value(self):
@@ -148,7 +148,7 @@ class Plot(svg.charts.plot.Plot):
 		return fromtimestamp(x).strftime(self.popup_format)
 
 	def get_x_labels(self):
-		return map(lambda t: fromtimestamp(t).strftime(self.x_label_format), self.get_x_values())
+		return list(map(lambda t: fromtimestamp(t).strftime(self.x_label_format), self.get_x_values()))
 
 	def get_x_values(self):
 		result = self.get_x_timescale_division_values()
