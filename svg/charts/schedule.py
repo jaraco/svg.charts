@@ -1,4 +1,3 @@
-#!python
 import re
 
 from dateutil.parser import parse
@@ -266,7 +265,8 @@ class Schedule(Graph):
 			pattern = re.compile('(\d+) ?(\w+)')
 			m = pattern.match(self.timescale_divisions)
 			if not m:
-				raise ValueError, "Invalid timescale_divisions: %s" % self.timescale_divisions
+				raise ValueError("Invalid timescale_divisions: %s"
+					% self.timescale_divisions)
 
 			magnitude = int(m.group(1))
 			units = m.group(2)
@@ -285,7 +285,7 @@ class Schedule(Graph):
 		mapping = dict(
 			years = ('years', 'year', 'yrs', 'yr'),
 			months = ('months', 'month', 'mo'),
-			weeks = ('weeks', 'week', 'wks' ,'wk'),
+			weeks = ('weeks', 'week', 'wks','wk'),
 			days = ('days', 'day'),
 			hours = ('hours', 'hour', 'hr', 'hrs', 'h'),
 			minutes = ('minutes', 'minute', 'min', 'mins', 'm'),
@@ -294,5 +294,5 @@ class Schedule(Graph):
 		mapping = reverse_mapping(mapping)
 		mapping = flatten_mapping(mapping)
 		if not unit_string in mapping:
-			raise ValueError, "%s doesn't match any supported time/date unit"
+			raise ValueError("%s doesn't match any supported time/date unit")
 		return mapping[unit_string]
