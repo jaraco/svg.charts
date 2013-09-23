@@ -79,6 +79,11 @@ reporting bugs and requesting help. Patches are also welcome.
 Changes
 -------
 
+2.1
+~~~
+
+* Project now builds and tests pass on Python 3 without 2to3.
+
 2.0.9
 ~~~~~
 
