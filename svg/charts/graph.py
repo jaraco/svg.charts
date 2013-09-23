@@ -123,11 +123,13 @@ class Graph(object):
 	def validate_data(self, conf):
 		try:
 			assert(isinstance(conf['data'], (tuple, list)))
-		except TypeError, e:
-			raise TypeError, "conf should be dictionary with 'data' and other items"
+		except TypeError:
+			raise TypeError("conf should be dictionary with 'data' and other "
+				"items")
 		except AssertionError:
 			if not hasattr(conf['data'], '__iter__'):
-				raise TypeError, "conf['data'] should be tuple or list or iterable"
+				raise TypeError("conf['data'] should be tuple or list or "
+					"iterable")
 
 	def process_data(self, data): pass
 
@@ -360,7 +362,7 @@ class Graph(object):
 		y = self.graph_height + self.x_label_font_size + 3
 		t = 0 - (self.font_size / 2)
 
-		if self.stagger_x_labels and  (index % 2):
+		if self.stagger_x_labels and (index % 2):
 			stagger = self.x_label_font_size + 5
 			y += stagger
 			graph_height = self.graph_height
@@ -427,7 +429,7 @@ class Graph(object):
 		y = self.y_offset - (label_height * index)
 		x = {True: 0, False:-3}[self.rotate_y_labels]
 
-		if self.stagger_y_labels and  (index % 2):
+		if self.stagger_y_labels and (index % 2):
 			stagger = self.y_label_font_size + 5
 			x -= stagger
 			path = etree.SubElement(self.graph, 'path', {
