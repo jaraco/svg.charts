@@ -122,7 +122,8 @@ class iterable_test(dict):
 		"""ignore_classes must include str, because if a string
 		is iterable, so is a single character, and the routine runs
 		into an infinite recursion"""
-		assert str in ignore_classes, 'str must be in ignore_classes'
+		str_included = set(ignore_classes) >= set(six.string_types)
+		assert str_included, 'str must be in ignore_classes'
 		self.ignore_classes = ignore_classes
 
 	def __getitem__(self, candidate):
