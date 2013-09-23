@@ -31,7 +31,7 @@ def sort_multiple(arrays):
 class Graph(object):
 	"""
 	Base object for generating SVG Graphs
-	
+
 	Synopsis
 
 		This class is only used as a superclass of specialized charts.  Do not
@@ -75,7 +75,7 @@ class Graph(object):
 	graph_subtitle=       'Graph Subtitle'
 	key=                  True
 	key_position=         'right' # 'bottom' or 'right',
-	
+
 	font_size=            12
 	title_font_size=      16
 	subtitle_font_size=   14
@@ -84,14 +84,14 @@ class Graph(object):
 	y_label_font_size=    12
 	y_title_font_size=    14
 	key_font_size=        10
-	
+
 	css_inline=           False
 	add_popups=           False
 
 	top_align = top_font = right_align = right_font = 0
-	
+
 	compress = False
-	
+
 	stylesheet_names = ['graph.css']
 
 	def __init__(self, config = {}):
@@ -104,12 +104,12 @@ class Graph(object):
 
 	def load_config(self, config):
 		self.__dict__.update(config)
-		
+
 	def add_data(self, conf):
 		"""
 		Add data to the graph object. May be called several times to add
 		additional data sets.
-		
+
 		>>> data_sales_02 = [12, 45, 21] # doctest: +SKIP
 		>>> graph.add_data({ # doctest: +SKIP
 		...  'data': data_sales_02,
@@ -130,28 +130,28 @@ class Graph(object):
 				raise TypeError, "conf['data'] should be tuple or list or iterable"
 
 	def process_data(self, data): pass
-	
+
 	def clear_data(self):
 		"""
 		This method removes all data from the object so that you can
 		reuse it to create a new graph but with the same config options.
-		
+
 		>>> graph.clear_data() # doctest: +SKIP
 		"""
 		self.data = []
-		
+
 	def burn(self):
 		"""
 		Process the template with the data and
 		config which has been set and return the resulting SVG.
-		
+
 		Raises ValueError when no data set has
 		been added to the graph object.
 		"""
 		if not self.data: raise ValueError("No data available")
-		
+
 		if hasattr(self, 'calculations'): self.calculations()
-		
+
 		self.start_svg()
 		self.calculate_graph_dimensions()
 		self.foreground = etree.Element("g")
@@ -161,22 +161,22 @@ class Graph(object):
 		self.draw_data()
 		self.graph.append(self.foreground)
 		self.render_inline_styles()
-		
+
 		return self._burn_compressed()
 
 	def _burn_compressed(self):
 		if self.compress and not zlib:
 			self.root.addprevious(etree.Comment('Python zlib not available for SVGZ'))
-		
+
 		data = etree.tostring(self.root, pretty_print=True, xml_declaration=True, encoding='utf-8')
-		
+
 		if self.compress and zlib:
 			data = zlib.compress(data)
 
 		return data
-	
+
 	KEY_BOX_SIZE = 12
-	
+
 	def calculate_left_margin(self):
 		"""
 		Calculates the margin to the left of the plot area, setting
@@ -194,7 +194,7 @@ class Graph(object):
 		if self.stagger_y_labels: bl += max_y_label_height_px + 10
 		if self.show_y_title: bl += self.y_title_font_size + 5
 		self.border_left = bl
-		
+
 	def max_y_label_width_px(self):
 		"""
 		Calculate the width of the widest Y label.  This will be the
@@ -202,7 +202,7 @@ class Graph(object):
 		"""
 		if self.rotate_y_labels:
 			return self.font_size
-		
+
 	def calculate_right_margin(self):
 		"""
 		Calculate the margin in pixels to the right of the plot area,
@@ -215,7 +215,7 @@ class Graph(object):
 			br += self.KEY_BOX_SIZE
 			br += 10		# Some padding around the box
 		self.border_right = br
-		
+
 	def calculate_top_margin(self):
 		"""
 		Calculate the margin in pixels above the plot area, setting
@@ -225,7 +225,7 @@ class Graph(object):
 		if self.show_graph_title: self.border_top += self.title_font_size
 		self.border_top += 5
 		if self.show_graph_subtitle: self.border_top += self.subtitle_font_size
-		
+
 	def add_popup(self, x, y, label):
 		"""
 		Add pop-up information to a point on the graph.
@@ -274,7 +274,7 @@ class Graph(object):
 			if self.stagger_x_labels: bb += max_x_label_height_px + 10
 		if self.show_x_title: bb += self.x_title_font_size + 5
 		self.border_bottom = bb
-		
+
 	def draw_graph(self):
 		"""
 		The central logic for drawing the graph.
@@ -283,7 +283,7 @@ class Graph(object):
 		"""
 		transform = 'translate (%s %s)' % (self.border_left, self.border_top)
 		self.graph = etree.SubElement(self.root, 'g', transform=transform)
-		
+
 		etree.SubElement(self.graph, 'rect', {
 			'x': '0',
 			'y': '0',
@@ -291,7 +291,7 @@ class Graph(object):
 			'height': str(self.graph_height),
 			'class': 'graphBackground'
 			})
-		
+
 		#Axis
 		etree.SubElement(self.graph, 'path', {
 			'd': 'M 0 0 v%s' % self.graph_height,
@@ -303,10 +303,10 @@ class Graph(object):
 			'class': 'axis',
 			'id': 'yAxis'
 		})
-		
+
 		self.draw_x_labels()
 		self.draw_y_labels()
-	
+
 	def x_label_offset(self, width):
 		"""
 		Return an offset for drawing the x label. Currently returns 0.
@@ -343,23 +343,23 @@ class Graph(object):
 		if self.show_x_labels:
 			labels = self.get_x_labels()
 			count = len(labels)
-			
+
 			labels = enumerate(iter(labels))
 			start = int(not self.step_include_first_x_label)
 			labels = islice(labels, start, None, self.step_x_labels)
 			map(self.draw_x_label, labels)
 			self.draw_x_guidelines(self.field_width(), count)
-	
+
 	def draw_x_label(self, label):
 		label_width = self.field_width()
 		index, label = label
 		text = etree.SubElement(self.graph, 'text', {'class': 'xAxisLabels'})
 		text.text = label
-		
+
 		x = index * label_width + self.x_label_offset(label_width)
 		y = self.graph_height + self.x_label_font_size + 3
 		t = 0 - (self.font_size / 2)
-		
+
 		if self.stagger_x_labels and  (index % 2):
 			stagger = self.x_label_font_size + 5
 			y += stagger
@@ -368,10 +368,10 @@ class Graph(object):
 				'd': 'M%(x)f %(graph_height)f v%(stagger)d' % vars(),
 				'class': 'staggerGuideLine'
 			})
-			
+
 		text.set('x', str(x))
 		text.set('y', str(y))
-		
+
 		if self.rotate_x_labels:
 			transform = 'rotate(90 %d %d) translate(0 -%d)' % \
 				(x, y-self.x_label_font_size, self.x_label_font_size/4)
@@ -379,19 +379,19 @@ class Graph(object):
 			text.set('style', 'text-anchor: start')
 		else:
 			text.set('style', 'text-anchor: middle')
-			
+
 	def y_label_offset(self, height):
 		"""
 		Return an offset for drawing the y label. Currently returns 0.
 		"""
 		# Consider height/2 to center within the field.
 		return 0
-	
+
 	def get_field_width(self):
 		return float(self.graph_width - self.font_size*2*self.right_font) / \
 			(len(self.get_x_labels()) - self.right_align)
 	field_width = get_field_width
-	
+
 	def get_field_height(self):
 		return float(self.graph_height - self.font_size*2*self.top_font) / \
 			(len(self.get_y_labels()) - self.top_align)
@@ -405,7 +405,7 @@ class Graph(object):
 
 		labels = self.get_y_labels()
 		count = len(labels)
-		
+
 		labels = enumerate(iter(labels))
 		start = int(not self.step_include_first_y_label)
 		labels = islice(labels, start, None, self.step_y_labels)
@@ -417,16 +417,16 @@ class Graph(object):
 		if not self.rotate_y_labels: result += self.font_size/1.2
 		return result
 	y_offset = property(get_y_offset)
-	
+
 	def draw_y_label(self, label):
 		label_height = self.field_height()
 		index, label = label
 		text = etree.SubElement(self.graph, 'text', {'class': 'yAxisLabels'})
 		text.text = label
-		
+
 		y = self.y_offset - (label_height * index)
 		x = {True: 0, False:-3}[self.rotate_y_labels]
-		
+
 		if self.stagger_y_labels and  (index % 2):
 			stagger = self.y_label_font_size + 5
 			x -= stagger
@@ -434,10 +434,10 @@ class Graph(object):
 				'd': 'M%(x)f %(y)f h%(stagger)d' % vars(),
 				'class': 'staggerGuideLine'
 			})
-			
+
 		text.set('x', str(x))
 		text.set('y', str(y))
-		
+
 		if self.rotate_y_labels:
 			transform = 'translate(-%d 0) rotate (90 %d %d)' % \
 				(self.font_size, x, y)
@@ -446,7 +446,7 @@ class Graph(object):
 		else:
 			text.set('y', str(y - self.y_label_font_size/2))
 			text.set('style', 'text-anchor: end')
-		
+
 	def draw_x_guidelines(self, label_height, count):
 		"Draw the X-axis guidelines"
 		if not self.show_x_guidelines: return
@@ -499,7 +499,7 @@ class Graph(object):
 			if self.stagger_x_labels: y_size*=2
 			y += y_size
 		x = self.width / 2
-		
+
 		text = etree.SubElement(self.root, 'text', {
 			'x': str(x),
 			'y': str(y),
@@ -526,14 +526,14 @@ class Graph(object):
 
 	def keys(self):
 		return map(itemgetter('title'), self.data)
-	
+
 	def draw_legend(self):
 		if not self.key:
 			# do nothing
 			return
 
 		group = etree.SubElement(self.root, 'g')
-		
+
 		for key_count, key_name in enumerate(self.keys()):
 			y_offset = (self.KEY_BOX_SIZE * key_count) + (key_count * 5)
 			etree.SubElement(group, 'rect', {
@@ -548,7 +548,7 @@ class Graph(object):
 				'y': str(y_offset + self.KEY_BOX_SIZE),
 				'class': 'keyText'})
 			text.text = key_name
-		
+
 		if self.key_position == 'right':
 			x_offset = self.graph_width + self.border_left + 10
 			y_offset = self.border_top + 20
@@ -571,7 +571,7 @@ class Graph(object):
 		if self.show_x_title:
 			y_offset += x_title_font_size + 5
 		return x_offset, y_offset
-			
+
 	def render_inline_styles(self):
 		"Hard-code the styles into the SVG XML if style sheets are not used."
 		if not self.css_inline:
@@ -602,7 +602,7 @@ class Graph(object):
 		"""
 		Override and place code to add defs here. TODO: what are defs?
 		"""
-	
+
 	def start_svg(self):
 		"Base SVG Document Creation"
 		SVG_NAMESPACE = 'http://www.w3.org/2000/svg'
@@ -624,7 +624,7 @@ class Graph(object):
 				'href="%s" type="text/css"' % self.style_sheet_href
 				)
 			self.root.addprevious(pi)
-		
+
 		comment_strings = (
 			' Created with SVG.Graph ',
 			' SVG.Graph by Jason R. Coombs ',
@@ -636,14 +636,14 @@ class Graph(object):
 
 		defs = etree.SubElement(self.root, 'defs')
 		self.add_defs(defs)
-		
+
 		if not hasattr(self, 'style_sheet_href') and not self.css_inline:
 			self.root.append(etree.Comment(' include default stylesheet if none specified '))
 			style = etree.SubElement(defs, 'style', type='text/css')
 			# TODO: the text was previously escaped in a CDATA declaration... how
 			#  to do that with etree?
 			style.text = self.get_stylesheet().cssText
-		
+
 		self.root.append(etree.Comment('SVG Background'))
 		rect = etree.SubElement(self.root, 'rect', {
 			'width': str(self.width),
@@ -651,7 +651,7 @@ class Graph(object):
 			'x': '0',
 			'y': '0',
 			'class': 'svgBackground'})
-		
+
 	def calculate_graph_dimensions(self):
 		self.calculate_left_margin()
 		self.calculate_right_margin()
