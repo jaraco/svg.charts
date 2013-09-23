@@ -1,12 +1,12 @@
-#!python
+from __future__ import absolute_import
 
-# $Id$
-
+import itertools
 from operator import itemgetter, add
+
 from lxml import etree
 
-from util import flatten, float_range
-from svg.charts.graph import Graph
+from .util import flatten, float_range
+from .graph import Graph
 
 class Line(Graph):
 	"""Line Graph"""
@@ -116,11 +116,13 @@ class Line(Graph):
 			if not self.stacked: cum_sum = [-min_value]*len(self.fields)
 
 			cum_sum = map(add, cum_sum, data['data'])
-			get_coords = lambda (i, val): self.calc_coords(i,
-														 val,
-														 field_width,
-														 field_height)
-			coords = map(get_coords, enumerate(cum_sum))
+			get_coords = lambda i, val: self.calc_coords(
+				i,
+				val,
+				field_width,
+				field_height,
+			)
+			coords = itertools.starmap(get_coords, enumerate(cum_sum))
 			paths = map(coord_format, coords)
 			line_path = ' '.join(paths)
 
