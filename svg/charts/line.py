@@ -137,7 +137,7 @@ class Line(Graph):
 					origin = paths[-1]
 				else:
 					area_path = "V%(graph_height)s" % vars(self)
-					origin = coord_format(get_coords((0,0)))
+					origin = coord_format(get_coords(0,0))
 
 				d = ' '.join((
 					'M',
