@@ -216,9 +216,9 @@ class Plot(Graph):
 	def get_y_values(self): return self.get_data_values('y')
 
 	def get_x_labels(self):
-		return map(str, self.get_x_values())
+		return list(map(str, self.get_x_values()))
 	def get_y_labels(self):
-		return map(str, self.get_y_values())
+		return list(map(str, self.get_y_values()))
 
 	def field_size(self, axis):
 		size = {'x': 'width', 'y': 'height'}[axis]
