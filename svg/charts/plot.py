@@ -14,7 +14,8 @@ from .util import float_range
 
 def get_pairs(i):
 	i = iter(i)
-	while True:	yield i.next(), i.next()
+	while True:
+		yield next(i), next(i)
 
 # I'm not sure how this is more beautiful than ugly.
 if sys.version >= '3':
