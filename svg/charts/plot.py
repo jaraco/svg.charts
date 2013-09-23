@@ -155,7 +155,7 @@ class Plot(Graph):
 	def process_data(self, data):
 		pairs = list(get_pairs(data['data']))
 		pairs.sort()
-		data['data'] = zip(*pairs)
+		data['data'] = list(zip(*pairs))
 
 	def calculate_left_margin(self):
 		super(Plot, self).calculate_left_margin()
