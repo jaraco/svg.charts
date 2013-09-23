@@ -1,3 +1,5 @@
+from __future__ import division
+
 import itertools
 import datetime
 
@@ -32,7 +34,7 @@ def flatten_mapping(mapping):
 
 def flatten_items(items):
 	for keys, value in items:
-		if hasattr(keys, '__iter__'):
+		if hasattr(keys, '__iter__') and not isinstance(keys, six.string_types):
 			for key in keys:
 				yield (key, value)
 		else:
@@ -76,7 +78,7 @@ def divide_timedelta_float(td, divisor):
 	>>> divide_timedelta_float(one_day, 2.0) == half_day
 	True
 	>>> divide_timedelta_float(one_day, 2) == half_day
-	False
+	True
 	"""
 	# td is comprised of days, seconds, microseconds
 	dsm = [getattr(td, attr) for attr in ('days', 'seconds', 'microseconds')]
@@ -93,13 +95,13 @@ def divide_timedelta(td1, td2):
 	Get the ratio of two timedeltas
 	>>> one_day = datetime.timedelta(days=1)
 	>>> one_hour = datetime.timedelta(hours=1)
-	>>> divide_timedelta(one_hour, one_day) == 1/24.0
+	>>> divide_timedelta(one_hour, one_day) == 1 / 24
 	True
 	"""
 
-	td1_total = float(get_timedelta_total_microseconds(td1))
-	td2_total = float(get_timedelta_total_microseconds(td2))
-	return td1_total/td2_total
+	td1_total = get_timedelta_total_microseconds(td1)
+	td2_total = get_timedelta_total_microseconds(td2)
+	return td1_total / td2_total
 
 class TimeScale(object):
 	"Describes a scale factor based on time instead of a scalar"
