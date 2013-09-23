@@ -1,7 +1,7 @@
-#!python
-
 import itertools
 import datetime
+
+import six
 
 # from itertools recipes (python documentation)
 def grouper(n, iterable, padvalue=None):
@@ -9,7 +9,7 @@ def grouper(n, iterable, padvalue=None):
 	>>> tuple(grouper(3, 'abcdefg', 'x'))
 	(('a', 'b', 'c'), ('d', 'e', 'f'), ('g', 'x', 'x'))
 	"""
-	return itertools.izip(*[itertools.chain(iterable, itertools.repeat(padvalue, n-1))]*n)
+	return six.moves.zip(*[itertools.chain(iterable, itertools.repeat(padvalue, n-1))]*n)
 
 def reverse_mapping(mapping):
 	"""
@@ -96,7 +96,7 @@ def divide_timedelta(td1, td2):
 	>>> divide_timedelta(one_hour, one_day) == 1/24.0
 	True
 	"""
-	
+
 	td1_total = float(get_timedelta_total_microseconds(td1))
 	td2_total = float(get_timedelta_total_microseconds(td2))
 	return td1_total/td2_total
@@ -116,16 +116,16 @@ class TimeScale(object):
 # todo, factor out caching capability
 class iterable_test(dict):
 	"Test objects for iterability, caching the result by type"
-	def __init__(self, ignore_classes=(basestring,)):
-		"""ignore_classes must include basestring, because if a string
+	def __init__(self, ignore_classes=six.string_types):
+		"""ignore_classes must include str, because if a string
 		is iterable, so is a single character, and the routine runs
 		into an infinite recursion"""
-		assert basestring in ignore_classes, 'basestring must be in ignore_classes'
+		assert str in ignore_classes, 'str must be in ignore_classes'
 		self.ignore_classes = ignore_classes
 
 	def __getitem__(self, candidate):
 		return dict.get(self, type(candidate)) or self._test(candidate)
-			
+
 	def _test(self, candidate):
 		try:
 			if isinstance(candidate, self.ignore_classes):
@@ -146,7 +146,7 @@ def iflatten(subject, test=None):
 		for elem in subject:
 			for subelem in iflatten(elem, test):
 				yield subelem
-				
+
 def flatten(subject, test=None):
 	"""flatten an iterable with possible nested iterables.
 	Adapted from
@@ -159,4 +159,3 @@ def flatten(subject, test=None):
 	['ab', 'c']
 	"""
 	return list(iflatten(subject, test))
-
