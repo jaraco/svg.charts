@@ -6,4 +6,4 @@ def pytest_generate_tests(metafunc):
 			metafunc.addcall(funcargs=dict(sample=chart))
 
 def test_sample(sample):
-	res = sample.burn()
+	sample.burn()
