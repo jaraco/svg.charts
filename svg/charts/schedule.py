@@ -5,6 +5,8 @@ import re
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
 from lxml import etree
+import six
+
 
 from .graph import Graph
 from .util import grouper, date_range, divide_timedelta_float, TimeScale
@@ -165,7 +167,7 @@ class Schedule(Graph):
 		end_dates = map(self.parse_date, end_dates)
 
 		# reconstruct the triples in a new order
-		reordered_triples = zip(begin_dates, end_dates, labels)
+		reordered_triples = list(zip(begin_dates, end_dates, labels))
 
 		# because of the reordering, this will sort by begin_date
 		#  then end_date, then label.
@@ -177,7 +179,7 @@ class Schedule(Graph):
 		return parse(date_string)
 
 	def set_min_x_value(self, value):
-		if isinstance(value, basestring):
+		if isinstance(value, six.string_types):
 			value = self.parse_date(value)
 		self._min_x_value = value
 
@@ -233,7 +235,6 @@ class Schedule(Graph):
 				'height': str(subbar_height),
 				'class': 'fill%s' % (count+1),
 			})
-
 
 	def _x_range(self):
 		# ruby version uses teh last data supplied
