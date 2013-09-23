@@ -7,8 +7,10 @@ with open('readme.txt') as readme:
 
 # it seems that dateutil 2.0 only works under Python 3
 dateutil_req=(
-	['python-dateutil>=1.4,<2.0dev'] if sys.version_info < (3,0)
-	else ['python-dateutil>=2.0'] )
+	['python-dateutil>=1.4,<2.0dev']
+	if sys.version_info < (3,0) else
+	['python-dateutil>=2.0']
+)
 
 setup_params=dict(
 	name="svg.charts",
