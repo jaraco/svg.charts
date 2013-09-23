@@ -193,7 +193,7 @@ class Schedule(Graph):
 
 	def get_x_labels(self):
 		format = lambda x: x.strftime(self.x_label_format)
-		return map(format, self.get_x_values())
+		return list(map(format, self.get_x_values()))
 
 	def y_label_offset(self, height):
 		return height / -2.0

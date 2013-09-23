@@ -270,7 +270,7 @@ class Graph(object):
 			max_x_label_height_px = self.x_label_font_size
 			if self.rotate_x_labels:
 				label_lengths = map(len, self.get_x_labels())
-				max_x_label_len = reduce(max, label_lengths)
+				max_x_label_len = functools.reduce(max, label_lengths)
 				max_x_label_height_px *= 0.6 * max_x_label_len
 			bb += max_x_label_height_px
 			if self.stagger_x_labels: bb += max_x_label_height_px + 10
