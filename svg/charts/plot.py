@@ -301,7 +301,8 @@ class Plot(Graph):
 		points = map(lambda p: "%f %f" % p, points)
 		return 'L' + ' '.join(points)
 
-	def transform_output_coordinates(self, (x,y)):
+	def transform_output_coordinates(self, point):
+		x, y = point
 		x_min = self.__transform_parameters['x_min']
 		x_step = self.__transform_parameters['x_step']
 		y_min = self.__transform_parameters['y_min']
