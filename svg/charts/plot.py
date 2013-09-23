@@ -3,7 +3,9 @@
 "plot.py"
 
 import sys
-from itertools import izip, count, chain
+from itertools import count, chain
+
+import six
 from lxml import etree
 
 from svg.charts.graph import Graph
@@ -238,7 +240,7 @@ class Plot(Graph):
 
 	def draw_data(self):
 		self.load_transform_parameters()
-		for line, data in izip(count(1), self.data):
+		for line, data in six.moves.zip(count(1), self.data):
 			x_start, y_start = self.transform_output_coordinates(
 				(data['data'][self.x_data_index][0],
 				data['data'][self.y_data_index][0])
@@ -316,7 +318,7 @@ class Plot(Graph):
 	def draw_data_points(self, line, data_points, graph_points):
 		if not self.show_data_points \
 			and not self.show_data_values: return
-		for ((dx,dy),(gx,gy)) in izip(data_points, graph_points):
+		for ((dx,dy),(gx,gy)) in six.moves.zip(data_points, graph_points):
 			if self.show_data_points:
 				etree.SubElement(self.graph, 'circle', {
 					'cx': str(gx),

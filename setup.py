@@ -27,6 +27,7 @@ setup_params=dict(
 	install_requires=[
 		'cssutils>=0.9.8a3',
 		'lxml>=2.0',
+		'six',
 	] + dateutil_req,
 	license="MIT",
 	classifiers=[
