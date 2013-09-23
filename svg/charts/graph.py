@@ -684,7 +684,7 @@ class Graph(object):
 		def merge_sheets(s1, s2):
 			map(s1.add, s2)
 			return s1
-		return reduce(merge_sheets, self.get_stylesheet_resources())
+		return functools.reduce(merge_sheets, self.get_stylesheet_resources())
 
 class class_dict(object):
 	"Emulates a dictionary, but retrieves class attributes"
