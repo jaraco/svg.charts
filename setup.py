@@ -53,8 +53,12 @@ setup_params = dict(
 	cmdclass=dict(
 		test=DisabledTestCommand,
 	),
+	tests_require=[
+		'pytest',
+	],
 	setup_requires=[
 		'hgtools',
+		'pytest-runner',
 	],
 	use_2to3 = True,
 )
