@@ -2,7 +2,8 @@
 Samples of the various charts. Run this script to generate the reference
 samples.
 """
-import sys, os
+
+import os
 
 from svg.charts.plot import Plot
 from svg.charts import bar
@@ -19,7 +20,7 @@ def sample_Plot():
 		'stagger_x_labels': True,
 		'stagger_y_labels': True,
 		'show_x_guidelines': True
-	   })
+	})
 	g.add_data({'data': [1, 25, 2, 30, 3, 45], 'title': 'series 1'})
 	g.add_data({'data': [1,30, 2, 31, 3, 40], 'title': 'series 2'})
 	g.add_data({'data': [.5,35, 1, 20, 3, 10.5], 'title': 'series 3'})
@@ -149,11 +150,11 @@ def sample_Pie():
 def sample_Schedule():
 	title = "Billy's Schedule"
 	data1 = [
-	  "History 107", "5/19/04", "6/30/04",
-	  "Algebra 011", "6/2/04", "8/11/04",
-	  "Psychology 101", "6/28/04", "8/9/04",
-	  "Acting 105", "7/7/04", "8/16/04"
-	  ]
+		"History 107", "5/19/04", "6/30/04",
+		"Algebra 011", "6/2/04", "8/11/04",
+		"Psychology 101", "6/28/04", "8/9/04",
+		"Acting 105", "7/7/04", "8/16/04",
+		]
 
 	g = schedule.Schedule(dict(
 		width = 640,
@@ -192,4 +193,3 @@ def save_samples():
 
 if __name__ == '__main__':
 	save_samples()
-
