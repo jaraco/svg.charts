@@ -7,9 +7,9 @@ from dateutil.relativedelta import relativedelta
 from lxml import etree
 import six
 
-
 from .graph import Graph
-from .util import grouper, date_range, divide_timedelta_float, TimeScale
+from .util import (grouper, date_range, divide_timedelta_float, TimeScale,
+	reverse_mapping, flatten_mapping,)
 
 __all__ = ('Schedule')
 
@@ -283,7 +283,6 @@ class Schedule(Graph):
 		return date_range(x_min, x_max, scale_division)
 
 	def lookup_relativedelta_parameter(self, unit_string):
-		from util import reverse_mapping, flatten_mapping
 		unit_string = unit_string.lower()
 		mapping = dict(
 			years = ('years', 'year', 'yrs', 'yr'),
