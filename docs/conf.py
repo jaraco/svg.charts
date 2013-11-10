@@ -11,7 +11,7 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys, os
+import sys
 
 # Get configuration information from the setup script
 sys.path.insert(0, '..')
@@ -43,7 +43,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = setup_params['name']
-copyright = u'2010, Jason R. Coombs'
+copyright = '2010, Jason R. Coombs'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -177,8 +177,10 @@ htmlhelp_basename = 'svgchartsdoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'svgcharts.tex', u'svg.charts Documentation',
-   setup_params['author'], 'manual'),
+    (
+        'index', 'svgcharts.tex', 'svg.charts Documentation',
+        setup_params['author'], 'manual',
+    ),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
