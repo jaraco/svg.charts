@@ -12,6 +12,8 @@
 # serve to show the default.
 
 import sys
+import hgtools.managers
+
 
 # Get configuration information from the setup script
 sys.path.insert(0, '..')
@@ -49,8 +51,9 @@ copyright = '2010, Jason R. Coombs'
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
+hg_mgr = hgtools.managers.HGRepoManager.get_first_valid_manager()
 # The short X.Y version.
-version = setup_params.get('version', 'unknown')
+version = hg_mgr.get_current_version()
 # The full version, including alpha/beta/rc tags.
 release = version
 
