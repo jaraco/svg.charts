@@ -1,8 +1,10 @@
 import sys
+import os
 
 import setuptools
 
-with open('README.txt') as readme:
+readme_fn = os.path.join(os.path.dirname(__file__), 'README.txt')
+with open(readme_fn) as readme:
 	_long_description = readme.read()
 
 # it seems that dateutil 2.0 only works under Python 3

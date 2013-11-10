@@ -61,6 +61,9 @@ An example of using ``svg.charts`` in a `CherryPy
 If the site is working, you can see the `rendered output here
 <http://www.jaraco.com/charts/plot>`_.
 
+``svg.charts`` also provides `API documentation
+<http://pythonhosted.org/svg.charts/>`_.
+
 Upgrade Notes
 -------------
 
