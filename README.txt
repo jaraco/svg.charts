@@ -13,10 +13,24 @@ in SVG, originally based on the SVG::Graph Ruby package by Sean E. Russel.
 
 ``svg.charts`` is written by Jason R. Coombs.  It is licensed under an
 `MIT-style permissive license
-<http://svg-charts.hg.sourceforge.net/hgweb/svg-charts/svg-charts/raw-file/tip/docs/license.txt>`_.
+<https://bitbucket.org/jaraco/svg.charts/src/tip/license.txt>`_.
 
-You can install it with ``easy_install svg.charts``, or check out the
-`mercurial repository source <http://svg-charts.hg.sourceforge.net:8000/hgroot/svg-charts/svg-charts>`_.
+You can install it with easy_install or pip::
+
+  easy_install svg.charts
+  pip install svg.charts
+
+Or, check out the `mercurial repository source
+<https://bitbucket.org/jaraco/svg.charts>`_.
+
+Tests are continuously run by Travis-CI: |BuildStatus|_
+
+.. |BuildStatus| image:: https://secure.travis-ci.org/jaraco/svg.charts.png
+.. _BuildStatus: http://travis-ci.org/jaraco/svg.charts
+
+To run the tests, refer to the .travis.yml file for the steps run on the
+Travis-CI hosts.
+
 
 Acknowledgements
 ----------------
@@ -79,12 +93,14 @@ reporting bugs and requesting help. Patches are also welcome.
 Changes
 -------
 
-2.1.1
-~~~~~
+2.2
+~~~
 
-* Issue #1: Fixed installation on Unix systems again. Author's preference for
-  lowercase ``readme.txt`` was trumped by `setuptools #100
+* SF Issue #1: Fixed installation on Unix systems again. Author's preference
+  for lowercase ``readme.txt`` was trumped by `setuptools #100
   <https://bitbucket.org/pypa/setuptools/issue/100/>`_.
+* Moved hosting to BitBucket.
+* Established Continuous Integration Tests on Github mirror using Travis-CI.
 
 2.1
 ~~~
