@@ -5,4 +5,8 @@ python:
   - 3.2
   - 3.3
   - pypy
+install:
+ # install cssutils from tarball manually to work around
+ # https://bitbucket.org/cthedot/cssutils/issue/38/python-3-egg-has-python-2-syntax
+ - easy_install https://pypi.python.org/packages/source/c/cssutils/cssutils-0.9.10.zip#md5=81b5c0294c54479a54548769eaa236f8
 script: python setup.py ptr
