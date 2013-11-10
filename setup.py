@@ -2,7 +2,7 @@ import sys
 
 import setuptools
 
-with open('readme.txt') as readme:
+with open('README.txt') as readme:
 	_long_description = readme.read()
 
 # it seems that dateutil 2.0 only works under Python 3

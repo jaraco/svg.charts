@@ -79,6 +79,13 @@ reporting bugs and requesting help. Patches are also welcome.
 Changes
 -------
 
+2.1.1
+~~~~~
+
+* Issue #1: Fixed installation on Unix systems again. Author's preference for
+  lowercase ``readme.txt`` was trumped by `setuptools #100
+  <https://bitbucket.org/pypa/setuptools/issue/100/>`_.
+
 2.1
 ~~~
 
