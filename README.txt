@@ -96,6 +96,11 @@ reporting bugs and requesting help. Patches are also welcome.
 Changes
 -------
 
+2.2.1
+~~~~~
+
+* #5: Fixed references to class attributes in ``graph.py``.
+
 2.2
 ~~~
 

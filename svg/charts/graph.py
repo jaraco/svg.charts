@@ -485,7 +485,7 @@ class Graph(object):
 		text.text = self.graph_title
 
 	def draw_graph_subtitle(self):
-		y_subtitle_options = [subtitle_font_size, title_font_size+10]
+		y_subtitle_options = [self.subtitle_font_size, self.title_font_size+10]
 		y_subtitle = y_subtitle_options[self.show_graph_title]
 		text = etree.SubElement(self.root, 'text', {
 			'x': str(self.width/2),
@@ -562,7 +562,7 @@ class Graph(object):
 		x_offset = self.border_left + 20
 		y_offset = self.border_top + self.graph_height + 5
 		if self.show_x_labels:
-			max_x_label_height_px = x_label_font_size
+			max_x_label_height_px = self.x_label_font_size
 			if self.rotate_x_labels:
 				longest_label_length = max(map(len, self.get_x_labels()))
 				# note: I think 0.6 is the ratio of width to height of characters
@@ -571,7 +571,7 @@ class Graph(object):
 			if self.stagger_x_labels:
 				y_offset += max_x_label_height_px + 5
 		if self.show_x_title:
-			y_offset += x_title_font_size + 5
+			y_offset += self.x_title_font_size + 5
 		return x_offset, y_offset
 
 	def render_inline_styles(self):
