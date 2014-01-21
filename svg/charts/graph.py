@@ -614,6 +614,15 @@ class Graph(object):
 		Override and place code to add defs here. TODO: what are defs?
 		"""
 
+	def _get_root_attributes(self):
+		ADOBE_EXT_NS = '{http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/}'
+		return {
+			'width': str(self.width),
+			'height': str(self.height),
+			'viewBox': '0 0 %s %s' % (self.width, self.height),
+			ADOBE_EXT_NS + 'scriptImplementation': 'Adobe',
+		}
+
 	def start_svg(self):
 		"Base SVG Document Creation"
 		SVG_NAMESPACE = 'http://www.w3.org/2000/svg'
@@ -623,12 +632,8 @@ class Graph(object):
 			'xlink': 'http://www.w3.org/1999/xlink',
 			'a3': 'http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/',
 			}
-		self.root = etree.Element(SVG+"svg", attrib={
-			'width': str(self.width),
-			'height': str(self.height),
-			'viewBox': '0 0 %s %s' % (self.width, self.height),
-			'{http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/}scriptImplementation': 'Adobe',
-			}, nsmap=NSMAP)
+		root_attrs = self._get_root_attributes()
+		self.root = etree.Element(SVG+"svg", attrib=root_attrs, nsmap=NSMAP)
 		if hasattr(self, 'style_sheet_href'):
 			pi = etree.ProcessingInstruction(
 				'xml-stylesheet',

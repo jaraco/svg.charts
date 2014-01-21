@@ -96,6 +96,21 @@ reporting bugs and requesting help. Patches are also welcome.
 Changes
 -------
 
+2.3
+~~~
+
+* #4: Added hook in Graph to allow overriding of the attributes on the
+  root SVG element. One can now override or monkeypatch
+  ``Graph._get_root_attributes`` to alter the rendering of the root
+  attributes such as width and height. For example, to omit width and height::
+
+    class MyPlot(plot.Plot):
+        def _get_root_attributes(self):
+            attrs = super(MyPlot, self)._get_root_attributes()
+            del attrs['width']
+            del attrs['height']
+            return attrs
+
 2.2.2
 ~~~~~
 
