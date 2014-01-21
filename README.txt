@@ -96,6 +96,11 @@ reporting bugs and requesting help. Patches are also welcome.
 Changes
 -------
 
+2.2.2
+~~~~~
+
+* #1: Fixed javascript ID names in TimeSeries labels.
+
 2.2.1
 ~~~~~
 

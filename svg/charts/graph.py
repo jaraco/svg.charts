@@ -228,6 +228,15 @@ class Graph(object):
 		self.border_top += 5
 		if self.show_graph_subtitle: self.border_top += self.subtitle_font_size
 
+	@staticmethod
+	def _w3c_name(name):
+		"""
+		Generate a W3C Name from a string.
+		"""
+		# for now, fake it by replacing known bad characters with good ones.
+		name = name.replace(':', '-')
+		name = name.replace(' ', '_')
+
 	def add_popup(self, x, y, label):
 		"""
 		Add pop-up information to a point on the graph.
@@ -236,7 +245,7 @@ class Graph(object):
 		tx = x + [5,-5][int(x+txt_width > self.width)]
 		anchor = ['start', 'end'][x+txt_width > self.width]
 		style = 'fill: #000; text-anchor: %s;' % anchor
-		id = 'label-%s' % label
+		id = 'label-%s' % self._w3c_name(label)
 		t = etree.SubElement(self.foreground, 'text', {
 			'x': str(tx),
 			'y': str(y - self.font_size),
