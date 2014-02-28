@@ -368,11 +368,10 @@ class Graph(object):
 		if self.stagger_x_labels and (index % 2):
 			stagger = self.x_label_font_size + 5
 			y += stagger
-			graph_height = self.graph_height
-			etree.SubElement(self.graph, 'path', {
-				'd': 'M%(x)f %(graph_height)f v%(stagger)d' % vars(),
-				'class': 'staggerGuideLine'
-			})
+			move = 'M{x} {graph_height} v{stagger}'.format(
+				x=x, graph_height=self.graph_height, stagger=stagger)
+			path = {'d': move, 'class': 'staggerGuideLine'}
+			etree.SubElement(self.graph, 'path', path)
 
 		text.set('x', str(x))
 		text.set('y', str(y))
@@ -456,22 +455,24 @@ class Graph(object):
 		"Draw the X-axis guidelines"
 		if not self.show_x_guidelines: return
 		# skip the first one
-		for count in range(1,count):
-			start = label_height*count
-			stop = self.graph_height
-			etree.SubElement(self.graph, 'path', {
-				'd': 'M %(start)s 0 v%(stop)s' % vars(),
-				'class': 'guideLines'})
+		for count in range(1, count):
+			move = 'M {start} 0 v{stop}'.format(
+				start=label_height*count,
+				stop=self.graph_height,
+			)
+			path = {'d': move, 'class': 'guideLines'}
+			etree.SubElement(self.graph, 'path', path)
 
 	def draw_y_guidelines(self, label_height, count):
 		"Draw the Y-axis guidelines"
 		if not self.show_y_guidelines: return
 		for count in range(1, count):
-			start = self.graph_height - label_height*count
-			stop = self.graph_width
-			etree.SubElement(self.graph, 'path', {
-				'd': 'M 0 %(start)s h%(stop)s' % vars(),
-				'class': 'guideLines'})
+			move = 'M 0 {start} h{stop}'.format(
+				start=self.graph_height - label_height*count,
+				stop=self.graph_width,
+			)
+			path = {'d': move, 'class': 'guideLines'}
+			etree.SubElement(self.graph, 'path', path)
 
 	def draw_titles(self):
 		"Draws the graph title and subtitle"
@@ -527,7 +528,8 @@ class Graph(object):
 			'class': 'yAxisTitle',
 			})
 		text.text = self.y_title
-		text.set('transform', 'rotate(%(rotate)d, %(x)s, %(y)s)' % vars())
+		transform = 'rotate({rotate}, {x}, {y})'.format(x=x, y=y, rotate=rotate)
+		text.set('transform', transform)
 
 	def keys(self):
 		return map(itemgetter('title'), self.data)
