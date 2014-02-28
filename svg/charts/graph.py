@@ -112,7 +112,7 @@ class Graph(object):
 		additional data sets.
 
 		>>> data_sales_02 = [12, 45, 21] # doctest: +SKIP
-		>>> graph.add_data({ # doctest: +SKIP
+		>>> graph.add_data({
 		...  'data': data_sales_02,
 		...  'title': 'Sales 2002'
 		... }) # doctest: +SKIP
