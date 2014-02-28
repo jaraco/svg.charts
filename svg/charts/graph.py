@@ -48,46 +48,46 @@ class Graph(object):
 	* svg.charts.time_series
 
 	"""
-	width=                500
-	height=               300
-	show_x_guidelines=    False
-	show_y_guidelines=    True
-	show_data_values=     True
-	min_scale_value=      None
-	show_x_labels=        True
-	stagger_x_labels=     False
-	rotate_x_labels=      False
-	step_x_labels=        1
-	step_include_first_x_label= True
-	show_y_labels=        True
-	rotate_y_labels=      False
-	stagger_y_labels=     False
-	step_include_first_y_label= True
-	step_y_labels=        1
-	scale_integers=       False
-	show_x_title=         False
-	x_title=              'X Field names'
-	show_y_title=         False
-	y_title_text_direction= 'bt' # 'bt' for bottom to top; 'tb' for top to bottom
-	y_title=              'Y Scale'
-	show_graph_title=     False
-	graph_title=          'Graph Title'
-	show_graph_subtitle=  False
-	graph_subtitle=       'Graph Subtitle'
-	key=                  True
-	key_position=         'right' # 'bottom' or 'right',
+	width = 500
+	height = 300
+	show_x_guidelines = False
+	show_y_guidelines = True
+	show_data_values = True
+	min_scale_value = None
+	show_x_labels = True
+	stagger_x_labels = False
+	rotate_x_labels = False
+	step_x_labels = 1
+	step_include_first_x_label = True
+	show_y_labels = True
+	rotate_y_labels = False
+	stagger_y_labels = False
+	step_include_first_y_label = True
+	step_y_labels = 1
+	scale_integers = False
+	show_x_title = False
+	x_title = 'X Field names'
+	show_y_title = False
+	y_title_text_direction = 'bt' # 'bt' for bottom to top; 'tb' for top to bottom
+	y_title = 'Y Scale'
+	show_graph_title = False
+	graph_title = 'Graph Title'
+	show_graph_subtitle = False
+	graph_subtitle = 'Graph Subtitle'
+	key = True
+	key_position = 'right' # 'bottom' or 'right',
 
-	font_size=            12
-	title_font_size=      16
-	subtitle_font_size=   14
-	x_label_font_size=    12
-	x_title_font_size=    14
-	y_label_font_size=    12
-	y_title_font_size=    14
-	key_font_size=        10
+	font_size = 12
+	title_font_size = 16
+	subtitle_font_size = 14
+	x_label_font_size = 12
+	x_title_font_size = 14
+	y_label_font_size = 12
+	y_title_font_size = 14
+	key_font_size = 10
 
-	css_inline=           False
-	add_popups=           False
+	css_inline = False
+	add_popups = False
 
 	top_align = top_font = right_align = right_font = 0
 
@@ -136,8 +136,8 @@ class Graph(object):
 
 	def clear_data(self):
 		"""
-		This method removes all data from the object so that you can
-		reuse it to create a new graph but with the same config options.
+		This method removes all data from the object to create a new graph
+		with the same config options.
 
 		>>> graph.clear_data() # doctest: +SKIP
 		"""
@@ -258,7 +258,7 @@ class Graph(object):
 
 		# add the circle element to the foreground
 		visibility = "document.getElementById('%s').setAttribute('visibility', %%s)" % id
-		t = etree.SubElement(self.foreground, 'circle', {
+		etree.SubElement(self.foreground, 'circle', {
 			'cx': str(x),
 			'cy': str(y),
 			'r': str(10),
