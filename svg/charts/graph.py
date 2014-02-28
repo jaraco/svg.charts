@@ -15,12 +15,13 @@ import functools
 import cssutils
 from lxml import etree
 
-from svg.charts import css # causes the SVG profile to be loaded
-
 try:
 	import zlib
 except ImportError:
 	zlib = None
+
+# cause the SVG profile to be loaded
+__import__('svg.charts.css')
 
 def sort_multiple(arrays):
 	"sort multiple lists (of equal size) using the first list for the sort keys"
