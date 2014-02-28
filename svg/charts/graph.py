@@ -247,7 +247,7 @@ class Graph(object):
 		anchor = ['start', 'end'][x+txt_width > self.width]
 		style = 'fill: #000; text-anchor: %s;' % anchor
 		id = 'label-%s' % self._w3c_name(label)
-		t = etree.SubElement(self.foreground, 'text', {
+		etree.SubElement(self.foreground, 'text', {
 			'x': str(tx),
 			'y': str(y - self.font_size),
 			'visibility': 'hidden',
@@ -370,13 +370,12 @@ class Graph(object):
 
 		x = index * label_width + self.x_label_offset(label_width)
 		y = self.graph_height + self.x_label_font_size + 3
-		t = 0 - (self.font_size / 2)
 
 		if self.stagger_x_labels and (index % 2):
 			stagger = self.x_label_font_size + 5
 			y += stagger
 			graph_height = self.graph_height
-			path = etree.SubElement(self.graph, 'path', {
+			etree.SubElement(self.graph, 'path', {
 				'd': 'M%(x)f %(graph_height)f v%(stagger)d' % vars(),
 				'class': 'staggerGuideLine'
 			})
@@ -442,7 +441,7 @@ class Graph(object):
 		if self.stagger_y_labels and (index % 2):
 			stagger = self.y_label_font_size + 5
 			x -= stagger
-			path = etree.SubElement(self.graph, 'path', {
+			etree.SubElement(self.graph, 'path', {
 				'd': 'M%(x)f %(y)f h%(stagger)d' % vars(),
 				'class': 'staggerGuideLine'
 			})
@@ -466,7 +465,7 @@ class Graph(object):
 		for count in range(1,count):
 			start = label_height*count
 			stop = self.graph_height
-			path = etree.SubElement(self.graph, 'path', {
+			etree.SubElement(self.graph, 'path', {
 				'd': 'M %(start)s 0 v%(stop)s' % vars(),
 				'class': 'guideLines'})
 
@@ -476,7 +475,7 @@ class Graph(object):
 		for count in range(1, count):
 			start = self.graph_height - label_height*count
 			stop = self.graph_width
-			path = etree.SubElement(self.graph, 'path', {
+			etree.SubElement(self.graph, 'path', {
 				'd': 'M 0 %(start)s h%(stop)s' % vars(),
 				'class': 'guideLines'})
 
@@ -529,10 +528,10 @@ class Graph(object):
 				rotate = 90
 		y = self.height / 2
 		text = etree.SubElement(self.root, 'text', {
-				'x': str(x),
-				'y': str(y),
-				'class': 'yAxisTitle',
-				})
+			'x': str(x),
+			'y': str(y),
+			'class': 'yAxisTitle',
+			})
 		text.text = self.y_title
 		text.set('transform', 'rotate(%(rotate)d, %(x)s, %(y)s)' % vars())
 
@@ -662,7 +661,7 @@ class Graph(object):
 			style.text = self.get_stylesheet().cssText
 
 		self.root.append(etree.Comment('SVG Background'))
-		rect = etree.SubElement(self.root, 'rect', {
+		etree.SubElement(self.root, 'rect', {
 			'width': str(self.width),
 			'height': str(self.height),
 			'x': '0',
