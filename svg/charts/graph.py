@@ -111,11 +111,7 @@ class Graph(object):
 		Add data to the graph object. May be called several times to add
 		additional data sets.
 
-		>>> data_sales_02 = [12, 45, 21] # doctest: +SKIP
-		>>> graph.add_data({
-		...  'data': data_sales_02,
-		...  'title': 'Sales 2002'
-		... }) # doctest: +SKIP
+		conf should be a dictionary including 'data' and 'title' keys
 		"""
 		self.validate_data(conf)
 		self.process_data(conf)
@@ -138,8 +134,6 @@ class Graph(object):
 		"""
 		This method removes all data from the object to create a new graph
 		with the same config options.
-
-		>>> graph.clear_data() # doctest: +SKIP
 		"""
 		self.data = []
 
