@@ -1,4 +1,7 @@
-class PlotTester:
+from svg.charts.plot import Plot
+
+
+class TestPlot:
 	def test_index_error_2010_04(self):
 		"""
 		Reported by Jean Schurger
@@ -8,7 +11,11 @@ class PlotTester:
 
 		Credit to Jean for the test code as well.
 		"""
-		from svg.charts.plot import Plot
 		g = Plot(dict(scale_y_integers = True))
+		g.add_data(dict(data=[1, 0, 2, 1], title='foo'))
+		g.burn()
+
+	def test_inline_styles(self):
+		g = Plot(dict(css_inline=True))
 		g.add_data(dict(data=[1, 0, 2, 1], title='foo'))
 		g.burn()
