@@ -601,9 +601,12 @@ class Graph(object):
 		# todo: save the prefs for use later
 		#orig_prefs = cssutils.ser.prefs
 		cssutils.ser.prefs.useMinified()
-		get_pair = lambda r: (r.selectorText, r.style.cssText)
-		result = dict(map(get_pair, self.get_stylesheet()))
-		return result
+		pairs = (
+			(r.selectorText, r.style.cssText)
+			for r in self.get_stylesheet()
+			if not isinstance(r, cssutils.css.CSSComment)
+		)
+		return dict(pairs)
 
 	def add_defs(self, defs):
 		"""
