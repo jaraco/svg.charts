@@ -586,12 +586,14 @@ class Graph(object):
 			return
 
 		styles = self.parse_css()
-		for node in xpath.Evaluate('//*[@class]', self.root):
-			cl = node.getAttribute('class')
+		for node in self.root.xpath('//*[@class]'):
+			cl = '.' + node.attrib['class']
+			if not cl in styles:
+				continue
 			style = styles[cl]
-			if node.hasAttribute('style'):
-				style += node.getAttribute('style')
-			node.setAttribute('style', style)
+			if 'style' in node.attrib:
+				style += node.attrib['style']
+			node.attrib['style'] = style
 
 	def parse_css(self):
 		"""
