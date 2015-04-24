@@ -1,5 +1,4 @@
 syntax:glob
-dist
 build
+dist
 tests/*.svg
-docs/_build

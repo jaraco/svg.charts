@@ -3,6 +3,8 @@
 
 .. contents::
 
+`Documentation <https://pythonhosted.org/svg.charts>`_
+
 Status and License
 ------------------
 
