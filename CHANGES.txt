@@ -5,6 +5,9 @@ Changes
 ~~~
 
 * Dropped support for Python 2.6.
+* Requires setuptools for installation.
+* Filter out comments when parsing CSS.
+* Corrected errors in ``Graph.render_inline_styles``.
 
 2.3
 ~~~
