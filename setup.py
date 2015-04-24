@@ -10,10 +10,17 @@ import setuptools
 with io.open('README.txt', encoding='utf-8') as readme:
 	long_description = readme.read()
 
+install_reqs = [
+	'cssutils>=0.9.8a3',
+	'python-dateutil>=2.0',
+	'lxml>=2.0',
+	'six',
+]
+
 needs_pytest = {'pytest', 'test'}.intersection(sys.argv)
 pytest_runner = ['pytest_runner'] if needs_pytest else []
 needs_sphinx = {'release', 'build_sphinx', 'upload_docs'}.intersection(sys.argv)
-sphinx = ['sphinx'] if needs_sphinx else []
+sphinx = ['sphinx'] + install_reqs if needs_sphinx else []
 
 setup_params = dict(
 	name='svg.charts',
@@ -27,12 +34,7 @@ setup_params = dict(
 	namespace_packages=['svg'],
 	include_package_data=True,
 	zip_safe=True,
-	install_requires=[
-		'cssutils>=0.9.8a3',
-		'python-dateutil>=2.0',
-		'lxml>=2.0',
-		'six',
-	],
+	install_requires=install_reqs,
 	setup_requires=[
 		'setuptools_scm',
 	] + pytest_runner + sphinx,
