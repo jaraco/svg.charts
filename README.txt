@@ -14,8 +14,7 @@ in SVG, originally based on the SVG::Graph Ruby package by Sean E. Russel.
 ``svg.charts`` supercedes ``svg_charts`` 1.1 and 1.2.
 
 ``svg.charts`` is written by Jason R. Coombs.  It is licensed under an
-`MIT-style permissive license
-<https://bitbucket.org/jaraco/svg.charts/src/tip/license.txt>`_.
+MIT-style permissive license.
 
 You can install it with easy_install or pip::
 
@@ -53,7 +52,8 @@ Getting Started
 ---------------
 
 ``svg.charts`` has some examples (taken directly from the reference implementation)
-in `tests/samples.py <http://svg-charts.hg.sourceforge.net/hgweb/svg-charts/py-svg/raw-file/tip/tests/samples.py>`_.
+in `tests/samples.py
+<https://bitbucket.org/jaraco/svg.charts/src/tip/tests/samples.py?at=default>`_.
 These examples show sample usage of the various chart types. They should provide a
 good starting point for learning the usage of the library.
 
@@ -86,11 +86,13 @@ More To-Dos
 
 -  Documentation! This package desperately needs some high-level,
    tutorial-style how-tos, and not just links to example code.
--  Implement javascript-based animation (See JellyGraph for a Silverlight example of what simple animation can do for a charting library).
+-  Implement javascript-based animation (See JellyGraph for a
+   Silverlight example of what simple animation can do for a
+   charting library).
 
 Reporting Bugs and Getting Help
 -------------------------------
 
-This project is `hosted at sourceforge
-<https://sourceforge.net/projects/svg-charts/>`_. Please use that site for
+This project is `hosted at BitBucket
+<https://bitbucket.org/jaraco/svg.charts>`_. Please use that site for
 reporting bugs and requesting help. Patches are also welcome.
