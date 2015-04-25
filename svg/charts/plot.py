@@ -263,14 +263,14 @@ class Plot(Graph):
 				graph_height = self.graph_height
 				path_spec = {
 					'd': 'M%(x_start)f %(graph_height)f '
-						'%(lpath)s V%(graph_height)f Z' % vars(),
-					'class': 'fill%(line)d' % vars()
+						'%(lpath)s V%(graph_height)f Z' % locals(),
+					'class': 'fill%(line)d' % locals()
 				}
 				etree.SubElement(self.graph, 'path', path_spec)
 			if self.draw_lines_between_points:
 				path_spec = {
-					'd': 'M%(x_start)f %(y_start)f %(lpath)s' % vars(),
-					'class': 'line%(line)d' % vars()
+					'd': 'M%(x_start)f %(y_start)f %(lpath)s' % locals(),
+					'class': 'line%(line)d' % locals()
 				}
 				etree.SubElement(self.graph, 'path', path_spec)
 			self.draw_data_points(line, data_points, graph_points)
@@ -291,7 +291,7 @@ class Plot(Graph):
 		start = self.transform_output_coordinates((0, value))[1]
 		stop = self.graph_width
 		path = etree.SubElement(self.graph, 'path', {
-			'd': 'M 0 %(start)s h%(stop)s' % vars(),
+			'd': 'M 0 %(start)s h%(stop)s' % locals(),
 			'class': 'constantLine'})
 		if style:
 			path.set('style', style)
@@ -309,7 +309,7 @@ class Plot(Graph):
 			(x_max - x_min)
 		y_step = (float(self.graph_height) - self.font_size*2) / \
 			(y_max - y_min)
-		self.__transform_parameters = dict(vars())
+		self.__transform_parameters = dict(locals())
 		del self.__transform_parameters['self']
 
 	def get_graph_points(self, data_points):
@@ -340,7 +340,7 @@ class Plot(Graph):
 					'cx': str(gx),
 					'cy': str(gy),
 					'r': '2.5',
-					'class': 'dataPoint%(line)s' % vars()})
+					'class': 'dataPoint%(line)s' % locals()})
 			if self.show_data_values:
 				self.add_popup(gx, gy, self.format(dx, dy))
 			self.make_datapoint_text(gx, gy-6, dy)
