@@ -295,7 +295,8 @@ class Schedule(Graph):
 
 		return date_range(x_min, x_max, scale_division)
 
-	def lookup_relativedelta_parameter(self, unit_string):
+	@staticmethod
+	def lookup_relativedelta_parameter(unit_string):
 		unit_string = unit_string.lower()
 		mapping = dict(
 			years = ('years', 'year', 'yrs', 'yr'),
