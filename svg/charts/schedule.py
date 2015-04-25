@@ -231,7 +231,7 @@ class Schedule(Graph):
 		#scale /= x_range
 		scale = TimeScale(width, x_range)
 
-		# ruby version uses the last data supplied
+		# reference implementation uses the last data supplied
 		last = -1
 		data = self.data[last]['data']
 
