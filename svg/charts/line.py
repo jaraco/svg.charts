@@ -43,7 +43,7 @@ class Line(Graph):
 			data = self.get_cumulative_data()
 		return min(flatten(data))
 
-	def get_cumulative_data():
+	def get_cumulative_data(self):
 		"""Get the data as it will be charted.  The first set will be
 		the actual first data set.  The second will be the sum of the
 		first and the second, etc."""
