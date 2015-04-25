@@ -17,6 +17,7 @@ install_reqs = [
 	'more_itertools',
 	'six',
 	'tempora>=1.3',
+	'jaraco.itertools',
 ]
 
 needs_pytest = {'pytest', 'test'}.intersection(sys.argv)

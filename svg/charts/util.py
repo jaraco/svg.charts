@@ -1,6 +1,6 @@
 from __future__ import division
 
-import six
+from jaraco.itertools import always_iterable
 
 
 def reverse_mapping(mapping):
@@ -22,15 +22,11 @@ def flatten_mapping(mapping):
 	>>> flatten_mapping({'ab': 3, ('c','d'): 4}) == {'ab': 3, 'c': 4, 'd': 4}
 	True
 	"""
-	return dict(flatten_items(mapping.items()))
-
-def flatten_items(items):
-	for keys, value in items:
-		if hasattr(keys, '__iter__') and not isinstance(keys, six.string_types):
-			for key in keys:
-				yield (key, value)
-		else:
-			yield (keys, value)
+	return {
+		key: value
+		for keys, value in mapping.items()
+		for key in always_iterable(keys)
+	}
 
 def float_range(start=0, stop=None, step=1):
 	"""
