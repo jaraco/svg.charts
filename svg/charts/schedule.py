@@ -6,9 +6,10 @@ from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
 from lxml import etree
 import six
+from more_itertools.recipes import grouper
 
 from .graph import Graph
-from .util import (grouper, date_range, divide_timedelta_float, TimeScale,
+from .util import (date_range, divide_timedelta_float, TimeScale,
 	reverse_mapping, flatten_mapping,)
 
 __all__ = ('Schedule')

@@ -14,6 +14,7 @@ install_reqs = [
 	'cssutils>=0.9.8a3',
 	'python-dateutil>=2.0',
 	'lxml>=2.0',
+	'more_itertools',
 	'six',
 ]
 

@@ -1,17 +1,9 @@
 from __future__ import division
 
-import itertools
 import datetime
 
 import six
 
-# from itertools recipes (python documentation)
-def grouper(n, iterable, padvalue=None):
-	"""
-	>>> tuple(grouper(3, 'abcdefg', 'x'))
-	(('a', 'b', 'c'), ('d', 'e', 'f'), ('g', 'x', 'x'))
-	"""
-	return six.moves.zip(*[itertools.chain(iterable, itertools.repeat(padvalue, n-1))]*n)
 
 def reverse_mapping(mapping):
 	"""
