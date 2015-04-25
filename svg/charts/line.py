@@ -4,8 +4,9 @@ import itertools
 from operator import itemgetter, add
 
 from lxml import etree
+from more_itertools.recipes import flatten
 
-from .util import flatten, float_range
+from .util import float_range
 from .graph import Graph
 
 class Line(Graph):
