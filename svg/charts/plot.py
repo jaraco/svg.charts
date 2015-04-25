@@ -196,8 +196,6 @@ class Plot(Graph):
 	x_data_index = 0
 	y_data_index = 1
 	def data_range(self, axis):
-		side = {'x': 'right', 'y': 'top'}[axis]
-
 		min_value = self.data_min(axis)
 		max_value = self.data_max(axis)
 		range = max_value - min_value
