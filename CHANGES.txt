@@ -1,6 +1,13 @@
 Changes
 -------
 
+3.1
+~~~
+
+* Adding a couple small dependencies eliminated a lot of duplicated code
+  in the ``util`` module.
+* Corrected error when ``stacked`` was used in Line charts.
+
 3.0
 ~~~
 

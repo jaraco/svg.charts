@@ -1,7 +1,5 @@
 How to make a release:
 
-- Double-check that readme includes historical changes.
+- Double-check that CHANGES.txt includes historical changes.
 - Use Mercurial to tag the released version and push.
-- Run release-package (from jaraco.util) in the current directory. This uploads to pypi.
-- upload released packages to sourceforge (pscp .\dist\svg.charts*.zip 'jaraco,svg-charts@frs.sourceforge.net:/home/frs/project/s/sv/svg-charts/')?
-- announce release on python-announce-list@python.org
+- Run setup.py release.
