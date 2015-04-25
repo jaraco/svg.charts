@@ -251,13 +251,17 @@ class Plot(Graph):
 			lpath = self.get_lpath(graph_points)
 			if self.area_fill:
 				graph_height = self.graph_height
-				path = etree.SubElement(self.graph, 'path', {
+				path_spec = {
 					'd': 'M%(x_start)f %(graph_height)f %(lpath)s V%(graph_height)f Z' % vars(),
-					'class': 'fill%(line)d' % vars()})
+					'class': 'fill%(line)d' % vars()
+				}
+				etree.SubElement(self.graph, 'path', path_spec)
 			if self.draw_lines_between_points:
-				path = etree.SubElement(self.graph, 'path', {
+				path_spec = {
 					'd': 'M%(x_start)f %(y_start)f %(lpath)s' % vars(),
-					'class': 'line%(line)d' % vars()})
+					'class': 'line%(line)d' % vars()
+				}
+				etree.SubElement(self.graph, 'path', path_spec)
 			self.draw_data_points(line, data_points, graph_points)
 		self._draw_constant_lines()
 		del self.__transform_parameters
