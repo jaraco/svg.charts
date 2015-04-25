@@ -2,8 +2,6 @@ from __future__ import division
 
 import six
 
-from tempora import divide_timedelta
-
 
 def reverse_mapping(mapping):
 	"""
@@ -42,16 +40,6 @@ def float_range(start=0, stop=None, step=1):
 	while start < stop:
 		yield start
 		start += step
-
-class TimeScale(object):
-	"Describes a scale factor based on time instead of a scalar"
-	def __init__(self, width, range):
-		self.width = width
-		self.range = range
-
-	def __mul__(self, delta):
-		scale = divide_timedelta(delta, self.range)
-		return scale*self.width
 
 # the following three functions were copied from jaraco.util.iter_
 

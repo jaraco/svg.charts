@@ -7,12 +7,24 @@ from dateutil.relativedelta import relativedelta
 from lxml import etree
 import six
 from more_itertools.recipes import grouper
-from tempora import divide_timedelta_float, date_range
+from tempora import divide_timedelta_float, date_range, divide_timedelta
 
 from .graph import Graph
-from .util import TimeScale, reverse_mapping, flatten_mapping
+from .util import reverse_mapping, flatten_mapping
 
 __all__ = ('Schedule')
+
+
+class TimeScale(object):
+	"Describes a scale factor based on time instead of a scalar"
+	def __init__(self, width, range):
+		self.width = width
+		self.range = range
+
+	def __mul__(self, delta):
+		scale = divide_timedelta(delta, self.range)
+		return scale*self.width
+
 
 class Schedule(Graph):
 	"""
