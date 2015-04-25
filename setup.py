@@ -16,6 +16,7 @@ install_reqs = [
 	'lxml>=2.0',
 	'more_itertools',
 	'six',
+	'tempora>=1.3',
 ]
 
 needs_pytest = {'pytest', 'test'}.intersection(sys.argv)

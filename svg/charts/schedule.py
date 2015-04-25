@@ -7,10 +7,10 @@ from dateutil.relativedelta import relativedelta
 from lxml import etree
 import six
 from more_itertools.recipes import grouper
+from tempora import divide_timedelta_float, date_range
 
 from .graph import Graph
-from .util import (date_range, divide_timedelta_float, TimeScale,
-	reverse_mapping, flatten_mapping,)
+from .util import TimeScale, reverse_mapping, flatten_mapping
 
 __all__ = ('Schedule')
 
