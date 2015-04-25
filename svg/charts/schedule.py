@@ -223,7 +223,7 @@ class Schedule(Graph):
 
 		subbar_height = self.get_field_height() - bar_gap
 
-		y_mod = (subbar_height / 2) + (self.font_size / 2)
+		# y_mod = (subbar_height / 2) + (self.font_size / 2)
 		x_min,x_max,div = self._x_range()
 		x_range = x_max - x_min
 		width = (float(self.graph_width) - self.font_size*2)
