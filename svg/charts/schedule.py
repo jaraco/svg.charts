@@ -297,6 +297,15 @@ class Schedule(Graph):
 
 	@staticmethod
 	def lookup_relativedelta_parameter(unit_string):
+		"""
+		>>> lrp = Schedule.lookup_relativedelta_parameter
+		>>> lrp('Years')
+		'years'
+		>>> lrp('yr')
+		'years'
+		>>> lrp('s')
+		'seconds'
+		"""
 		unit_string = unit_string.lower()
 		mapping = dict(
 			years = ('years', 'year', 'yrs', 'yr'),
