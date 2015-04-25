@@ -7,6 +7,7 @@ def reverse_mapping(mapping):
 	"""
 	For every key, value pair, return the mapping for the
 	equivalent value, key pair
+
 	>>> reverse_mapping({'a': 'b'}) == {'b': 'a'}
 	True
 	"""
@@ -17,6 +18,7 @@ def flatten_mapping(mapping):
 	"""
 	For every key that has an __iter__ method, assign the values
 	to a key for each.
+
 	>>> flatten_mapping({'ab': 3, ('c','d'): 4}) == {'ab': 3, 'c': 4, 'd': 4}
 	True
 	"""
@@ -33,6 +35,7 @@ def flatten_items(items):
 def float_range(start=0, stop=None, step=1):
 	"""
 	Much like the built-in function range, but accepts floats
+
 	>>> tuple(float_range(0, 9, 1.5))
 	(0.0, 1.5, 3.0, 4.5, 6.0, 7.5)
 	"""
