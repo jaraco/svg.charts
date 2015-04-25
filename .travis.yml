@@ -1,11 +1,7 @@
 language: python
 python:
-  - 2.6
   - 2.7
   - 3.2
   - 3.3
-install:
- # install cssutils from tarball manually to work around
- # https://bitbucket.org/cthedot/cssutils/issue/38/python-3-egg-has-python-2-syntax
- - easy_install https://pypi.python.org/packages/source/c/cssutils/cssutils-1.0.zip#md5=0c0b9df329ec1461c732d0f3cba05e93
-script: python setup.py ptr
+  - 3.4
+script: python setup.py test
