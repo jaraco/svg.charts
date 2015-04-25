@@ -139,7 +139,8 @@ class Plot(Graph):
 
 			graph.scale_x_divisions = 2
 
-			would cause the graph to attempt to generate labels stepped by 2; e.g.:
+			would cause the graph to attempt to generate labels
+			stepped by 2; e.g.:
 			0,2,4,6,8...
 			"""
 		def fget(self):
@@ -150,7 +151,9 @@ class Plot(Graph):
 
 	def validate_data(self, data):
 		if len(data['data']) % 2 != 0:
-			raise ValueError("Expecting x,y pairs for data points for %s." % self.__class__.__name__)
+			tmpl = "Expecting x,y pairs for data points for %s."
+			msg = tmpl % self.__class__.__name__
+			raise ValueError(msg)
 
 	def process_data(self, data):
 		pairs = list(get_pairs(data['data']))
@@ -159,17 +162,20 @@ class Plot(Graph):
 
 	def calculate_left_margin(self):
 		super(Plot, self).calculate_left_margin()
-		label_left = len(str(self.get_x_labels()[0])) / 2 * self.font_size * 0.6
+		left_label_text = str(self.get_x_labels()[0])
+		label_left = len(left_label_text) / 2 * self.font_size * 0.6
 		self.border_left = max(label_left, self.border_left)
 
 	def calculate_right_margin(self):
 		super(Plot, self).calculate_right_margin()
-		label_right = len(str(self.get_x_labels()[-1])) / 2 * self.font_size * 0.6
+		right_label_text = str(self.get_x_labels()[-1])
+		label_right = len(right_label_text) / 2 * self.font_size * 0.6
 		self.border_right = max(label_right, self.border_right)
 
 	def data_max(self, axis):
 		data_index = getattr(self, '%s_data_index' % axis)
-		max_value = max(chain(*map(lambda set: set['data'][data_index], self.data)))
+		get_value = lambda set: set['data'][data_index]
+		max_value = max(chain(*map(get_value, self.data)))
 		# above is same as
 		#max_value = max(map(lambda set: max(set['data'][data_index]), self.data))
 		spec_max = getattr(self, 'max_%s_value' % axis)
@@ -180,7 +186,8 @@ class Plot(Graph):
 
 	def data_min(self, axis):
 		data_index = getattr(self, '%s_data_index' % axis)
-		min_value = min(chain(*map(lambda set: set['data'][data_index], self.data)))
+		get_value = lambda set: set['data'][data_index]
+		min_value = min(chain(*map(get_value, self.data)))
 		spec_min = getattr(self, 'min_%s_value' % axis)
 		if spec_min is not None:
 			min_value = min(min_value, spec_min)
@@ -198,7 +205,10 @@ class Plot(Graph):
 		side_pad = range / 20.0 or 10
 		scale_range = (max_value + side_pad) - min_value
 
-		scale_division = getattr(self, 'scale_%s_divisions' % axis) or (scale_range / 10.0)
+		scale_division = (
+			getattr(self, 'scale_%s_divisions' % axis)
+			or (scale_range / 10.0)
+		)
 
 		if getattr(self, 'scale_%s_integers' % axis):
 			scale_division = round(scale_division) or 1
@@ -252,7 +262,8 @@ class Plot(Graph):
 			if self.area_fill:
 				graph_height = self.graph_height
 				path_spec = {
-					'd': 'M%(x_start)f %(graph_height)f %(lpath)s V%(graph_height)f Z' % vars(),
+					'd': 'M%(x_start)f %(graph_height)f '
+						'%(lpath)s V%(graph_height)f Z' % vars(),
 					'class': 'fill%(line)d' % vars()
 				}
 				etree.SubElement(self.graph, 'path', path_spec)
