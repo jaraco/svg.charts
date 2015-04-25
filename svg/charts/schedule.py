@@ -295,8 +295,8 @@ class Schedule(Graph):
 
 		return date_range(x_min, x_max, scale_division)
 
-	@staticmethod
-	def lookup_relativedelta_parameter(unit_string):
+	@classmethod
+	def lookup_relativedelta_parameter(cls, unit_string):
 		"""
 		>>> lrp = Schedule.lookup_relativedelta_parameter
 		>>> lrp('Years')
@@ -306,18 +306,18 @@ class Schedule(Graph):
 		>>> lrp('s')
 		'seconds'
 		"""
-		unit_string = unit_string.lower()
-		mapping = dict(
-			years = ('years', 'year', 'yrs', 'yr'),
-			months = ('months', 'month', 'mo'),
-			weeks = ('weeks', 'week', 'wks','wk'),
-			days = ('days', 'day'),
-			hours = ('hours', 'hour', 'hr', 'hrs', 'h'),
-			minutes = ('minutes', 'minute', 'min', 'mins', 'm'),
-			seconds = ('seconds', 'second', 'sec', 'secs', 's'),
-		)
-		mapping = reverse_mapping(mapping)
-		mapping = flatten_mapping(mapping)
-		if not unit_string in mapping:
+		try:
+			return cls._rdp_map()[unit_string.lower()]
+		except KeyError:
 			raise ValueError("%s doesn't match any supported time/date unit")
-		return mapping[unit_string]
+
+	@staticmethod
+	def _rdp_map():
+		years = 'years', 'year', 'yrs', 'yr'
+		months = 'months', 'month', 'mo'
+		weeks = 'weeks', 'week', 'wks','wk'
+		days = 'days', 'day'
+		hours = 'hours', 'hour', 'hr', 'hrs', 'h'
+		minutes = 'minutes', 'minute', 'min', 'mins', 'm'
+		seconds = 'seconds', 'second', 'sec', 'secs', 's'
+		return flatten_mapping(reverse_mapping(locals()))
