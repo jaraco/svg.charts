@@ -3,8 +3,6 @@
 
 .. contents::
 
-`Documentation <https://pythonhosted.org/svg.charts>`_
-
 Status and License
 ------------------
 
@@ -22,7 +20,7 @@ You can install it with easy_install or pip::
   pip install svg.charts
 
 Or, check out the `mercurial repository source
-<https://bitbucket.org/jaraco/svg.charts>`_.
+<https://github.com/jaraco/svg.charts>`_.
 
 Tests are continuously run by Travis-CI: |BuildStatus|_
 
