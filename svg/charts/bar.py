@@ -53,7 +53,7 @@ class Bar(Graph):
 	* svg.charts.line
 	* svg.charts.pie
 	* svg.charts.plot
-	* svg.charts.timeseries
+	* svg.charts.time_series
 	"""
 
 	# gap between bars

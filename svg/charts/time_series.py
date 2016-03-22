@@ -111,21 +111,26 @@ class Plot(svg.charts.plot.Plot):
 
 	def add_data(self, data):
 		"""
-		Add data to the plot.
+		Add data to the plot::
 
-		d1 = ["12:30", 2]             # A data set with 1 point: ("12:30",2)
-		d2 = ["01:00", 2, "14:20", 6] # A data set with 2 points: ("01:00",2) and
-		                              #                           ("14:20",6)
-		graph.add_data(
-			data = d1,
-			title = 'One',
-		)
-		graph.add_data(
-			data = d2,
-			title = 'Two',
-		)
+			# A data set with 1 point: ("12:30", 2)
+			d1 = ["12:30", 2]
 
-		Note that the data must be in time,value pairs, and that the date format
+			# A data set with 2 points: ("01:00", 2) and
+			#                           ("14:20", 6)
+			d2 = ["01:00", 2, "14:20", 6]
+
+			graph.add_data(
+				data = d1,
+				title = 'One',
+			)
+			graph.add_data(
+				data = d2,
+				title = 'Two',
+			)
+
+		Note that the data must be in (time, value) pairs, and
+		the date format
 		may be any date that is parseable by dateutil.
 		"""
 		super(Plot, self).add_data(data)

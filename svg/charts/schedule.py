@@ -118,26 +118,26 @@ class Schedule(Graph):
 
 	def add_data(self, data):
 		"""
-		Add data to the plot.
+		Add data to the plot::
 
-		# A data set with 1 point: Lunch from 12:30 to 14:00
-		d1 = [ "Lunch", "12:30", "14:00" ]
+			# A data set with 1 point: Lunch from 12:30 to 14:00
+			d1 = [ "Lunch", "12:30", "14:00" ]
 
-		# A data set with 2 points: "Cats" runs from 5/11/03 to 7/15/04, and
-		#                           "Henry V" runs from 6/12/03 to 8/20/03
-		d2 = [
-			"Cats",    "5/11/03", "7/15/04",
-			"Henry V", "6/12/03", "8/20/03",
-		]
+			# A data set with 2 points: "Cats" runs from 5/11/03 to 7/15/04, and
+			#                           "Henry V" runs from 6/12/03 to 8/20/03
+			d2 = [
+				"Cats",    "5/11/03", "7/15/04",
+				"Henry V", "6/12/03", "8/20/03",
+			]
 
-		sched.add_data(dict(
-			data = d1,
-			title = 'Meetings',
-		))
-		sched.add_data(dict(
-			data = d2,
-			title = 'Plays',
-		))
+			sched.add_data(dict(
+				data = d1,
+				title = 'Meetings',
+			))
+			sched.add_data(dict(
+				data = d2,
+				title = 'Plays',
+			))
 
 		Note that the data must be in time,value pairs, and that the date format
 		may be any date that is parseable by dateutil.
