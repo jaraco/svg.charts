@@ -87,7 +87,6 @@ class Graph(object):
 	key_font_size = 10
 
 	css_inline = False
-	add_popups = False
 
 	top_align = top_font = right_align = right_font = 0
 

@@ -174,7 +174,6 @@ def sample_Schedule():
 		rotate_y_labels = False,
 		x_label_format = "%m/%d",
 		timescale_divisions = "1 week",
-		add_popups = True,
 		popup_format = "%m/%d/%y",
 		area_fill = True,
 		min_y_value = 0,
