@@ -30,55 +30,51 @@ class Schedule(Graph):
 	"""
 	Represents SVG plots of scalar temporal data
 
-	Synopsis
-	========
+	Synopsis::
 
-	from svg.charts import schedule
+		from svg.charts import schedule
 
-	# Data sets are label, start, end triples.
-	data1 = [
-		"Housesitting", "6/17/04", "6/19/04",
-		"Summer Session", "6/15/04", "8/15/04",
-	]
+		# Data sets are label, start, end triples.
+		data1 = [
+			"Housesitting", "6/17/04", "6/19/04",
+			"Summer Session", "6/15/04", "8/15/04",
+		]
 
-	sched = schedule.Schedule(dict(
-		width = 640,
-		height = 480,
-		graph_title = "My Schedule",
-		show_graph_title = True,
-		no_css = True,
-		scale_x_integers = True,
-		scale_y_integers = True,
-		min_x_value = 0,
-		min_y_value = 0,
-		show_data_labels = True,
-		show_x_guidelines = True,
-		show_x_title = True,
-		x_title = "Time",
-		stagger_x_labels = True,
-		stagger_y_labels = True,
-		x_label_format = "%m/%d/%y",
-	))
+		sched = schedule.Schedule(dict(
+			width = 640,
+			height = 480,
+			graph_title = "My Schedule",
+			show_graph_title = True,
+			no_css = True,
+			scale_x_integers = True,
+			scale_y_integers = True,
+			min_x_value = 0,
+			min_y_value = 0,
+			show_data_labels = True,
+			show_x_guidelines = True,
+			show_x_title = True,
+			x_title = "Time",
+			stagger_x_labels = True,
+			stagger_y_labels = True,
+			x_label_format = "%m/%d/%y",
+		))
 
-	sched.add_data(dict(
-		data = data1,
-		title = 'Data',
-	))
+		sched.add_data(dict(
+			data = data1,
+			title = 'Data',
+		))
 
-	print(sched.burn())
+		print(sched.burn())
 
 	Description
-	===========
 
 	Produces a graph of temporal scalar data.
 
 	Examples
-	========
 
 	See tests/samples.py for an example.
 
 	Notes
-	=====
 
 	The default stylesheet handles upto 10 data sets, if you
 	use more you must create your own stylesheet and add the

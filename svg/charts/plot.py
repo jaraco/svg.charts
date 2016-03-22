@@ -26,45 +26,43 @@ class Plot(Graph):
 	"""
 	An SVG plot of scalar data.
 
-	Synopsis
-	========
+	Synopsis::
 
-	from svg.charts import plot
+		from svg.charts import plot
 
-	# Data sets are x,y pairs
-	# Note that multiple data sets can differ in length, and that the
-	# data in the datasets needn't be in order; they will be ordered
-	# by the plot along the x-axis.
-	projection = [
-		6, 11,  0, 5,  18, 7,  1, 11,  13, 9,  1, 2,  19, 0,  3, 13,  7, 9,
-	]
-	actual = [
-		0, 18,  8, 15,  9, 4,  18, 14,  10, 2,  11, 6,  14, 12,  15, 6,
-		4, 17,  2, 12,
-	]
+		# Data sets are x,y pairs
+		# Note that multiple data sets can differ in length, and that the
+		# data in the datasets needn't be in order; they will be ordered
+		# by the plot along the x-axis.
+		projection = [
+			6, 11,  0, 5,  18, 7,  1, 11,  13, 9,  1, 2,  19, 0,  3, 13,  7, 9,
+		]
+		actual = [
+			0, 18,  8, 15,  9, 4,  18, 14,  10, 2,  11, 6,  14, 12,  15, 6,
+			4, 17,  2, 12,
+		]
 
-	p = plot.Plot(dict(
-		height = 500,
-		width = 300,
-		key = true,
-		scale_x_integers = True,
-		scale_y_integerrs = True,
-	))
+		p = plot.Plot(dict(
+			height = 500,
+			width = 300,
+			key = true,
+			scale_x_integers = True,
+			scale_y_integerrs = True,
+		))
 
-	p.add_data({
-		'data': projection,
-		'title': 'Projected',
-	})
+		p.add_data({
+			'data': projection,
+			'title': 'Projected',
+		})
 
-	p.add_data({
-		'data': actual,
-		'title': 'Actual',
-	})
+		p.add_data({
+			'data': actual,
+			'title': 'Actual',
+		})
 
-	print(p.burn())
+		print(p.burn())
 
 	Description
-	===========
 
 	Produces a graph of scalar data.
 
@@ -76,12 +74,10 @@ class Plot(Graph):
 	subtitle etc.
 
 	Examples
-	========
 
 	See the examples in tests/samples.py
 
 	Notes
-	=====
 
 	The default stylesheet handles upto 10 data sets, if you
 	use more you must create your own stylesheet and add the

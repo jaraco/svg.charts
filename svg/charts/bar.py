@@ -6,30 +6,28 @@ from itertools import chain
 from lxml import etree
 from svg.charts.graph import Graph
 
-__all__ = 'VerticalBar', 'HorizontalBar'
+__all__ = 'Bar', 'VerticalBar', 'HorizontalBar'
 
 class Bar(Graph):
 	"""
 	Create presentation quality SVG bar graphs easily.
 
-	Synopsis
-	========
+	Synopsis::
 
-	from svg.charts import bar
+		from svg.charts import bar
 
 
-	fields = 'Jan Feb Mar'.split()
-	data_sales_02 = [12, 45, 21]
+		fields = 'Jan Feb Mar'.split()
+		data_sales_02 = [12, 45, 21]
 
-	bc = bar.VerticalBar(fields, {'width': 300, 'height': 500})
+		bc = bar.VerticalBar(fields, {'width': 300, 'height': 500})
 
-	bc.add_data({'data': data_sales_02, 'title': 'Sales 2002'})
+		bc.add_data({'data': data_sales_02, 'title': 'Sales 2002'})
 
-	print("Content-type: image/svg+xml\r\n\r\n")
-	print(bc.burn())
+		print("Content-type: image/svg+xml\\r\\n\\r\\n")
+		print(bc.burn())
 
 	Description
-	===========
 
 	This object aims to allow you to easily create high quality
 	`SVG <http://www.w3c.org/tr/svg>`_ bar graphs. You can either use the default
@@ -38,7 +36,6 @@ class Bar(Graph):
 	with or without a key, data elements at each point, title, subtitle etc.
 
 	Notes
-	=====
 
 	The default stylesheet handles upto 12 data sets, if you
 	use more you must create your own stylesheet and add the
@@ -47,12 +44,10 @@ class Bar(Graph):
 	be in black.
 
 	Examples
-	========
 
 	See the example usage in tests/samples.py
 
 	See also
-	========
 
 	* svg.charts.graph
 	* svg.charts.line

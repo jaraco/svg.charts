@@ -18,24 +18,23 @@ class Pie(Graph):
 	"""
 	A presentation-quality SVG pie graph
 
-	Synopsis
-	========
+	Synopsis::
 
-	from svg.charts.pie import Pie
-	fields = ['Jan', 'Feb', 'Mar']
+		from svg.charts.pie import Pie
+		fields = ['Jan', 'Feb', 'Mar']
 
-	data_sales_02 = [12, 45, 21]
+		data_sales_02 = [12, 45, 21]
 
-	graph = Pie(dict(
-		height = 500,
-		width = 300,
-		fields = fields))
-	graph.add_data({'data': data_sales_02, 'title': 'Sales 2002'})
-	print "Content-type" image/svg+xml\r\n\r\n'
-	print graph.burn()
+		graph = Pie(dict(
+			height = 500,
+			width = 300,
+			fields = fields))
+		graph.add_data({'data': data_sales_02, 'title': 'Sales 2002'})
+		print "Content-type" image/svg+xml\r\n\r\n'
+		print graph.burn()
 
 	Description
-	===========
+
 	This object aims to allow you to easily create high quality
 	SVG pie graphs. You can either use the default style sheet
 	or supply your own. Either way there are many options which can
