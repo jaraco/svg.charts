@@ -127,6 +127,13 @@ class Bar(Graph):
 		bar_gap = int(self.bar_gap) * bar_gap
 		return bar_gap
 
+	def _fill_class(self, dataset_index):
+		"""
+		Return the CSS class for the indicated data parameters
+		"""
+		return 'fill%s' % (dataset_index+1)
+
+
 def float_range(start = 0, stop = None, step = 1):
 	"Much like the built-in function range, but accepts floats"
 	while start < stop:
@@ -185,7 +192,7 @@ class VerticalBar(Bar):
 					'y': str(top),
 					'width': str(bar_width),
 					'height': str(length),
-					'class': 'fill%s' % (dataset_count+1),
+					'class': self._fill_class(dataset_count),
 				})
 
 				self.make_datapoint_text(left + bar_width/2, top-6, value)
@@ -242,7 +249,7 @@ class HorizontalBar(Bar):
 					'y': str(top),
 					'width': str(length),
 					'height': str(bar_height),
-					'class': 'fill%s' % (dataset_count+1),
+					'class': self._fill_class(dataset_count),
 				})
 
 				self.make_datapoint_text(left+length+5, top+y_mod, value,
