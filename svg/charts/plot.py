@@ -330,11 +330,13 @@ class Plot(Graph):
 			and not self.show_data_values: return
 		for ((dx,dy),(gx,gy)) in six.moves.zip(data_points, graph_points):
 			if self.show_data_points:
-				etree.SubElement(self.graph, 'circle', {
+				doc = {
 					'cx': str(gx),
 					'cy': str(gy),
 					'r': '2.5',
-					'class': 'dataPoint%(line)s' % locals()})
+					'class': 'dataPoint%(line)s' % locals(),
+				}
+				etree.SubElement(self.graph, 'circle', doc)
 			if self.show_data_values:
 				self.add_popup(gx, gy, self.format(dx, dy))
 			self.make_datapoint_text(gx, gy-6, dy)
