@@ -12,7 +12,7 @@ from tempora import divide_timedelta_float, date_range, divide_timedelta
 from .graph import Graph
 from .util import reverse_mapping, flatten_mapping
 
-__all__ = ('Schedule')
+__all__ = 'Schedule',
 
 
 class TimeScale(object):
