@@ -701,6 +701,30 @@ class Graph(object):
 			return s1
 		return functools.reduce(merge_sheets, self.get_stylesheet_resources())
 
+
+class DrawHooks(object):
+	"""
+	Mix-in for Graph subclasses providing hooks at
+	various points in the rendering of a Graph.
+
+	Use with any Graph subclass like so::
+
+		class MyVerticalBar(DrawHooks, VerticalBar):
+			def after_draw_data(self):
+				self.root.append(...)
+	"""
+	def draw_data(self):
+		self.before_draw_data()
+		super(DrawHooks, self).draw_data()
+		self.after_draw_data()
+
+	def before_draw_data(self):
+		pass
+
+	def after_draw_data(self):
+		pass
+
+
 class class_dict(object):
 	"Emulates a dictionary, but retrieves class attributes"
 	def __init__(self, obj):
