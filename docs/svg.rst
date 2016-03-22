@@ -4,7 +4,7 @@ svg Package
 :mod:`svg` Package
 ------------------
 
-.. automodule:: svg.__init__
+.. automodule:: svg
     :members:
     :undoc-members:
     :show-inheritance:
