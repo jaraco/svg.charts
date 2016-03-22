@@ -1,4 +1,7 @@
 #!python
+
+from __future__ import division
+
 from itertools import chain
 from lxml import etree
 from svg.charts.graph import Graph
@@ -88,10 +91,10 @@ class Bar(Graph):
 		max_value = self.data_max()
 		range = max_value - min_value
 
-		data_pad = range / 20.0 or 10
+		data_pad = range / 20 or 10
 		scale_range = (max_value + data_pad) - min_value
 
-		scale_division = self.scale_divisions or (scale_range / 10.0)
+		scale_division = self.scale_divisions or (scale_range / 10)
 
 		if self.scale_integers:
 			scale_division = round(scale_division) or 1
@@ -141,22 +144,22 @@ class VerticalBar(Bar):
 		return self.get_data_labels()
 
 	def x_label_offset(self, width):
-		return width / 2.0
+		return width / 2
 
 	def draw_data(self):
 		min_value = self.data_min()
-		unit_size = (float(self.graph_height) - self.font_size*2*self.top_font)
-		unit_size /= (max(self.get_data_values()) - min(self.get_data_values()))
+		unit_size = self.graph_height - self.font_size*2*self.top_font
+		unit_size /= max(self.get_data_values()) - min(self.get_data_values())
 
 		bar_gap = self.get_bar_gap(self.get_field_width())
 
 		bar_width = self.get_field_width() - bar_gap
 		if self.stack == 'side':
-			bar_width /= len(self.data)
+			bar_width //= len(self.data)
 
-		x_mod = (self.graph_width - bar_gap)/2
+		x_mod = (self.graph_width - bar_gap)//2
 		if self.stack == 'side':
-			x_mod -= bar_width/2
+			x_mod -= bar_width//2
 
 		bottom = self.graph_height
 
@@ -185,7 +188,7 @@ class VerticalBar(Bar):
 					'class': 'fill%s' % (dataset_count+1),
 				})
 
-				self.make_datapoint_text(left + bar_width/2.0, top-6, value)
+				self.make_datapoint_text(left + bar_width/2, top-6, value)
 
 class HorizontalBar(Bar):
 	rotate_y_labels = True
@@ -201,12 +204,12 @@ class HorizontalBar(Bar):
 		return self.get_field_labels()
 
 	def y_label_offset(self, height):
-		return height / -2.0
+		return height / -2
 
 	def draw_data(self):
 		min_value = self.data_min()
 
-		unit_size = float(self.graph_width)
+		unit_size = self.graph_width
 		unit_size -= self.font_size*2*self.right_font
 		unit_size /= max(self.get_data_values()) - min(self.get_data_values())
 
@@ -214,9 +217,9 @@ class HorizontalBar(Bar):
 
 		bar_height = self.get_field_height() - bar_gap
 		if self.stack == 'side':
-			bar_height /= len(self.data)
+			bar_height //= len(self.data)
 
-		y_mod = (bar_height / 2) + (self.font_size / 2)
+		y_mod = (bar_height // 2) + (self.font_size // 2)
 
 		for field_count, field in enumerate(self.fields):
 			for dataset_count, dataset in enumerate(self.data):
