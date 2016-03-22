@@ -251,14 +251,16 @@ class Graph(object):
 		etree.SubElement(self.foreground, 'text', attrs)
 
 		# add the circle element to the foreground
-		visibility = "document.getElementById('%s').setAttribute('visibility', %%s)" % id
+		vis_tmpl = (
+			"document.getElementById('{id}').setAttribute('visibility', {val})"
+		)
 		attrs = {
 			'cx': str(x),
 			'cy': str(y),
 			'r': str(10),
 			'style': 'opacity: 0;',
-			'onmouseover': visibility % 'visible',
-			'onmouseout': visibility % 'hidden',
+			'onmouseover': vis_tmpl.format(val='visible', id=id),
+			'onmouseout': vis_tmpl.format(val='hidden', id=id),
 		}
 		etree.SubElement(self.foreground, 'circle', attrs)
 
