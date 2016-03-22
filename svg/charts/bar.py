@@ -177,7 +177,7 @@ class VerticalBar(Bar):
 				if self.stack == 'side':
 					left += bar_width * dataset_count
 
-				rect = etree.SubElement(self.graph, 'rect', {
+				etree.SubElement(self.graph, 'rect', {
 					'x': str(left),
 					'y': str(top),
 					'width': str(bar_width),
@@ -234,7 +234,7 @@ class HorizontalBar(Bar):
 				# left is 0 if value is negative
 				left = (abs(min_value) + min(value, 0)) * unit_size
 
-				rect = etree.SubElement(self.graph, 'rect', {
+				etree.SubElement(self.graph, 'rect', {
 					'x': str(left),
 					'y': str(top),
 					'width': str(length),
