@@ -1,6 +1,12 @@
 Changes
 -------
 
+3.1.1
+~~~~~
+
+* #8: Subtitle is now rendering the subtitle and not the title
+  again.
+
 3.1
 ~~~
 

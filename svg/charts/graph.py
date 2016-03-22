@@ -496,7 +496,7 @@ class Graph(object):
 			'y': str(y_subtitle),
 			'class': 'subTitle',
 			})
-		text.text = self.graph_title
+		text.text = self.graph_subtitle
 
 	def draw_x_title(self):
 		y = self.graph_height + self.border_top + self.x_title_font_size
