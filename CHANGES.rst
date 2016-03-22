@@ -1,6 +1,13 @@
 Changes
 -------
 
+3.3
+~~~
+
+* #12: The library now provides an ``svg.charts.graph.DrawHooks``
+  mix-in for customizing the draw behavior.
+* Cleaned up documentation.
+
 3.2
 ~~~
 
