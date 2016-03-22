@@ -188,7 +188,7 @@ def save_samples():
 	root = os.path.dirname(__file__)
 	for sample_name, sample in generate_samples():
 		res = sample.burn()
-		with open(os.path.join(root, sample_name+'.py.svg'), 'w') as f:
+		with open(os.path.join(root, sample_name+'.py.svg'), 'wb') as f:
 			f.write(res)
 
 if __name__ == '__main__':
