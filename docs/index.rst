@@ -5,15 +5,8 @@ Welcome to svg.charts documentation!
    :maxdepth: 2
    :glob:
 
-   *
-
+   svg.charts
    history
-
-
-.. automodule:: svg.charts
-    :members:
-    :undoc-members:
-    :show-inheritance:
 
 
 Indices and tables

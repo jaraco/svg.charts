@@ -1,13 +1,17 @@
 charts Package
 ==============
 
-:mod:`charts` Package
----------------------
+:mod:`svg` Package
+------------------
 
-.. automodule:: svg.charts
-    :members:
-    :undoc-members:
-    :show-inheritance:
+``svg`` is a namespace package, meant to be shared with
+other libraries implementing svg functionality.
+
+:mod:`svg.charts` Package
+-------------------------
+
+``svg.charts`` is the package containing the various
+modules of this library.
 
 :mod:`bar` Module
 -----------------
