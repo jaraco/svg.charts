@@ -240,25 +240,27 @@ class Graph(object):
 		anchor = ['start', 'end'][x+txt_width > self.width]
 		style = 'fill: #000; text-anchor: %s;' % anchor
 		id = 'label-%s' % self._w3c_name(label)
-		etree.SubElement(self.foreground, 'text', {
+		attrs = {
 			'x': str(tx),
 			'y': str(y - self.font_size),
 			'visibility': 'hidden',
 			'style': style,
 			'text': label,
-			'id': id
-			})
+			'id': id,
+		}
+		etree.SubElement(self.foreground, 'text', attrs)
 
 		# add the circle element to the foreground
 		visibility = "document.getElementById('%s').setAttribute('visibility', %%s)" % id
-		etree.SubElement(self.foreground, 'circle', {
+		attrs = {
 			'cx': str(x),
 			'cy': str(y),
 			'r': str(10),
 			'style': 'opacity: 0;',
 			'onmouseover': visibility % 'visible',
 			'onmouseout': visibility % 'hidden',
-			})
+		}
+		etree.SubElement(self.foreground, 'circle', attrs)
 
 	def calculate_bottom_margin(self):
 		"""
