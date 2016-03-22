@@ -4,7 +4,7 @@
 import setuptools_scm
 
 extensions = [
-    'sphinx.ext.autodoc',
+	'sphinx.ext.autodoc',
 	'sphinx.ext.intersphinx',
 	'sphinx.ext.todo',
 ]
