@@ -1,11 +1,22 @@
 Changes
 -------
 
-3.1.1
-~~~~~
+3.2
+~~~
 
 * #8: Subtitle is now rendering the subtitle and not the title
   again.
+* #9: ``Bar`` objects now expose a ``_fill_class`` method
+  for overriding the default CSS fill class. It's now possible
+  to create a custom subclass that generates the fill based
+  on the field index as well. For example::
+
+      class VerticalBar(svg.charts.bar.VerticalBar):
+          key = False
+
+          def _fill_class(self, dataset_index, field_index):
+              fill_index = 1 + dataset_index + field_index*len(self.data)
+              return 'fill%s' % fill_index
 
 3.1
 ~~~

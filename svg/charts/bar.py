@@ -127,9 +127,12 @@ class Bar(Graph):
 		bar_gap = int(self.bar_gap) * bar_gap
 		return bar_gap
 
-	def _fill_class(self, dataset_index):
+	def _fill_class(self, dataset_index, field_index):
 		"""
-		Return the CSS class for the indicated data parameters
+		Return the CSS class for the indicated data parameters.
+
+		dataset_index is the index into the current dataset.
+		field_index is the index into the current field set.
 		"""
 		return 'fill%s' % (dataset_index+1)
 
@@ -192,7 +195,7 @@ class VerticalBar(Bar):
 					'y': str(top),
 					'width': str(bar_width),
 					'height': str(length),
-					'class': self._fill_class(dataset_count),
+					'class': self._fill_class(dataset_count, field_count),
 				})
 
 				self.make_datapoint_text(left + bar_width/2, top-6, value)
@@ -249,7 +252,7 @@ class HorizontalBar(Bar):
 					'y': str(top),
 					'width': str(length),
 					'height': str(bar_height),
-					'class': self._fill_class(dataset_count),
+					'class': self._fill_class(dataset_count, field_count),
 				})
 
 				self.make_datapoint_text(left+length+5, top+y_mod, value,
