@@ -697,7 +697,7 @@ class Graph(object):
 	def get_stylesheet(self):
 		cssutils.log.setLevel(30) # disable INFO log messages
 		def merge_sheets(s1, s2):
-			map(s1.add, s2)
+			list(map(s1.add, s2))
 			return s1
 		return functools.reduce(merge_sheets, self.get_stylesheet_resources())
 
