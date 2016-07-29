@@ -7,6 +7,7 @@ from itertools import count, chain
 
 import six
 from lxml import etree
+from six.moves import zip
 
 from svg.charts.graph import Graph
 
@@ -250,7 +251,7 @@ class Plot(Graph):
 				(data['data'][self.x_data_index][0],
 				data['data'][self.y_data_index][0])
 			)
-			data_points = zip(*data['data'])
+			data_points = list(zip(*data['data']))
 			graph_points = self.get_graph_points(data_points)
 			lpath = self.get_lpath(graph_points)
 			if self.area_fill:
@@ -277,7 +278,7 @@ class Plot(Graph):
 
 	def _draw_constant_lines(self):
 		if hasattr(self, 'constant_lines'):
-			map(self.__draw_constant_line, self.constant_lines)
+			list(map(self.__draw_constant_line, self.constant_lines))
 
 	def __draw_constant_line(self, value_label_style):
 		"Draw a constant line on the y-axis with the label"
@@ -307,7 +308,7 @@ class Plot(Graph):
 		del self.__transform_parameters['self']
 
 	def get_graph_points(self, data_points):
-		return map(self.transform_output_coordinates, data_points)
+		return list(map(self.transform_output_coordinates, data_points))
 
 	def get_lpath(self, points):
 		points = map(lambda p: "%f %f" % p, points)

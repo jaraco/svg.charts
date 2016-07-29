@@ -23,12 +23,6 @@ except ImportError:
 # cause the SVG profile to be loaded
 __import__('svg.charts.css')
 
-def sort_multiple(arrays):
-	"sort multiple lists (of equal size) using the first list for the sort keys"
-	tuples = zip(*arrays)
-	tuples.sort()
-	return zip(*tuples)
-
 class Graph(object):
 	"""
 	Base object for generating SVG Graphs
@@ -356,7 +350,7 @@ class Graph(object):
 			labels = enumerate(iter(labels))
 			start = int(not self.step_include_first_x_label)
 			labels = islice(labels, start, None, self.step_x_labels)
-			map(self.draw_x_label, labels)
+			list(map(self.draw_x_label, labels))
 			self.draw_x_guidelines(self.field_width(), count)
 
 	def draw_x_label(self, label):
@@ -416,7 +410,7 @@ class Graph(object):
 		labels = enumerate(iter(labels))
 		start = int(not self.step_include_first_y_label)
 		labels = islice(labels, start, None, self.step_y_labels)
-		map(self.draw_y_label, labels)
+		list(map(self.draw_y_label, labels))
 		self.draw_y_guidelines(self.field_height(), count)
 
 	def get_y_offset(self):
@@ -652,7 +646,7 @@ class Graph(object):
 			' Based on Perl SVG:TT:Graph by Leo Lapworth & Stephan Morgan ',
 			' '+'/'*66,
 			)
-		map(self.root.append, map(etree.Comment, comment_strings))
+		list(map(self.root.append, map(etree.Comment, comment_strings)))
 
 		defs = etree.SubElement(self.root, 'defs')
 		self.add_defs(defs)
@@ -694,7 +688,7 @@ class Graph(object):
 		class_vars = class_dict(self)
 		loader = functools.partial(self.load_resource_stylesheet,
 			subs=class_vars)
-		sheets = map(loader, self.stylesheet_names)
+		sheets = list(map(loader, self.stylesheet_names))
 		return sheets
 
 	def get_stylesheet(self):
