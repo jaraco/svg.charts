@@ -19,3 +19,12 @@ class TestPlot:
 		g = Plot(dict(css_inline=True))
 		g.add_data(dict(data=[1, 0, 2, 1], title='foo'))
 		g.burn()
+
+	def test_python3_show_points(self):
+		"""
+		Test that show_data_points creates
+		circle elements in output.
+		"""
+		g = Plot(dict(show_data_points=True))
+		g.add_data(dict(data=[1, 0, 2, 1], title='foo'))
+		assert b'circle' in g.burn()
