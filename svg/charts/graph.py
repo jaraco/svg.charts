@@ -9,11 +9,11 @@ The base module for `svg.charts` classes.
 
 from operator import itemgetter
 from itertools import islice
-import pkg_resources
 import functools
 
 from six.moves import map
 
+import pkg_resources
 import cssutils
 from lxml import etree
 

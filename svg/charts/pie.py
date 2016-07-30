@@ -1,12 +1,13 @@
 import math
 import itertools
 
+import six
 from six.moves import map, zip
 
-import six
 from lxml import etree
 
 from svg.charts.graph import Graph
+
 
 def robust_add(a,b):
 	"Add numbers a and b, treating None as 0"
@@ -14,7 +15,9 @@ def robust_add(a,b):
 	if b is None: b = 0
 	return a+b
 
+
 RADIANS = math.pi/180
+
 
 class Pie(Graph):
 	"""

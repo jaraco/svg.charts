@@ -1,17 +1,18 @@
-#!/usr/bin/env python
-import svg.charts.plot
 import re
-import pkg_resources
-pkg_resources.require("python-dateutil>=1.1")
-from dateutil.parser import parse
-from dateutil.relativedelta import relativedelta
 from time import mktime
 import datetime
-fromtimestamp = datetime.datetime.fromtimestamp
 
 from six.moves import map
 
+from dateutil.parser import parse
+from dateutil.relativedelta import relativedelta
+
+import svg.charts.plot
 from .util import float_range
+
+
+fromtimestamp = datetime.datetime.fromtimestamp
+
 
 class Plot(svg.charts.plot.Plot):
 	"""

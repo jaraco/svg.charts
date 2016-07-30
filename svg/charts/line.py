@@ -11,6 +11,7 @@ from more_itertools.recipes import flatten
 from .util import float_range
 from .graph import Graph
 
+
 class Line(Graph):
 	"""Line Graph"""
 
