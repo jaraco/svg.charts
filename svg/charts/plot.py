@@ -7,7 +7,7 @@ from itertools import count, chain
 
 import six
 from lxml import etree
-from six.moves import zip
+from six.moves import zip, map
 
 from svg.charts.graph import Graph
 

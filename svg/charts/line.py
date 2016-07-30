@@ -3,6 +3,8 @@ from __future__ import absolute_import
 import itertools
 from operator import itemgetter, add
 
+from six.moves import map
+
 from lxml import etree
 from more_itertools.recipes import flatten
 

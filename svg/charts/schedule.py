@@ -2,6 +2,8 @@ from __future__ import absolute_import
 
 import re
 
+from six.moves import map, zip
+
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
 from lxml import etree

@@ -8,6 +8,9 @@ from dateutil.relativedelta import relativedelta
 from time import mktime
 import datetime
 fromtimestamp = datetime.datetime.fromtimestamp
+
+from six.moves import map
+
 from .util import float_range
 
 class Plot(svg.charts.plot.Plot):

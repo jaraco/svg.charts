@@ -1,6 +1,8 @@
 import math
 import itertools
 
+from six.moves import map, zip
+
 import six
 from lxml import etree
 

@@ -3,6 +3,9 @@
 from __future__ import division
 
 from itertools import chain
+
+from six.moves import map
+
 from lxml import etree
 from svg.charts.graph import Graph
 
