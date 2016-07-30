@@ -2,7 +2,6 @@
 
 "plot.py"
 
-import sys
 from itertools import count, chain
 
 import six
@@ -18,12 +17,6 @@ def get_pairs(i):
 	i = iter(i)
 	while True:
 		yield next(i), next(i)
-
-
-# I'm not sure how this is more beautiful than ugly.
-if sys.version >= '3':
-	def apply(func):
-		return func()
 
 
 class Plot(Graph):
@@ -132,22 +125,24 @@ class Plot(Graph):
 
 	stylesheet_names = Graph.stylesheet_names + ['plot.css']
 
-	@apply
-	def scale_x_divisions():
-		doc = """
-			Determines the scaling for the X axis divisions.
+	_scale_x_divisions = None
 
-			graph.scale_x_divisions = 2
+	@property
+	def scale_x_divisions(self):
+		"""
+		Determines the scaling for the X axis divisions.
 
-			would cause the graph to attempt to generate labels
-			stepped by 2; e.g.:
-			0,2,4,6,8...
-			"""
-		def fget(self):
-			return getattr(self, '_scale_x_divisions', None)
-		def fset(self, val):
-			self._scale_x_divisions = val
-		return property(**locals())
+		graph.scale_x_divisions = 2
+
+		would cause the graph to attempt to generate labels
+		stepped by 2; e.g.:
+		0,2,4,6,8...
+		"""
+		return self._scale_x_divisions
+
+	@scale_x_divisions.setter
+	def scale_x_divisions(self, val):
+		self._scale_x_divisions = val
 
 	def validate_data(self, data):
 		if len(data['data']) % 2 != 0:
