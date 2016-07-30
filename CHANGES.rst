@@ -1,6 +1,11 @@
 Changes
 -------
 
+3.3.1
+~~~~~
+
+* #13: Fix issues in lazy-evaluated iterators.
+
 3.3
 ~~~
 
