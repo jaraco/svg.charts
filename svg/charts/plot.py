@@ -147,7 +147,7 @@ class Plot(Graph):
 	def validate_data(self, data):
 		# Should be pairs.
 		for (i, p) in enumerate(data['data']):
-			if len(p) != 2:
+			if len(p) < 2:
 				tmpl = "Expecting (x,y) pairs for data points for %s."
 				msg = tmpl % self.__class__.__name__
 				raise ValueError(msg)
@@ -180,7 +180,7 @@ class Plot(Graph):
 		  self.get_single_axis_values(axis, ds) for ds in self.data]))
 		spec_max = getattr(self, 'max_%s_value' % axis)
 		if spec_max is not None:
-                          max_value = max(max_value, spec_max)
+			  max_value = max(max_value, spec_max)
 		return max_value
 
 	def data_min(self, axis):
@@ -316,7 +316,7 @@ class Plot(Graph):
 		return 'L' + ' '.join(points)
 
 	def transform_output_coordinates(self, point):
-		x, y = point
+		x, y = point[:2]
 		x_min = self.__transform_parameters['x_min']
 		x_step = self.__transform_parameters['x_step']
 		y_min = self.__transform_parameters['y_min']
@@ -330,7 +330,9 @@ class Plot(Graph):
 	def draw_data_points(self, line, data_points, graph_points):
 		if not self.show_data_points \
 			and not self.show_data_values: return
-		for ((dx,dy),(gx,gy)) in six.moves.zip(data_points, graph_points):
+		for (dp,(gx,gy)) in six.moves.zip(data_points, graph_points):
+			dx = dp[0]
+			dy = dp[1]
 			if self.show_data_points:
 				doc = {
 					'cx': str(gx),
@@ -341,7 +343,8 @@ class Plot(Graph):
 				etree.SubElement(self.graph, 'circle', doc)
 			if self.show_data_values:
 				self.add_popup(gx, gy, self.format(dx, dy))
-			self.make_datapoint_text(gx, gy-6, dy)
+			text = getattr(dp, 'text', dy)
+			self.make_datapoint_text(gx, gy-6, text)
 
 	def format(self, x, y):
 		return '(%0.2f, %0.2f)' % (x,y)
