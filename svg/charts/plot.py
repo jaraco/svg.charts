@@ -145,15 +145,38 @@ class Plot(Graph):
 		self._scale_x_divisions = val
 
 	def validate_data(self, data):
-		# Should be pairs.
-		for (i, p) in enumerate(data['data']):
+		series = data['data']
+		try:
+		    [len(x) for x in series]
+		except TypeError:
+		    self.validate_data_flat(series)
+		else:
+		    self.validate_data_pairs(series)
+
+	def validate_data_flat(self, series):
+		# Should be [ x, y, ... ] pairs.
+		if len(series) % 2 != 0:
+			tmpl = "Expecting x,y pairs for data points for %s."
+			msg = tmpl % self.__class__.__name__
+			raise ValueError(msg)
+		
+
+	def validate_data_pairs(self, series):
+		# Should be pairs (or wider tuples).
+		for (i, p) in enumerate(series):
 			if len(p) < 2:
 				tmpl = "Expecting (x,y) pairs for data points for %s."
 				msg = tmpl % self.__class__.__name__
 				raise ValueError(msg)
 
 	def process_data(self, data):
-		data['data'] = sorted(data['data'])
+		series = data['data']
+		try:
+			[len(x) for x in series]
+		except TypeError:
+			series = list(get_pairs(series))
+		data['data'] = sorted(series)
+
 
 	def calculate_left_margin(self):
 		super(Plot, self).calculate_left_margin()

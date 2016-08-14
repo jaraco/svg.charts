@@ -141,8 +141,11 @@ class Plot(svg.charts.plot.Plot):
 
 	def process_data(self, data):
 		super(Plot, self).process_data(data)
-		# the date should be in the first element, so parse it out
-		data['data'][0] = list(map(self.parse_date, data['data'][0]))
+		# the date should be in the first axis;
+		# replace value with parsed date.
+		series = data['data']
+		data['data'] = [(self.parse_date(p[0]),) + tuple(p[1:])
+				for p in series]
 
 	_min_x_value = svg.charts.plot.Plot.min_x_value
 	def get_min_x_value(self):
