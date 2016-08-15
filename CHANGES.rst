@@ -1,3 +1,36 @@
+X.Y.Z
+=====
+
+* ``svg.charts.plot.Plot``
+  (and hence its subclass ``svg.charts.time_series.Plot``)
+  now accept data as a sequence of pairs.  Example::
+
+      import svg.charts.plot
+
+      g = svg.charts.plot.Plot()
+      g.add_data(dict(title='Example',
+                      data=[(1, 1), (2, 4), (3, 9)]))
+
+* data point labels that are drawn when
+  ``show_data_values = True`` can have their label changed
+  from the default (which is the y-value) by giving a data item
+  a ``.text`` attribute.
+  It is convenient to used ``namedtuple()`` for this::
+
+      import svg.charts.plot
+      from collections import namedtuple
+
+      Datum = nametuple("Datum", 'x y text')
+
+      g = svg.charts.plot.Plot()
+      g.add_data(dict(title='Example',
+                      data=[Datum(1, 1, 'first'),
+                            Datum(2, 4, 'second'),
+                            Datum(3, 9, 'third')]))
+
+  (in fact data items can have any extra attribute;
+  only ``.text`` is used currently)
+
 3.3.1
 =====
 

@@ -145,15 +145,38 @@ class Plot(Graph):
 		self._scale_x_divisions = val
 
 	def validate_data(self, data):
-		if len(data['data']) % 2 != 0:
+		series = data['data']
+		try:
+		    [len(x) for x in series]
+		except TypeError:
+		    self.validate_data_flat(series)
+		else:
+		    self.validate_data_pairs(series)
+
+	def validate_data_flat(self, series):
+		# Should be [ x, y, ... ] pairs.
+		if len(series) % 2 != 0:
 			tmpl = "Expecting x,y pairs for data points for %s."
 			msg = tmpl % self.__class__.__name__
 			raise ValueError(msg)
+		
+
+	def validate_data_pairs(self, series):
+		# Should be pairs (or wider tuples).
+		for (i, p) in enumerate(series):
+			if len(p) < 2:
+				tmpl = "Expecting (x,y) pairs for data points for %s."
+				msg = tmpl % self.__class__.__name__
+				raise ValueError(msg)
 
 	def process_data(self, data):
-		pairs = list(get_pairs(data['data']))
-		pairs.sort()
-		data['data'] = list(zip(*pairs))
+		series = data['data']
+		try:
+			[len(x) for x in series]
+		except TypeError:
+			series = list(get_pairs(series))
+		data['data'] = sorted(series)
+
 
 	def calculate_left_margin(self):
 		super(Plot, self).calculate_left_margin()
@@ -167,22 +190,25 @@ class Plot(Graph):
 		label_right = len(right_label_text) / 2 * self.font_size * 0.6
 		self.border_right = max(label_right, self.border_right)
 
-	def data_max(self, axis):
+	def get_single_axis_values(self, axis, dataset):
+		"""
+		Return all the values for a single axis of the data.
+		"""
 		data_index = getattr(self, '%s_data_index' % axis)
-		get_value = lambda set: set['data'][data_index]
-		max_value = max(chain(*map(get_value, self.data)))
-		# above is same as
-		#max_value = max(map(lambda set: max(set['data'][data_index]), self.data))
+		return [p[data_index] for p in dataset['data']]
+
+
+	def data_max(self, axis):
+		max_value = max(chain(*[
+		  self.get_single_axis_values(axis, ds) for ds in self.data]))
 		spec_max = getattr(self, 'max_%s_value' % axis)
-		# Python 3 doesn't allow comparing None to int, so use -8
-		if spec_max is None: spec_max = float('-Inf')
-		max_value = max(max_value, spec_max)
+		if spec_max is not None:
+			  max_value = max(max_value, spec_max)
 		return max_value
 
 	def data_min(self, axis):
-		data_index = getattr(self, '%s_data_index' % axis)
-		get_value = lambda set: set['data'][data_index]
-		min_value = min(chain(*map(get_value, self.data)))
+		min_value = min(chain(*[
+		  self.get_single_axis_values(axis, ds) for ds in self.data]))
 		spec_min = getattr(self, 'min_%s_value' % axis)
 		if spec_min is not None:
 			min_value = min(min_value, spec_min)
@@ -246,10 +272,10 @@ class Plot(Graph):
 		self.load_transform_parameters()
 		for line, data in six.moves.zip(count(1), self.data):
 			x_start, y_start = self.transform_output_coordinates(
-				(data['data'][self.x_data_index][0],
-				data['data'][self.y_data_index][0])
+				(data['data'][0][self.x_data_index],
+				data['data'][0][self.y_data_index])
 			)
-			data_points = list(zip(*data['data']))
+			data_points = data['data']
 			graph_points = self.get_graph_points(data_points)
 			lpath = self.get_lpath(graph_points)
 			if self.area_fill:
@@ -313,7 +339,7 @@ class Plot(Graph):
 		return 'L' + ' '.join(points)
 
 	def transform_output_coordinates(self, point):
-		x, y = point
+		x, y = point[:2]
 		x_min = self.__transform_parameters['x_min']
 		x_step = self.__transform_parameters['x_step']
 		y_min = self.__transform_parameters['y_min']
@@ -327,7 +353,9 @@ class Plot(Graph):
 	def draw_data_points(self, line, data_points, graph_points):
 		if not self.show_data_points \
 			and not self.show_data_values: return
-		for ((dx,dy),(gx,gy)) in six.moves.zip(data_points, graph_points):
+		for (dp,(gx,gy)) in six.moves.zip(data_points, graph_points):
+			dx = dp[0]
+			dy = dp[1]
 			if self.show_data_points:
 				doc = {
 					'cx': str(gx),
@@ -338,7 +366,8 @@ class Plot(Graph):
 				etree.SubElement(self.graph, 'circle', doc)
 			if self.show_data_values:
 				self.add_popup(gx, gy, self.format(dx, dy))
-			self.make_datapoint_text(gx, gy-6, dy)
+			text = getattr(dp, 'text', dy)
+			self.make_datapoint_text(gx, gy-6, text)
 
 	def format(self, x, y):
 		return '(%0.2f, %0.2f)' % (x,y)

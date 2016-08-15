@@ -21,9 +21,34 @@ def sample_Plot():
 		'stagger_y_labels': True,
 		'show_x_guidelines': True
 	})
-	g.add_data({'data': [1, 25, 2, 30, 3, 45], 'title': 'series 1'})
-	g.add_data({'data': [1,30, 2, 31, 3, 40], 'title': 'series 2'})
-	g.add_data({'data': [.5,35, 1, 20, 3, 10.5], 'title': 'series 3'})
+	g.add_data({'data': [[1, 25], [2, 30], [3, 45]],
+		    'title': 'series 1'})
+	g.add_data({'data': [[1, 30], [2, 31], [3, 40]],
+		    'title': 'series 2'})
+	g.add_data({'data': [[.5, 35], [1, 20], [3, 10.5]],
+		    'title': 'series 3'})
+	return g
+
+def sample_PlotTextLabels():
+	g = Plot({
+		'draw_lines_between_points': False,
+		'min_x_value': 0,
+		'min_y_value': 0,
+		'show_x_guidelines': True
+	})
+	# Processed Apple production 2015
+	# Any object with a .text attribute will do;
+	# we like namedtuple().
+
+	from collections import namedtuple
+
+	Datum = namedtuple("Datum", "x y text")
+
+	g.add_data({'data': [Datum(8.24, 80.85, 'ES'),
+			     Datum(0.17, 6.73, 'IE'),
+			     Datum(0, 0, 'IS'),
+			    ],
+		    'title': 'Processed Apple'})
 	return g
 
 def sample_TimeSeries():
@@ -40,6 +65,7 @@ def sample_TimeSeries():
 
 def generate_samples():
 	yield 'Plot', sample_Plot()
+	yield 'PlotTextLabels', sample_PlotTextLabels()
 	yield 'TimeSeries', sample_TimeSeries()
 	yield 'VerticalBar', SampleBar.vertical()
 	yield 'HorizontalBar', SampleBar.horizontal()
