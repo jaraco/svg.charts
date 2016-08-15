@@ -19,7 +19,7 @@ You can install it with easy_install or pip::
   easy_install svg.charts
   pip install svg.charts
 
-Or, check out the `mercurial repository source
+Or, check out the `repository source
 <https://github.com/jaraco/svg.charts>`_.
 
 Tests are continuously run by Travis-CI: |BuildStatus|_
@@ -51,15 +51,15 @@ Getting Started
 
 ``svg.charts`` has some examples (taken directly from the reference implementation)
 in `tests/samples.py
-<https://bitbucket.org/jaraco/svg.charts/src/tip/tests/samples.py?at=default>`_.
+<https://github.com/jaraco/svg.charts/blob/master/tests/samples.py>`_.
 These examples show sample usage of the various chart types. They should provide a
 good starting point for learning the usage of the library.
 
 An example of using ``svg.charts`` in a `CherryPy
 <http://www.cherrypy.org/>`_ web app can be found in `jaraco.site.charts
-<https://bitbucket.org/jaraco/jaraco.site/src/tip/jaraco/site/charts.py>`_.
+<https://github.com/jaraco/jaraco.site/blob/master/jaraco/site/charts.py>`_.
 If the site is working, you can see the `rendered output here
-<http://www.jaraco.com/charts/plot>`_.
+<https://www.jaraco.com/charts/plot>`_.
 
 ``svg.charts`` also provides `API documentation
 <http://pythonhosted.org/svg.charts/>`_.
@@ -93,6 +93,6 @@ More To-Dos
 Reporting Bugs and Getting Help
 -------------------------------
 
-This project is `hosted at BitBucket
-<https://bitbucket.org/jaraco/svg.charts>`_. Please use that site for
+This project is `hosted at Github
+<https://github.com/jaraco/svg.charts>`_. Please use that site for
 reporting bugs and requesting help. Patches are also welcome.
