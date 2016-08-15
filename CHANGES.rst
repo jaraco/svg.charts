@@ -1,5 +1,7 @@
-X.Y.Z
-=====
+3.4
+===
+
+Issue #14:
 
 * ``svg.charts.plot.Plot``
   (and hence its subclass ``svg.charts.time_series.Plot``)
