@@ -1,7 +1,12 @@
-``svg.charts`` - Package for generating SVG Charts in Python
-============================================================
+.. image:: https://img.shields.io/pypi/v/svg.charts.svg
+   :target: https://pypi.org/project/svg.charts
 
-.. contents::
+.. image:: https://img.shields.io/pypi/pyversions/svg.charts.svg
+
+.. image:: https://img.shields.io/pypi/dm/svg.charts.svg
+
+.. image:: https://img.shields.io/travis/jaraco/svg.charts/master.svg
+   :target: http://travis-ci.org/jaraco/svg.charts
 
 Status and License
 ------------------
