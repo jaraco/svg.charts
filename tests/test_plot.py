@@ -28,3 +28,31 @@ class TestPlot:
 		g = Plot(dict(show_data_points=True))
 		g.add_data(dict(data=[1, 0, 2, 1], title='foo'))
 		assert b'circle' in g.burn()
+
+	def test_pairs(self):
+		"""
+		Test that it is acceptable to use pairs for data.
+		"""
+		g = Plot(dict(show_data_points=True))
+		g.add_data(dict(data=[(1, 0), (2, 1)], title='pairs'))
+		assert b'circle' in g.burn()
+
+	def test_text(self):
+		"""
+		Test that data with .text attributes make
+		text labels.
+		"""
+		from collections import namedtuple
+
+		D = namedtuple("D", 'x y text')
+
+		g = Plot(dict(show_data_values=True))
+		g.add_data(dict(data=[
+			D(1, 0, 'Sam'),
+			D(2, 1, 'Dan'),
+			],
+			title='labels'))
+		svg = g.burn()
+		assert b'Sam' in svg
+		assert b'Dan' in svg
+
