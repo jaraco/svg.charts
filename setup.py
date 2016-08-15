@@ -23,7 +23,7 @@ install_reqs = [
 needs_pytest = {'pytest', 'test'}.intersection(sys.argv)
 pytest_runner = ['pytest_runner'] if needs_pytest else []
 needs_sphinx = {'release', 'build_sphinx', 'upload_docs'}.intersection(sys.argv)
-sphinx = ['sphinx', 'rst.linker'] if needs_sphinx else []
+sphinx = ['sphinx', 'rst.linker'] + install_reqs if needs_sphinx else []
 needs_wheel = {'release', 'bdist_wheel'}.intersection(sys.argv)
 wheel = ['wheel'] if needs_wheel else []
 
