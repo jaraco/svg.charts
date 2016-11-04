@@ -5,7 +5,7 @@
 from itertools import count, chain
 
 import six
-from six.moves import zip, map
+from six.moves import map
 
 from lxml import etree
 
@@ -159,7 +159,7 @@ class Plot(Graph):
 			tmpl = "Expecting x,y pairs for data points for %s."
 			msg = tmpl % self.__class__.__name__
 			raise ValueError(msg)
-		
+
 
 	def validate_data_pairs(self, series):
 		# Should be pairs (or wider tuples).
