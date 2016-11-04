@@ -1,3 +1,5 @@
+from more_itertools.recipes import flatten
+
 from svg.charts.plot import Plot
 
 
@@ -56,3 +58,27 @@ class TestPlot:
 		assert b'Sam' in svg
 		assert b'Dan' in svg
 
+	@staticmethod
+	def get_data():
+		yield (1, 0)
+		yield (2, 1)
+
+	def test_iterable_data_grouped(self):
+		g = Plot()
+		spec = dict(
+			data=self.get_data(),
+			title='labels',
+		)
+		g.add_data(spec)
+		svg = g.burn()
+		assert b'text="(1.00, 0.00)"' in svg
+
+	def test_iterable_data_flat(self):
+		g = Plot()
+		spec = dict(
+			data=flatten(self.get_data()),
+			title='labels',
+		)
+		g.add_data(spec)
+		svg = g.burn()
+		assert b'text="(1.00, 0.00)"' in svg
