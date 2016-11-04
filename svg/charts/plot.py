@@ -91,7 +91,6 @@ class Plot(Graph):
 
 	top_align = right_align = top_font = right_font = 1
 
-
 	scale_y_divisions = None
 	"""
 	Determines the scaling for the Y axis divisions.
@@ -101,23 +100,32 @@ class Plot(Graph):
 	would cause the graph to attempt to generate labels stepped by 0.5; e.g.:
 	0, 0.5, 1, 1.5, 2, ...
 	"""
+
 	scale_x_integers = False
 	"Make the X axis labels integers"
+
 	scale_y_integers = False
 	"Make the Y axis labels integers"
+
 	area_fill = False
 	"Fill the area under the line"
+
 	show_data_points = True
 	"""Show a small circle on the graph where the line
 	goes from one point to the next."""
+
 	draw_lines_between_points = True
 	"Indicate whether the lines should be drawn between points"
+
 	min_x_value = None
 	"Set the minimum value of the X axis"
+
 	min_y_value = None
 	"Set the minimum value of the Y axis"
+
 	max_x_value = None
 	"Set the maximum value of the X axis"
+
 	max_y_value = None
 	"Set the maximum value of the Y axis"
 
@@ -160,7 +168,6 @@ class Plot(Graph):
 			msg = tmpl % self.__class__.__name__
 			raise ValueError(msg)
 
-
 	def validate_data_pairs(self, series):
 		# Should be pairs (or wider tuples).
 		for (i, p) in enumerate(series):
@@ -176,7 +183,6 @@ class Plot(Graph):
 		except TypeError:
 			series = list(get_pairs(series))
 		data['data'] = sorted(series)
-
 
 	def calculate_left_margin(self):
 		super(Plot, self).calculate_left_margin()
