@@ -190,6 +190,21 @@ Issue #14:
 * Enabled extensible css support using cssutils, greatly reducing static CSS
 * Renamed modules and methods to be more consistent with PEP-8 naming convention
 
+Upgrading from 1.x to 2.0
+
+I suggest removing SVG 1.0 from the python installation.  This involves removing the
+SVG directory (or svg_chart*) from site-packages.
+
+Change import statements to import from the new namespace, so::
+
+    from SVG import Bar
+    Bar.VerticalBar(...)
+
+becomes::
+
+    from svg.charts import bar
+    bar.VerticalBar(...)
+
 1.2
 ===
 
