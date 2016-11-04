@@ -1,3 +1,8 @@
+3.4.1
+=====
+
+* #16: Restore support for passing iterable data elements.
+
 3.4
 ===
 

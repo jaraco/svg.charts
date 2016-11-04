@@ -152,8 +152,9 @@ class Plot(Graph):
 	def scale_x_divisions(self, val):
 		self._scale_x_divisions = val
 
-	def validate_data(self, data):
-		series = data['data']
+	def validate_data(self, conf):
+		super(Plot, self).validate_data(conf)
+		series = conf['data']
 		try:
 		    [len(x) for x in series]
 		except TypeError:

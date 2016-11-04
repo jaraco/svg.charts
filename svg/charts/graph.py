@@ -10,6 +10,7 @@ The base module for `svg.charts` classes.
 from operator import itemgetter
 from itertools import islice
 import functools
+import collections
 
 from six.moves import map
 
@@ -113,15 +114,18 @@ class Graph(object):
 		self.data.append(conf)
 
 	def validate_data(self, conf):
-		try:
-			assert(isinstance(conf['data'], (tuple, list)))
-		except TypeError:
-			raise TypeError("conf should be dictionary with 'data' and other "
-				"items")
-		except AssertionError:
-			if not hasattr(conf['data'], '__iter__'):
-				raise TypeError("conf['data'] should be tuple or list or "
-					"iterable")
+		data = conf.get('data')
+		if isinstance(data, collections.Sequence):
+			return
+
+		if data is None:
+			raise TypeError("conf must be a dictionary with 'data'")
+
+		if not hasattr(data, '__iter__'):
+			raise TypeError("conf[data] must be iterable")
+
+		# materialize an iterable data
+		conf['data'] = tuple(data)
 
 	def process_data(self, data): pass
 
