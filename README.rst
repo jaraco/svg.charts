@@ -19,7 +19,7 @@ of the Trove classifiers). For more details, see `this explanation
 <https://github.com/jaraco/skeleton/issues/1>`_.
 
 Acknowledgements
-===============
+================
 
 ``svg.charts`` depends heavily on lxml and cssutils. Thanks to the
 contributors of those projects for stable, performant, standards-based
