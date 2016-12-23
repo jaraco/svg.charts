@@ -1,3 +1,8 @@
+3.4.3
+=====
+
+* Minor tweak to README for better rendering in PyPI.
+
 3.4.2
 =====
 
