@@ -59,13 +59,17 @@ class Bar(Graph):
 	* svg.charts.time_series
 	"""
 
-	# gap between bars
 	bar_gap = True
-	# how to stack adjacent dataset series
-	# overlap - overlap bars with transparent colors
-	# top - stack bars on top of one another
-	# side - stack bars side-by-side
+	"""gap between bars"""
+
 	stack = 'overlap'
+	"""
+	how to stack adjacent dataset series
+
+	overlap - overlap bars with transparent colors
+	top - stack bars on top of one another
+	side - stack bars side-by-side
+	"""
 
 	scale_divisions = None
 
