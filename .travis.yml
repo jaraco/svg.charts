@@ -18,6 +18,6 @@ deploy:
     all_branches: true
     python: 3.5
   user: jaraco
+  # supply password with `travis encrypt --add deploy.password`
   distributions: dists
-  password:
-    secure: ez2KbyRcfaOEI08AhiPmLk5qWe/cUdht3DnZrQqQboFTcd6q00y6rnoGYhiH1h/CxeW804LKKSIpgLrDcjmquIJNxIBxHBcRBFmxCxBM+YrxM7T1ArSiH262elmW1/QD+JrL51umOtfptkQYO/ConiVI8ucSSMffd88/2w/vHAo=
+  skip_upload_docs: true

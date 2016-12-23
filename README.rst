@@ -8,55 +8,44 @@
 .. image:: https://img.shields.io/travis/jaraco/svg.charts/master.svg
    :target: http://travis-ci.org/jaraco/svg.charts
 
+``svg.charts`` is a pure-python library for generating charts
+and graphs using Scalable Vector Graphics.
+
+License
+=======
+
 License is indicated in the project metadata (typically one or more
 of the Trove classifiers). For more details, see `this explanation
 <https://github.com/jaraco/skeleton/issues/1>`_.
 
-Status and License
-------------------
+Docs
+====
 
-``svg.charts`` is a pure-python library for generating charts and graphs
-in SVG, originally based on the SVG::Graph Ruby package by Sean E. Russel.
-
-``svg.charts`` supercedes ``svg_charts`` 1.1 and 1.2.
-
-``svg.charts`` is written by Jason R. Coombs.  It is licensed under an
-MIT-style permissive license.
-
-You can install it with easy_install or pip::
-
-  easy_install svg.charts
-  pip install svg.charts
-
-Or, check out the `repository source
-<https://github.com/jaraco/svg.charts>`_.
-
-Tests are continuously run by Travis-CI: |BuildStatus|_
-
-.. |BuildStatus| image:: https://secure.travis-ci.org/jaraco/svg.charts.png
-.. _BuildStatus: http://travis-ci.org/jaraco/svg.charts
-
-To run the tests, refer to the .travis.yml file for the steps run on the
-Travis-CI hosts.
+There's `no good mechanism for publishing documentation
+<https://github.com/pypa/python-packaging-user-guide/pull/266>`_
+easily. If there's a documentation link above, it's probably
+stale because PyPI-based documentation is deprecated. This
+project may have documentation published at ReadTheDocs, but
+probably not. Good luck finding it.
 
 
 Acknowledgements
-----------------
+===============
 
 ``svg.charts`` depends heavily on lxml and cssutils. Thanks to the
 contributors of those projects for stable, performant, standards-based
 packages.
 
-Sean E. Russel for creating the SVG::Graph Ruby package from which this
-Python port was originally derived.
+Thanks to Sean E. Russel for creating the SVG::Graph Ruby
+package from which this Python port was originally derived.
 
-Leo Lapworth for creating the SVG::TT::Graph package which the Ruby
-port was based on.
+Thanks to Leo Lapworth for creating the SVG::TT::Graph
+package which the Ruby port was based on.
 
-Stephen Morgan for creating the TT template and SVG.
+Thanks to Stephen Morgan for creating the TT template and SVG.
 
 Getting Started
----------------
+===============
 
 ``svg.charts`` has some examples (taken directly from the reference implementation)
 in `tests/samples.py
@@ -71,20 +60,14 @@ If the site is working, you can see the `rendered output here
 <https://www.jaraco.com/charts/plot>`_.
 
 ``svg.charts`` also provides `API documentation
-<http://pythonhosted.org/svg.charts/>`_.
+<http://svgcharts.readthedocs.io/en/latest>`_.
 
-More To-Dos
------------
-
--  Documentation! This package desperately needs some high-level,
-   tutorial-style how-tos, and not just links to example code.
--  Implement javascript-based animation (See JellyGraph for a
-   Silverlight example of what simple animation can do for a
-   charting library).
-
-Reporting Bugs and Getting Help
--------------------------------
+Contributing
+============
 
 This project is `hosted at Github
-<https://github.com/jaraco/svg.charts>`_. Please use that site for
-reporting bugs and requesting help. Patches are also welcome.
+<https://github.com/jaraco/svg.charts>`_.
+
+Please use that site for
+reporting bugs and requesting help. Patches and contributions
+of any kind are encouraged.
