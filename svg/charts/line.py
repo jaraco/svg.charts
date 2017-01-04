@@ -62,7 +62,7 @@ class Line(Graph):
 		return self.fields
 
 	def calculate_left_margin(self):
-		super(self.__class__, self).calculate_left_margin()
+		super(Line, self).calculate_left_margin()
 		label_left = len(self.fields[0]) / 2 * self.font_size * 0.6
 		self.border_left = max(label_left, self.border_left)
 
