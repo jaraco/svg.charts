@@ -1,3 +1,8 @@
+3.4.4
+=====
+
+* #16: Fix issue in subclassed Line charts.
+
 3.4.3
 =====
 
