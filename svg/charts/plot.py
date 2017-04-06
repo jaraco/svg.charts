@@ -129,6 +129,12 @@ class Plot(Graph):
 	max_y_value = None
 	"Set the maximum value of the Y axis"
 
+	x_label_format = str
+	"Set the format function used to render the X axis labels"
+
+	y_label_format = str
+	"Set the format function used to render the Y axis labels"
+
 	stacked = False
 
 	stylesheet_names = Graph.stylesheet_names + ['plot.css']
@@ -252,9 +258,9 @@ class Plot(Graph):
 	def get_y_values(self): return self.get_data_values('y')
 
 	def get_x_labels(self):
-		return list(map(str, self.get_x_values()))
+		return list(map(self.x_label_format, self.get_x_values()))
 	def get_y_labels(self):
-		return list(map(str, self.get_y_values()))
+		return list(map(self.y_label_format, self.get_y_values()))
 
 	def field_size(self, axis):
 		size = {'x': 'width', 'y': 'height'}[axis]
