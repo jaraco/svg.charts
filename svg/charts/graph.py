@@ -162,9 +162,11 @@ class Graph(object):
 
 	def _burn_compressed(self):
 		if self.compress and not zlib:
-			self.root.addprevious(etree.Comment('Python zlib not available for SVGZ'))
+			msg = 'Python zlib not available for SVGZ'
+			self.root.addprevious(etree.Comment(msg))
 
-		data = etree.tostring(self.root, pretty_print=True, xml_declaration=True, encoding='utf-8')
+		data = etree.tostring(self.root, pretty_print=True, xml_declaration=True,
+			encoding='utf-8')
 
 		if self.compress and zlib:
 			data = zlib.compress(data)
