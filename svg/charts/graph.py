@@ -18,10 +18,6 @@ import pkg_resources
 import cssutils
 from lxml import etree
 
-try:
-	import zlib
-except ImportError:
-	zlib = None
 
 # cause the SVG profile to be loaded
 __import__('svg.charts.css')
@@ -86,8 +82,6 @@ class Graph(object):
 	css_inline = False
 
 	top_align = top_font = right_align = right_font = 0
-
-	compress = False
 
 	stylesheet_names = ['graph.css']
 
@@ -158,20 +152,8 @@ class Graph(object):
 		self.graph.append(self.foreground)
 		self.render_inline_styles()
 
-		return self._burn_compressed()
-
-	def _burn_compressed(self):
-		if self.compress and not zlib:
-			msg = 'Python zlib not available for SVGZ'
-			self.root.addprevious(etree.Comment(msg))
-
-		data = etree.tostring(self.root, pretty_print=True, xml_declaration=True,
+		return etree.tostring(self.root, pretty_print=True, xml_declaration=True,
 			encoding='utf-8')
-
-		if self.compress and zlib:
-			data = zlib.compress(data)
-
-		return data
 
 	KEY_BOX_SIZE = 12
 

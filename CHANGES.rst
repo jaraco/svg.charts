@@ -1,3 +1,9 @@
+4.0
+===
+
+* Removed support for ``compress`` flag on Graphs.
+  Simply invoke ``zlib.compress`` on the data if needed.
+
 3.4.4
 =====
 
