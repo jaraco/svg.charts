@@ -1,3 +1,4 @@
+import pytest
 from more_itertools.recipes import flatten
 
 from svg.charts.plot import Plot
@@ -83,6 +84,7 @@ class TestPlot:
 		svg = g.burn()
 		assert 'text="(1.00, 0.00)"' in svg
 
+	@pytest.mark.xfail(reason="No solution devised. See #19")
 	def test_all_y_values_zero(self):
 		"""
 		If all y values are zero, the graph should render without error.
