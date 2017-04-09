@@ -82,3 +82,30 @@ class TestPlot:
 		g.add_data(spec)
 		svg = g.burn()
 		assert 'text="(1.00, 0.00)"' in svg
+
+	def test_issue_19(self):
+		graph = Plot()
+		options = dict(
+			area_fill=True,
+			key=True,
+			width=1900,
+			height=1040,
+			graph_title="test issue 19",
+			show_graph_title=True,
+			no_css=False,
+			# make sure the graph is always based at 0,0
+			min_y_value=0,
+			top_align=True,
+			# only show integers on the x-axis
+			scale_x_integers=True,
+			# only show integers on the y-axis
+			scale_y_integers=True,
+		)
+		graph.__dict__.update(options)
+
+		durations = [0.0, 0.0, 0.0, 0.0]
+		x_labels = range(len(durations))
+		pairs = [item for items in zip(x_labels, durations) for item in items]
+
+		graph.add_data(dict(data=pairs, title='test'))
+		graph.burn()
