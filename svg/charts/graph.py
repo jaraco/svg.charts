@@ -152,8 +152,11 @@ class Graph(object):
 		self.graph.append(self.foreground)
 		self.render_inline_styles()
 
-		return etree.tostring(self.root, pretty_print=True, xml_declaration=True,
-			encoding='utf-8')
+		return self.render(self.root)
+
+	@staticmethod
+	def render(tree):
+		return etree.tostring(tree, encoding='unicode')
 
 	KEY_BOX_SIZE = 12
 

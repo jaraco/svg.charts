@@ -29,7 +29,7 @@ class TestPlot:
 		"""
 		g = Plot(dict(show_data_points=True))
 		g.add_data(dict(data=[1, 0, 2, 1], title='foo'))
-		assert b'circle' in g.burn()
+		assert 'circle' in g.burn()
 
 	def test_pairs(self):
 		"""
@@ -37,7 +37,7 @@ class TestPlot:
 		"""
 		g = Plot(dict(show_data_points=True))
 		g.add_data(dict(data=[(1, 0), (2, 1)], title='pairs'))
-		assert b'circle' in g.burn()
+		assert 'circle' in g.burn()
 
 	def test_text(self):
 		"""
@@ -55,8 +55,8 @@ class TestPlot:
 			],
 			title='labels'))
 		svg = g.burn()
-		assert b'Sam' in svg
-		assert b'Dan' in svg
+		assert 'Sam' in svg
+		assert 'Dan' in svg
 
 	@staticmethod
 	def get_data():
@@ -71,7 +71,7 @@ class TestPlot:
 		)
 		g.add_data(spec)
 		svg = g.burn()
-		assert b'text="(1.00, 0.00)"' in svg
+		assert 'text="(1.00, 0.00)"' in svg
 
 	def test_iterable_data_flat(self):
 		g = Plot()
@@ -81,4 +81,4 @@ class TestPlot:
 		)
 		g.add_data(spec)
 		svg = g.burn()
-		assert b'text="(1.00, 0.00)"' in svg
+		assert 'text="(1.00, 0.00)"' in svg

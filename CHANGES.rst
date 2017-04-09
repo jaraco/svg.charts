@@ -4,6 +4,11 @@
 * Removed support for ``compress`` flag on Graphs.
   Simply invoke ``zlib.compress`` on the data if needed.
 
+* ``Graph.burn`` now returns the rendered SVG as a
+  Unicode string without XML declaration and without
+  pretty-printing. To customize the XML rendering,
+  override or replace the ``Graph.render`` static method.
+
 3.4.4
 =====
 
