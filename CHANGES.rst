@@ -1,3 +1,10 @@
+4.0.1
+=====
+
+* #22: Now ``burn`` uses text mode to write the data,
+  giving a more normal experience on Python 3.
+* Refreshed project metadata.
+
 4.0
 ===
 
