@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 extensions = [
-    'sphinx.ext.autodoc',
-    'jaraco.packaging.sphinx',
-    'rst.linker',
+	'sphinx.ext.autodoc',
+	'jaraco.packaging.sphinx',
+	'rst.linker',
 ]
 
 master_doc = 'index'
@@ -16,7 +16,7 @@ link_files = {
 		),
 		replace=[
 			dict(
-				pattern=r'(Issue )?#(?P<issue>\d+)',
+				pattern=r'(Issue #|\B#)(?P<issue>\d+)',
 				url='{package_url}/issues/{issue}',
 			),
 			dict(

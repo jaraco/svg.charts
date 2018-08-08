@@ -3,20 +3,17 @@
 
 .. image:: https://img.shields.io/pypi/pyversions/svg.charts.svg
 
-.. image:: https://img.shields.io/pypi/dm/svg.charts.svg
-
 .. image:: https://img.shields.io/travis/jaraco/svg.charts/master.svg
-   :target: http://travis-ci.org/jaraco/svg.charts
+   :target: https://travis-ci.org/jaraco/svg.charts
+
+.. .. image:: https://img.shields.io/appveyor/ci/jaraco/skeleton/master.svg
+..    :target: https://ci.appveyor.com/project/jaraco/skeleton/branch/master
+
+.. .. image:: https://readthedocs.org/projects/skeleton/badge/?version=latest
+..    :target: https://skeleton.readthedocs.io/en/latest/?badge=latest
 
 ``svg.charts`` is a pure-python library for generating charts
 and graphs using Scalable Vector Graphics.
-
-License
-=======
-
-License is indicated in the project metadata (typically one or more
-of the Trove classifiers). For more details, see `this explanation
-<https://github.com/jaraco/skeleton/issues/1>`_.
 
 Acknowledgements
 ================
