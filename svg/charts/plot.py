@@ -2,21 +2,20 @@
 
 "plot.py"
 
+import functools
 from itertools import count, chain
 
 import six
 from six.moves import map
 
 from lxml import etree
+import more_itertools
 
 from svg.charts.graph import Graph
 from .util import float_range
 
 
-def get_pairs(i):
-	i = iter(i)
-	while True:
-		yield next(i), next(i)
+get_pairs = functools.partial(more_itertools.chunked, n=2)
 
 
 class Plot(Graph):
