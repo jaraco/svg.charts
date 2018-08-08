@@ -22,6 +22,7 @@ from lxml import etree
 # cause the SVG profile to be loaded
 __import__('svg.charts.css')
 
+
 class Graph(object):
 	"""
 	Base object for generating SVG Graphs
@@ -61,14 +62,15 @@ class Graph(object):
 	show_x_title = False
 	x_title = 'X Field names'
 	show_y_title = False
-	y_title_text_direction = 'bt' # 'bt' for bottom to top; 'tb' for top to bottom
+	# 'bt' for bottom to top; 'tb' for top to bottom
+	y_title_text_direction = 'bt'
 	y_title = 'Y Scale'
 	show_graph_title = False
 	graph_title = 'Graph Title'
 	show_graph_subtitle = False
 	graph_subtitle = 'Graph Subtitle'
 	key = True
-	key_position = 'right' # 'bottom' or 'right',
+	key_position = 'right'  # 'bottom' or 'right',
 
 	font_size = 12
 	title_font_size = 16
@@ -85,7 +87,7 @@ class Graph(object):
 
 	stylesheet_names = ['graph.css']
 
-	def __init__(self, config = {}):
+	def __init__(self, config={}):
 		"""Initialize the graph object with the graph settings."""
 		if self.__class__ is Graph:
 			raise NotImplementedError("Graph is an abstract base class")
@@ -121,7 +123,8 @@ class Graph(object):
 		# materialize an iterable data
 		conf['data'] = tuple(data)
 
-	def process_data(self, data): pass
+	def process_data(self, data):
+		pass
 
 	def clear_data(self):
 		"""
@@ -138,9 +141,11 @@ class Graph(object):
 		Raises ValueError when no data set has
 		been added to the graph object.
 		"""
-		if not self.data: raise ValueError("No data available")
+		if not self.data:
+			raise ValueError("No data available")
 
-		if hasattr(self, 'calculations'): self.calculations()
+		if hasattr(self, 'calculations'):
+			self.calculations()
 
 		self.start_svg()
 		self.calculate_graph_dimensions()
@@ -173,9 +178,12 @@ class Graph(object):
 			label_lengths = map(len, self.get_y_labels())
 			max_y_label_len = max(label_lengths)
 			max_y_label_height_px = 0.6 * max_y_label_len * self.y_label_font_size
-		if self.show_y_labels: bl += max_y_label_height_px
-		if self.stagger_y_labels: bl += max_y_label_height_px + 10
-		if self.show_y_title: bl += self.y_title_font_size + 5
+		if self.show_y_labels:
+			bl += max_y_label_height_px
+		if self.stagger_y_labels:
+			bl += max_y_label_height_px + 10
+		if self.show_y_title:
+			bl += self.y_title_font_size + 5
 		self.border_left = bl
 
 	def max_y_label_width_px(self):
@@ -205,9 +213,11 @@ class Graph(object):
 		border_top.
 		"""
 		self.border_top = 5
-		if self.show_graph_title: self.border_top += self.title_font_size
+		if self.show_graph_title:
+			self.border_top += self.title_font_size
 		self.border_top += 5
-		if self.show_graph_subtitle: self.border_top += self.subtitle_font_size
+		if self.show_graph_subtitle:
+			self.border_top += self.subtitle_font_size
 
 	@staticmethod
 	def _w3c_name(name):
@@ -223,8 +233,8 @@ class Graph(object):
 		Add pop-up information to a point on the graph.
 		"""
 		txt_width = len(label) * self.font_size * 0.6 + 10
-		tx = x + [5,-5][int(x+txt_width > self.width)]
-		anchor = ['start', 'end'][x+txt_width > self.width]
+		tx = x + [5, -5][int(x + txt_width > self.width)]
+		anchor = ['start', 'end'][x + txt_width > self.width]
 		style = 'fill: #000; text-anchor: %s;' % anchor
 		id = 'label-%s' % self._w3c_name(label)
 		attrs = {
@@ -267,8 +277,10 @@ class Graph(object):
 				max_x_label_len = functools.reduce(max, label_lengths)
 				max_x_label_height_px *= 0.6 * max_x_label_len
 			bb += max_x_label_height_px
-			if self.stagger_x_labels: bb += max_x_label_height_px + 10
-		if self.show_x_title: bb += self.x_title_font_size + 5
+			if self.stagger_x_labels:
+				bb += max_x_label_height_px + 10
+		if self.show_x_title:
+			bb += self.x_title_font_size + 5
 		self.border_bottom = bb
 
 	def draw_graph(self):
@@ -286,9 +298,9 @@ class Graph(object):
 			'width': str(self.graph_width),
 			'height': str(self.graph_height),
 			'class': 'graphBackground'
-			})
+		})
 
-		#Axis
+		# Axis
 		etree.SubElement(self.graph, 'path', {
 			'd': 'M 0 0 v%s' % self.graph_height,
 			'class': 'axis',
@@ -332,7 +344,8 @@ class Graph(object):
 			'y': str(y),
 			'class': 'dataPointLabel'})
 		e.text = str(value)
-		if style: e.set('style', style)
+		if style:
+			e.set('style', style)
 
 	def draw_x_labels(self):
 		"Draw the X axis labels"
@@ -368,7 +381,7 @@ class Graph(object):
 
 		if self.rotate_x_labels:
 			transform = 'rotate(90 %d %d) translate(0 -%d)' % \
-				(x, y-self.x_label_font_size, self.x_label_font_size/4)
+				(x, y - self.x_label_font_size, self.x_label_font_size / 4)
 			text.set('transform', transform)
 			text.set('style', 'text-anchor: start')
 		else:
@@ -382,12 +395,12 @@ class Graph(object):
 		return 0
 
 	def get_field_width(self):
-		return float(self.graph_width - self.font_size*2*self.right_font) / \
+		return float(self.graph_width - self.font_size * 2 * self.right_font) / \
 			(len(self.get_x_labels()) - self.right_align)
 	field_width = get_field_width
 
 	def get_field_height(self):
-		return float(self.graph_height - self.font_size*2*self.top_font) / \
+		return float(self.graph_height - self.font_size * 2 * self.top_font) / \
 			(len(self.get_y_labels()) - self.top_align)
 	field_height = get_field_height
 
@@ -408,7 +421,8 @@ class Graph(object):
 
 	def get_y_offset(self):
 		result = self.graph_height + self.y_label_offset(self.field_height())
-		if not self.rotate_y_labels: result += self.font_size/1.2
+		if not self.rotate_y_labels:
+			result += self.font_size / 1.2
 		return result
 	y_offset = property(get_y_offset)
 
@@ -419,7 +433,7 @@ class Graph(object):
 		text.text = label
 
 		y = self.y_offset - (label_height * index)
-		x = {True: 0, False:-3}[self.rotate_y_labels]
+		x = {True: 0, False: -3}[self.rotate_y_labels]
 
 		if self.stagger_y_labels and (index % 2):
 			stagger = self.y_label_font_size + 5
@@ -438,16 +452,17 @@ class Graph(object):
 			text.set('transform', transform)
 			text.set('style', 'text-anchor: middle')
 		else:
-			text.set('y', str(y - self.y_label_font_size/2))
+			text.set('y', str(y - self.y_label_font_size / 2))
 			text.set('style', 'text-anchor: end')
 
 	def draw_x_guidelines(self, label_height, count):
 		"Draw the X-axis guidelines"
-		if not self.show_x_guidelines: return
+		if not self.show_x_guidelines:
+			return
 		# skip the first one
 		for count in range(1, count):
 			move = 'M {start} 0 v{stop}'.format(
-				start=label_height*count,
+				start=label_height * count,
 				stop=self.graph_height,
 			)
 			path = {'d': move, 'class': 'guideLines'}
@@ -455,10 +470,11 @@ class Graph(object):
 
 	def draw_y_guidelines(self, label_height, count):
 		"Draw the Y-axis guidelines"
-		if not self.show_y_guidelines: return
+		if not self.show_y_guidelines:
+			return
 		for count in range(1, count):
 			move = 'M 0 {start} h{stop}'.format(
-				start=self.graph_height - label_height*count,
+				start=self.graph_height - label_height * count,
 				stop=self.graph_width,
 			)
 			path = {'d': move, 'class': 'guideLines'}
@@ -466,10 +482,14 @@ class Graph(object):
 
 	def draw_titles(self):
 		"Draws the graph title and subtitle"
-		if self.show_graph_title: self.draw_graph_title()
-		if self.show_graph_subtitle: self.draw_graph_subtitle()
-		if self.show_x_title: self.draw_x_title()
-		if self.show_y_title: self.draw_y_title()
+		if self.show_graph_title:
+			self.draw_graph_title()
+		if self.show_graph_subtitle:
+			self.draw_graph_subtitle()
+		if self.show_x_title:
+			self.draw_x_title()
+		if self.show_y_title:
+			self.draw_y_title()
 
 	def draw_graph_title(self):
 		text = etree.SubElement(self.root, 'text', {
@@ -479,20 +499,21 @@ class Graph(object):
 		text.text = self.graph_title
 
 	def draw_graph_subtitle(self):
-		y_subtitle_options = [self.subtitle_font_size, self.title_font_size+10]
+		y_subtitle_options = [self.subtitle_font_size, self.title_font_size + 10]
 		y_subtitle = y_subtitle_options[self.show_graph_title]
 		text = etree.SubElement(self.root, 'text', {
-			'x': str(self.width/2),
+			'x': str(self.width / 2),
 			'y': str(y_subtitle),
 			'class': 'subTitle',
-			})
+		})
 		text.text = self.graph_subtitle
 
 	def draw_x_title(self):
 		y = self.graph_height + self.border_top + self.x_title_font_size
 		if self.show_x_labels:
-			y_size = self.x_label_font_size+5
-			if self.stagger_x_labels: y_size*=2
+			y_size = self.x_label_font_size + 5
+			if self.stagger_x_labels:
+				y_size *= 2
 			y += y_size
 		x = self.width / 2
 
@@ -500,12 +521,12 @@ class Graph(object):
 			'x': str(x),
 			'y': str(y),
 			'class': 'xAxisTitle',
-			})
+		})
 		text.text = self.x_title
 
 	def draw_y_title(self):
 		x = self.y_title_font_size
-		if self.y_title_text_direction=='bt':
+		if self.y_title_text_direction == 'bt':
 				x += 3
 				rotate = -90
 		else:
@@ -516,7 +537,7 @@ class Graph(object):
 			'x': str(x),
 			'y': str(y),
 			'class': 'yAxisTitle',
-			})
+		})
 		text.text = self.y_title
 		transform = 'rotate({rotate}, {x}, {y})'.format(x=x, y=y, rotate=rotate)
 		text.set('transform', transform)
@@ -578,7 +599,7 @@ class Graph(object):
 		styles = self.parse_css()
 		for node in self.root.xpath('//*[@class]'):
 			cl = '.' + node.attrib['class']
-			if not cl in styles:
+			if cl not in styles:
 				continue
 			style = styles[cl]
 			if 'style' in node.attrib:
@@ -591,7 +612,7 @@ class Graph(object):
 		of class/style pairs.
 		"""
 		# todo: save the prefs for use later
-		#orig_prefs = cssutils.ser.prefs
+		# orig_prefs = cssutils.ser.prefs
 		cssutils.ser.prefs.useMinified()
 		pairs = (
 			(r.selectorText, r.style.cssText)
@@ -622,14 +643,14 @@ class Graph(object):
 			None: SVG_NAMESPACE,
 			'xlink': 'http://www.w3.org/1999/xlink',
 			'a3': 'http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/',
-			}
+		}
 		root_attrs = self._get_root_attributes()
-		self.root = etree.Element(SVG+"svg", attrib=root_attrs, nsmap=NSMAP)
+		self.root = etree.Element(SVG + "svg", attrib=root_attrs, nsmap=NSMAP)
 		if hasattr(self, 'style_sheet_href'):
 			pi = etree.ProcessingInstruction(
 				'xml-stylesheet',
 				'href="%s" type="text/css"' % self.style_sheet_href
-				)
+			)
 			self.root.addprevious(pi)
 
 		comment_strings = (
@@ -637,15 +658,16 @@ class Graph(object):
 			' SVG.Graph by Jason R. Coombs ',
 			' Based on SVG::Graph by Sean E. Russel ',
 			' Based on Perl SVG:TT:Graph by Leo Lapworth & Stephan Morgan ',
-			' '+'/'*66,
-			)
+			' ' + '/' * 66,
+		)
 		list(map(self.root.append, map(etree.Comment, comment_strings)))
 
 		defs = etree.SubElement(self.root, 'defs')
 		self.add_defs(defs)
 
 		if not hasattr(self, 'style_sheet_href') and not self.css_inline:
-			self.root.append(etree.Comment(' include default stylesheet if none specified '))
+			self.root.append(etree.Comment(
+				' include default stylesheet if none specified '))
 			style = etree.SubElement(defs, 'style', type='text/css')
 			# TODO: the text was previously escaped in a CDATA declaration... how
 			#  to do that with etree?
@@ -679,13 +701,15 @@ class Graph(object):
 		"Get the stylesheets for this instance"
 		# allow css to include class variables
 		class_vars = class_dict(self)
-		loader = functools.partial(self.load_resource_stylesheet,
+		loader = functools.partial(
+			self.load_resource_stylesheet,
 			subs=class_vars)
 		sheets = list(map(loader, self.stylesheet_names))
 		return sheets
 
 	def get_stylesheet(self):
-		cssutils.log.setLevel(30) # disable INFO log messages
+		cssutils.log.setLevel(30)  # disable INFO log messages
+
 		def merge_sheets(s1, s2):
 			list(map(s1.add, s2))
 			return s1

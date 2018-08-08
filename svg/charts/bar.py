@@ -11,6 +11,7 @@ from svg.charts.graph import Graph
 
 __all__ = 'Bar', 'VerticalBar', 'HorizontalBar'
 
+
 class Bar(Graph):
 	"""
 	Create presentation quality SVG bar graphs easily.
@@ -82,7 +83,8 @@ class Bar(Graph):
 	# adapted from Plot
 	def get_data_values(self):
 		min_value, max_value, scale_division = self.data_range()
-		result = tuple(float_range(min_value, max_value + scale_division, scale_division))
+		result = tuple(
+			float_range(min_value, max_value + scale_division, scale_division))
 		if self.scale_integers:
 			result = map(int, result)
 		return result
@@ -115,13 +117,14 @@ class Bar(Graph):
 		# return max(map(lambda set: max(set['data']), self.data))
 
 	def data_min(self):
-		if not getattr(self, 'min_scale_value') is None: return self.min_scale_value
+		if not getattr(self, 'min_scale_value') is None:
+			return self.min_scale_value
 		min_value = min(chain(*map(lambda set: set['data'], self.data)))
 		min_value = min(min_value, 0)
 		return min_value
 
 	def get_bar_gap(self, field_size):
-		bar_gap = 10 # default gap
+		bar_gap = 10  # default gap
 		if field_size < 10:
 			# adjust for narrow fields
 			bar_gap = field_size / 2
@@ -136,10 +139,10 @@ class Bar(Graph):
 		dataset_index is the index into the current dataset.
 		field_index is the index into the current field set.
 		"""
-		return 'fill%s' % (dataset_index+1)
+		return 'fill%s' % (dataset_index + 1)
 
 
-def float_range(start = 0, stop = None, step = 1):
+def float_range(start=0, stop=None, step=1):
 	"Much like the built-in function range, but accepts floats"
 	while start < stop:
 		yield float(start)
@@ -160,7 +163,7 @@ class VerticalBar(Bar):
 
 	def draw_data(self):
 		min_value = self.data_min()
-		unit_size = self.graph_height - self.font_size*2*self.top_font
+		unit_size = self.graph_height - self.font_size * 2 * self.top_font
 		unit_size /= max(self.get_data_values()) - min(self.get_data_values())
 
 		bar_gap = self.get_bar_gap(self.get_field_width())
@@ -169,9 +172,9 @@ class VerticalBar(Bar):
 		if self.stack == 'side':
 			bar_width //= len(self.data)
 
-		x_mod = (self.graph_width - bar_gap)//2
+		x_mod = (self.graph_width - bar_gap) // 2
 		if self.stack == 'side':
-			x_mod -= bar_width//2
+			x_mod -= bar_width // 2
 
 		bottom = self.graph_height
 
@@ -188,7 +191,7 @@ class VerticalBar(Bar):
 
 				length = (abs(value) - max(min_value, 0)) * unit_size
 				# top is 0 if value is negative
-				top = bottom - ((max(value,0) - min_value) * unit_size)
+				top = bottom - ((max(value, 0) - min_value) * unit_size)
 				if self.stack == 'side':
 					left += bar_width * dataset_count
 
@@ -200,14 +203,14 @@ class VerticalBar(Bar):
 					'class': self._fill_class(dataset_count, field_count),
 				})
 
-				self.make_datapoint_text(left + bar_width/2, top-6, value)
+				self.make_datapoint_text(left + bar_width / 2, top - 6, value)
+
 
 class HorizontalBar(Bar):
 	rotate_y_labels = True
 	show_x_guidelines = True
 	show_y_guidelines = False
 	right_align = right_font = True
-
 
 	def get_x_labels(self):
 		return self.get_data_labels()
@@ -222,7 +225,7 @@ class HorizontalBar(Bar):
 		min_value = self.data_min()
 
 		unit_size = self.graph_width
-		unit_size -= self.font_size*2*self.right_font
+		unit_size -= self.font_size * 2 * self.right_font
 		unit_size /= max(self.get_data_values()) - min(self.get_data_values())
 
 		bar_gap = self.get_bar_gap(self.get_field_height())
@@ -237,7 +240,7 @@ class HorizontalBar(Bar):
 			for dataset_count, dataset in enumerate(self.data):
 				value = dataset['data'][field_count]
 
-				top = self.graph_height - (self.get_field_height() * (field_count+1))
+				top = self.graph_height - (self.get_field_height() * (field_count + 1))
 				if self.stack == 'side':
 					top += (bar_height * dataset_count)
 				# cases (assume 0 = +ve):
@@ -257,5 +260,9 @@ class HorizontalBar(Bar):
 					'class': self._fill_class(dataset_count, field_count),
 				})
 
-				self.make_datapoint_text(left+length+5, top+y_mod, value,
-										 "text-anchor: start; ")
+				self.make_datapoint_text(
+					left + length + 5,
+					top + y_mod,
+					value,
+					"text-anchor: start; ",
+				)

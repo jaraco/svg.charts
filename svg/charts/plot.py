@@ -83,8 +83,8 @@ class Plot(Graph):
 
 	Unlike the other types of charts, data sets must contain x,y pairs::
 
-	  [1, 2]     # A data set with 1 point: (1,2)
-	  [1,2, 5,6] # A data set with 2 points: (1,2) and (5,6)
+		[1, 2]     # A data set with 1 point: (1,2)
+		[1,2, 5,6] # A data set with 2 points: (1,2) and (5,6)
 
 	"""
 
@@ -92,9 +92,9 @@ class Plot(Graph):
 
 	scale_y_divisions = None
 	"""
-	Determines the scaling for the Y axis divisions.
+	Determines the scaling for the Y axis divisions::
 
-	  Plot.scale_y_divisions = 0.5
+		Plot.scale_y_divisions = 0.5
 
 	would cause the graph to attempt to generate labels stepped by 0.5; e.g.:
 	0, 0.5, 1, 1.5, 2, ...
@@ -155,11 +155,11 @@ class Plot(Graph):
 		super(Plot, self).validate_data(conf)
 		series = conf['data']
 		try:
-		    [len(x) for x in series]
+			[len(x) for x in series]
 		except TypeError:
-		    self.validate_data_flat(series)
+			self.validate_data_flat(series)
 		else:
-		    self.validate_data_pairs(series)
+			self.validate_data_pairs(series)
 
 	def validate_data_flat(self, series):
 		# Should be [ x, y, ... ] pairs.
@@ -203,18 +203,17 @@ class Plot(Graph):
 		data_index = getattr(self, '%s_data_index' % axis)
 		return [p[data_index] for p in dataset['data']]
 
-
 	def data_max(self, axis):
 		max_value = max(chain(*[
-		  self.get_single_axis_values(axis, ds) for ds in self.data]))
+			self.get_single_axis_values(axis, ds) for ds in self.data]))
 		spec_max = getattr(self, 'max_%s_value' % axis)
 		if spec_max is not None:
-			  max_value = max(max_value, spec_max)
+			max_value = max(max_value, spec_max)
 		return max_value
 
 	def data_min(self, axis):
 		min_value = min(chain(*[
-		  self.get_single_axis_values(axis, ds) for ds in self.data]))
+			self.get_single_axis_values(axis, ds) for ds in self.data]))
 		spec_min = getattr(self, 'min_%s_value' % axis)
 		if spec_min is not None:
 			min_value = min(min_value, spec_min)
@@ -222,6 +221,7 @@ class Plot(Graph):
 
 	x_data_index = 0
 	y_data_index = 1
+
 	def data_range(self, axis):
 		min_value = self.data_min(axis)
 		max_value = self.data_max(axis)
@@ -240,18 +240,25 @@ class Plot(Graph):
 
 		return min_value, max_value, scale_division
 
-	def x_range(self): return self.data_range('x')
-	def y_range(self): return self.data_range('y')
+	def x_range(self):
+		return self.data_range('x')
+
+	def y_range(self):
+		return self.data_range('y')
 
 	def get_data_values(self, axis):
 		min_value, max_value, scale_division = self.data_range(axis)
 		return tuple(float_range(*self.data_range(axis)))
 
-	def get_x_values(self): return self.get_data_values('x')
-	def get_y_values(self): return self.get_data_values('y')
+	def get_x_values(self):
+		return self.get_data_values('x')
+
+	def get_y_values(self):
+		return self.get_data_values('y')
 
 	def get_x_labels(self):
 		return list(map(str, self.get_x_values()))
+
 	def get_y_labels(self):
 		return list(map(str, self.get_y_values()))
 
@@ -263,31 +270,37 @@ class Plot(Graph):
 		dx = (
 			float(max_d - values[-1]) / (values[-1] - values[-2])
 			if len(values) > 1 else max_d
-			)
+		)
 		graph_size = getattr(self, 'graph_%s' % size)
 		side_font = getattr(self, '%s_font' % side)
 		side_align = getattr(self, '%s_align' % side)
-		result = (float(graph_size) - self.font_size*2*side_font) / \
-		   (len(values) + dx - side_align)
+		result = (
+			(float(graph_size) - self.font_size * 2 * side_font)
+			/ (len(values) + dx - side_align)
+		)
 		return result
 
-	def field_width(self): return self.field_size('x')
-	def field_height(self): return self.field_size('y')
+	def field_width(self):
+		return self.field_size('x')
+
+	def field_height(self):
+		return self.field_size('y')
 
 	def draw_data(self):
 		self.load_transform_parameters()
 		for line, data in six.moves.zip(count(1), self.data):
-			x_start, y_start = self.transform_output_coordinates(
-				(data['data'][0][self.x_data_index],
-				data['data'][0][self.y_data_index])
-			)
+			x_start, y_start = self.transform_output_coordinates((
+				data['data'][0][self.x_data_index],
+				data['data'][0][self.y_data_index],
+			))
 			data_points = data['data']
 			graph_points = self.get_graph_points(data_points)
 			lpath = self.get_lpath(graph_points)
 			if self.area_fill:
 				graph_height = self.graph_height
 				path_spec = {
-					'd': 'M%(x_start)f %(graph_height)f '
+					'd':
+						'M%(x_start)f %(graph_height)f '
 						'%(lpath)s V%(graph_height)f Z' % locals(),
 					'class': 'fill%(line)d' % locals()
 				}
@@ -302,7 +315,7 @@ class Plot(Graph):
 		self._draw_constant_lines()
 		del self.__transform_parameters
 
-	def add_constant_line(self, value, label = None, style = None):
+	def add_constant_line(self, value, label=None, style=None):
 		self.constant_lines = getattr(self, 'constant_lines', [])
 		self.constant_lines.append((value, label, style))
 
@@ -330,9 +343,9 @@ class Plot(Graph):
 		"Cache the parameters necessary to transform x & y coordinates"
 		x_min, x_max, x_div = self.x_range()
 		y_min, y_max, y_div = self.y_range()
-		x_step = (float(self.graph_width) - self.font_size*2) / \
+		x_step = (float(self.graph_width) - self.font_size * 2) / \
 			(x_max - x_min)
-		y_step = (float(self.graph_height) - self.font_size*2) / \
+		y_step = (float(self.graph_height) - self.font_size * 2) / \
 			(y_max - y_min)
 		self.__transform_parameters = dict(locals())
 		del self.__transform_parameters['self']
@@ -350,16 +363,17 @@ class Plot(Graph):
 		x_step = self.__transform_parameters['x_step']
 		y_min = self.__transform_parameters['y_min']
 		y_step = self.__transform_parameters['y_step']
-		#locals().update(self.__transform_parameters)
-		#vars().update(self.__transform_parameters)
+		# locals().update(self.__transform_parameters)
+		# vars().update(self.__transform_parameters)
 		x = (x - x_min) * x_step
 		y = self.graph_height - (y - y_min) * y_step
-		return x,y
+		return x, y
 
 	def draw_data_points(self, line, data_points, graph_points):
 		if not self.show_data_points \
-			and not self.show_data_values: return
-		for (dp,(gx,gy)) in six.moves.zip(data_points, graph_points):
+			and not self.show_data_values:
+				return
+		for (dp, (gx, gy)) in six.moves.zip(data_points, graph_points):
 			dx = dp[0]
 			dy = dp[1]
 			if self.show_data_points:
@@ -373,7 +387,7 @@ class Plot(Graph):
 			if self.show_data_values:
 				self.add_popup(gx, gy, self.format(dx, dy))
 			text = getattr(dp, 'text', dy)
-			self.make_datapoint_text(gx, gy-6, text)
+			self.make_datapoint_text(gx, gy - 6, text)
 
 	def format(self, x, y):
-		return '(%0.2f, %0.2f)' % (x,y)
+		return '(%0.2f, %0.2f)' % (x, y)

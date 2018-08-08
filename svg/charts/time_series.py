@@ -97,10 +97,12 @@ class Plot(svg.charts.plot.Plot):
 
 	popup_format = x_label_format = '%Y-%m-%d %H:%M:%S'
 	"The formatting usped for the popups.  See x_label_format"
-	__doc_x_label_format_ = "The format string used to format the X axis labels.  See strftime."
+	__doc_x_label_format_ = (
+		"The format string used to format the X axis labels.  See strftime."
+	)
 
 	timescale_divisions = None
-	"""
+	r"""
 	Use this to set the spacing between dates on the axis.  The value
 	must be of the form
 	"\d+ ?(days|weeks|months|years|hours|minutes|seconds)?"
@@ -144,12 +146,16 @@ class Plot(svg.charts.plot.Plot):
 		# the date should be in the first axis;
 		# replace value with parsed date.
 		series = data['data']
-		data['data'] = [(self.parse_date(p[0]),) + tuple(p[1:])
-				for p in series]
+		data['data'] = [
+			(self.parse_date(p[0]),) + tuple(p[1:])
+			for p in series
+		]
 
 	_min_x_value = svg.charts.plot.Plot.min_x_value
+
 	def get_min_x_value(self):
 		return self._min_x_value
+
 	def set_min_x_value(self, date):
 		self._min_x_value = self.parse_date(date)
 	min_x_value = property(get_min_x_value, set_min_x_value)
@@ -158,21 +164,30 @@ class Plot(svg.charts.plot.Plot):
 		return fromtimestamp(x).strftime(self.popup_format)
 
 	def get_x_labels(self):
-		return list(map(lambda t: fromtimestamp(t).strftime(self.x_label_format), self.get_x_values()))
+		return list(map(
+			lambda t: fromtimestamp(t).strftime(self.x_label_format),
+			self.get_x_values(),
+		))
 
 	def get_x_values(self):
 		result = self.get_x_timescale_division_values()
-		if result: return result
+		if result:
+			return result
 		return tuple(float_range(*self.x_range()))
 
 	def get_x_timescale_division_values(self):
-		if not self.timescale_divisions: return
+		if not self.timescale_divisions:
+			return
 		min, max, scale_division = self.x_range()
-		m = re.match('(?P<amount>\d+) ?(?P<division_units>days|weeks|months|years|hours|minutes|seconds)?', self.timescale_divisions)
+		m = re.match(
+			r'(?P<amount>\d+) '
+			'?(?P<division_units>days|weeks|months|years|hours|minutes|seconds)?',
+			self.timescale_divisions)
 		# copy amount and division_units into the local namespace
 		division_units = m.groupdict()['division_units'] or 'days'
 		amount = int(m.groupdict()['amount'])
-		if not amount: return
+		if not amount:
+			return
 		delta = relativedelta(**{division_units: amount})
 		result = tuple(self.get_time_range(min, max, delta))
 		return result

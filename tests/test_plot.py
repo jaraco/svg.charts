@@ -14,7 +14,7 @@ class TestPlot:
 
 		Credit to Jean for the test code as well.
 		"""
-		g = Plot(dict(scale_y_integers = True))
+		g = Plot(dict(scale_y_integers=True))
 		g.add_data(dict(data=[1, 0, 2, 1], title='foo'))
 		g.burn()
 
@@ -53,7 +53,7 @@ class TestPlot:
 		g.add_data(dict(data=[
 			D(1, 0, 'Sam'),
 			D(2, 1, 'Dan'),
-			],
+		],
 			title='labels'))
 		svg = g.burn()
 		assert 'Sam' in svg

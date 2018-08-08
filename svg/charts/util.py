@@ -16,6 +16,7 @@ def reverse_mapping(mapping):
 	keys, values = zip(*mapping.items())
 	return dict(zip(values, keys))
 
+
 def flatten_mapping(mapping):
 	"""
 	For every key that has an __iter__ method, assign the values
@@ -29,6 +30,7 @@ def flatten_mapping(mapping):
 		for keys, value in mapping.items()
 		for key in always_iterable(keys)
 	}
+
 
 def float_range(start=0, stop=None, step=1):
 	"""

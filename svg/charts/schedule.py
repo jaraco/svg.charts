@@ -25,7 +25,7 @@ class TimeScale(object):
 
 	def __mul__(self, delta):
 		scale = divide_timedelta(delta, self.range)
-		return scale*self.width
+		return scale * self.width
 
 
 class Schedule(Graph):
@@ -154,7 +154,7 @@ class Schedule(Graph):
 	# copied from Bar
 	# TODO, refactor this into a common base class (or mix-in)
 	def get_bar_gap(self, field_size):
-		bar_gap = 10 # default gap
+		bar_gap = 10  # default gap
 		if field_size < 10:
 			# adjust for narrow fields
 			bar_gap = field_size / 2
@@ -203,7 +203,8 @@ class Schedule(Graph):
 		return x.strftime(self.popup_format)
 
 	def get_x_labels(self):
-		format = lambda x: x.strftime(self.x_label_format)
+		def format(x):
+			return x.strftime(self.x_label_format)
 		return list(map(format, self.get_x_values()))
 
 	def y_label_offset(self, height):
@@ -222,11 +223,11 @@ class Schedule(Graph):
 		subbar_height = self.get_field_height() - bar_gap
 
 		# y_mod = (subbar_height / 2) + (self.font_size / 2)
-		x_min,x_max,div = self._x_range()
+		x_min, x_max, div = self._x_range()
 		x_range = x_max - x_min
-		width = (float(self.graph_width) - self.font_size*2)
+		width = (float(self.graph_width) - self.font_size * 2)
 		# time_scale
-		#scale /= x_range
+		# scale /= x_range
 		scale = TimeScale(width, x_range)
 
 		# reference implementation uses the last data supplied
@@ -234,17 +235,17 @@ class Schedule(Graph):
 		data = self.data[last]['data']
 
 		for index, (x_start, x_end, label) in enumerate(data):
-			count = index + 1 # index is 0-based, count is 1-based
-			y = self.graph_height - (self.get_field_height()*count)
-			bar_width = scale*(x_end-x_start)
-			bar_start = scale*(x_start-x_min)
+			count = index + 1  # index is 0-based, count is 1-based
+			y = self.graph_height - (self.get_field_height() * count)
+			bar_width = scale * (x_end - x_start)
+			bar_start = scale * (x_start - x_min)
 
 			etree.SubElement(self.graph, 'rect', {
 				'x': str(bar_start),
 				'y': str(y),
 				'width': str(bar_width),
 				'height': str(subbar_height),
-				'class': 'fill%s' % (count+1),
+				'class': 'fill%s' % (count + 1),
 			})
 
 	def _x_range(self):
@@ -255,31 +256,32 @@ class Schedule(Graph):
 		start_dates, end_dates, labels = zip(*data)
 		all_dates = start_dates + end_dates
 		max_value = max(all_dates)
-		if not self.min_x_value is None:
+		if self.min_x_value is not None:
 			all_dates.append(self.min_x_value)
 		min_value = min(all_dates)
 		range = max_value - min_value
 		right_pad = divide_timedelta_float(range, 20.0) or relativedelta(days=10)
 		scale_range = (max_value + right_pad) - min_value
 
-		#scale_division = self.scale_x_divisions or (scale_range / 10.0)
+		# scale_division = self.scale_x_divisions or (scale_range / 10.0)
 		# todo, remove timescale_x_divisions and use scale_x_divisions only
 		# but as a time delta
 		scale_division = divide_timedelta_float(scale_range, 10.0)
 
 		# this doesn't make sense, because x is a timescale
-		#if self.scale_x_integers:
-		#	scale_division = min(round(scale_division), 1)
+		# if self.scale_x_integers:
+		#  scale_division = min(round(scale_division), 1)
 
 		return min_value, max_value, scale_division
 
 	def get_x_values(self):
 		x_min, x_max, scale_division = self._x_range()
 		if self.timescale_divisions:
-			pattern = re.compile('(\d+) ?(\w+)')
+			pattern = re.compile(r'(\d+) ?(\w+)')
 			m = pattern.match(self.timescale_divisions)
 			if not m:
-				raise ValueError("Invalid timescale_divisions: %s"
+				raise ValueError(
+					"Invalid timescale_divisions: %s"
 					% self.timescale_divisions)
 
 			magnitude = int(m.group(1))
@@ -287,7 +289,7 @@ class Schedule(Graph):
 
 			parameter = self.lookup_relativedelta_parameter(units)
 
-			delta = relativedelta(**{parameter:magnitude})
+			delta = relativedelta(**{parameter: magnitude})
 
 			scale_division = delta
 
@@ -313,7 +315,7 @@ class Schedule(Graph):
 	def _rdp_map():
 		years = 'years', 'year', 'yrs', 'yr'
 		months = 'months', 'month', 'mo'
-		weeks = 'weeks', 'week', 'wks','wk'
+		weeks = 'weeks', 'week', 'wks', 'wk'
 		days = 'days', 'day'
 		hours = 'hours', 'hour', 'hr', 'hrs', 'h'
 		minutes = 'minutes', 'minute', 'min', 'mins', 'm'
