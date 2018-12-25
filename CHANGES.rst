@@ -1,3 +1,11 @@
+5.0
+===
+
+* #24: Switched from ``pkg_resource``-style namespace
+  package for ``svg`` to a `pkgutil style
+  <https://packaging.python.org/guides/packaging-namespace-packages/#pkgutil-style-namespace-packages>`_
+  namespace package.
+
 4.0.1
 =====
 
