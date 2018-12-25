@@ -96,7 +96,7 @@ class Schedule(Graph):
 	"The format string to be used to format the X axis labels"
 
 	timescale_divisions = None
-	"""
+	r"""
 	Use this to set the spacing between dates on the axis.  The value
 	must be of the form
 	"\d+ ?((year|month|week|day|hour|minute|second)s?)?"
