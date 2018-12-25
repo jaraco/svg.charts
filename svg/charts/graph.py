@@ -10,7 +10,11 @@ The base module for `svg.charts` classes.
 from operator import itemgetter
 from itertools import islice
 import functools
-import collections
+try:
+	import collections.abc
+except Exception:
+	import collections
+	collections.abc = collections
 
 from six.moves import map
 
@@ -111,7 +115,7 @@ class Graph(object):
 
 	def validate_data(self, conf):
 		data = conf.get('data')
-		if isinstance(data, collections.Sequence):
+		if isinstance(data, collections.abc.Sequence):
 			return
 
 		if data is None:
