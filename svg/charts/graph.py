@@ -15,8 +15,11 @@ try:
 except Exception:
 	import collections
 	collections.abc = collections
+try:
+	import importlib.resources as importlib_resources
+except ImportError:
+	import importlib_resources
 
-import pkg_resources
 import cssutils
 from lxml import etree
 
@@ -693,11 +696,9 @@ class Graph:
 
 	@staticmethod
 	def load_resource_stylesheet(name, subs=dict()):
-		css_stream = pkg_resources.resource_stream('svg.charts', name)
-		css_string = css_stream.read().decode('utf-8')
-		css_string = css_string % subs
-		sheet = cssutils.parseString(css_string)
-		return sheet
+		template = importlib_resources.read_text('svg.charts', name)
+		source = template % subs
+		return cssutils.parseString(source)
 
 	def get_stylesheet_resources(self):
 		"Get the stylesheets for this instance"
