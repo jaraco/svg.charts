@@ -201,16 +201,20 @@ class Plot(Graph):
 		return [p[data_index] for p in dataset['data']]
 
 	def data_max(self, axis):
-		max_value = max(itertools.chain(*[
-			self.get_single_axis_values(axis, ds) for ds in self.data]))
+		max_value = max(itertools.chain.from_iterable(
+			self.get_single_axis_values(axis, ds)
+			for ds in self.data
+		))
 		spec_max = getattr(self, 'max_%s_value' % axis)
 		if spec_max is not None:
 			max_value = max(max_value, spec_max)
 		return max_value
 
 	def data_min(self, axis):
-		min_value = min(itertools.chain(*[
-			self.get_single_axis_values(axis, ds) for ds in self.data]))
+		min_value = min(itertools.chain.from_iterable(
+			self.get_single_axis_values(axis, ds)
+			for ds in self.data
+		))
 		spec_min = getattr(self, 'min_%s_value' % axis)
 		if spec_min is not None:
 			min_value = min(min_value, spec_min)
