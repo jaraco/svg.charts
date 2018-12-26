@@ -1,7 +1,5 @@
 #!python
 
-from __future__ import division
-
 from itertools import chain
 
 from lxml import etree

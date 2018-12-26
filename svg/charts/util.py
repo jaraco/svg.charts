@@ -1,5 +1,3 @@
-from __future__ import division
-
 from jaraco.itertools import always_iterable
 
 
