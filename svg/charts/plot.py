@@ -5,9 +5,6 @@
 import functools
 from itertools import count, chain
 
-import six
-from six.moves import map
-
 from lxml import etree
 import more_itertools
 
@@ -288,7 +285,7 @@ class Plot(Graph):
 
 	def draw_data(self):
 		self.load_transform_parameters()
-		for line, data in six.moves.zip(count(1), self.data):
+		for line, data in zip(count(1), self.data):
 			x_start, y_start = self.transform_output_coordinates((
 				data['data'][0][self.x_data_index],
 				data['data'][0][self.y_data_index],
@@ -373,7 +370,7 @@ class Plot(Graph):
 		if not self.show_data_points \
 			and not self.show_data_values:
 				return
-		for (dp, (gx, gy)) in six.moves.zip(data_points, graph_points):
+		for (dp, (gx, gy)) in zip(data_points, graph_points):
 			dx = dp[0]
 			dy = dp[1]
 			if self.show_data_points:

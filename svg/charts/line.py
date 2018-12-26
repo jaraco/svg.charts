@@ -4,8 +4,6 @@ import itertools
 import functools
 from operator import itemgetter, add
 
-from six.moves import map
-
 from lxml import etree
 from more_itertools.recipes import flatten
 

@@ -1,7 +1,5 @@
 from __future__ import division
 
-from six.moves import zip
-
 from jaraco.itertools import always_iterable
 
 

@@ -1,9 +1,6 @@
 import math
 import itertools
 
-import six
-from six.moves import map, zip
-
 from lxml import etree
 
 from svg.charts.graph import Graph
@@ -116,7 +113,7 @@ class Pie(Graph):
 
 		>>> graph.add_data({data:[6,9,3,4]}) # doctest: +SKIP
 		"""
-		pairs = six.moves.zip_longest(self.data, data_descriptor['data'])
+		pairs = itertools.zip_longest(self.data, data_descriptor['data'])
 		self.data = list(itertools.starmap(robust_add, pairs))
 
 	def add_defs(self, defs):

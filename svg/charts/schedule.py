@@ -2,12 +2,9 @@ from __future__ import absolute_import
 
 import re
 
-from six.moves import map, zip
-
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
 from lxml import etree
-import six
 from more_itertools.recipes import grouper
 from tempora import divide_timedelta_float, date_range, divide_timedelta
 
@@ -17,7 +14,7 @@ from .util import reverse_mapping, flatten_mapping
 __all__ = 'Schedule',
 
 
-class TimeScale(object):
+class TimeScale:
 	"Describes a scale factor based on time instead of a scalar"
 	def __init__(self, width, range):
 		self.width = width
@@ -190,7 +187,7 @@ class Schedule(Graph):
 		return parse(date_string)
 
 	def set_min_x_value(self, value):
-		if isinstance(value, six.string_types):
+		if isinstance(value, str):
 			value = self.parse_date(value)
 		self._min_x_value = value
 

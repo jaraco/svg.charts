@@ -2,8 +2,6 @@ import re
 from time import mktime
 import datetime
 
-from six.moves import map
-
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
 
