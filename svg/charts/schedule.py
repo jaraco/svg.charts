@@ -14,7 +14,7 @@ from .util import reverse_mapping, flatten_mapping
 __all__ = 'Schedule',
 
 
-class TimeScale(object):
+class TimeScale:
 	"Describes a scale factor based on time instead of a scalar"
 	def __init__(self, width, range):
 		self.width = width

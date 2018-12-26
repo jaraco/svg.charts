@@ -25,7 +25,7 @@ from lxml import etree
 __import__('svg.charts.css')
 
 
-class Graph(object):
+class Graph:
 	"""
 	Base object for generating SVG Graphs
 
@@ -718,7 +718,7 @@ class Graph(object):
 		return functools.reduce(merge_sheets, self.get_stylesheet_resources())
 
 
-class DrawHooks(object):
+class DrawHooks:
 	"""
 	Mix-in for Graph subclasses providing hooks at
 	various points in the rendering of a Graph.
@@ -741,7 +741,7 @@ class DrawHooks(object):
 		pass
 
 
-class class_dict(object):
+class class_dict:
 	"Emulates a dictionary, but retrieves class attributes"
 	def __init__(self, obj):
 		self.__obj__ = obj
