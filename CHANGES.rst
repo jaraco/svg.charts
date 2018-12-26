@@ -1,3 +1,8 @@
+6.0
+===
+
+* #26: Drop support for Python 3.4 and earlier (including 2.7).
+
 5.0
 ===
 
