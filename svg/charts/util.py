@@ -1,4 +1,4 @@
-from jaraco.itertools import always_iterable
+from more_itertools import always_iterable
 
 
 def reverse_mapping(mapping):
