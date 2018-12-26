@@ -10,11 +10,7 @@ The base module for `svg.charts` classes.
 from operator import itemgetter
 from itertools import islice
 import functools
-try:
-	import collections.abc
-except Exception:
-	import collections
-	collections.abc = collections
+import collections.abc
 try:
 	import importlib.resources as importlib_resources
 except ImportError:
