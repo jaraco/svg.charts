@@ -7,7 +7,7 @@ The base module for `svg.charts` classes.
 """
 
 from operator import itemgetter
-from itertools import islice
+import itertools
 import functools
 import collections.abc
 try:
@@ -355,7 +355,7 @@ class Graph:
 
 			labels = enumerate(iter(labels))
 			start = int(not self.step_include_first_x_label)
-			labels = islice(labels, start, None, self.step_x_labels)
+			labels = itertools.islice(labels, start, None, self.step_x_labels)
 			list(map(self.draw_x_label, labels))
 			self.draw_x_guidelines(self.field_width(), count)
 
@@ -415,7 +415,7 @@ class Graph:
 
 		labels = enumerate(iter(labels))
 		start = int(not self.step_include_first_y_label)
-		labels = islice(labels, start, None, self.step_y_labels)
+		labels = itertools.islice(labels, start, None, self.step_y_labels)
 		list(map(self.draw_y_label, labels))
 		self.draw_y_guidelines(self.field_height(), count)
 

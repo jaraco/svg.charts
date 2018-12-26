@@ -3,7 +3,7 @@
 "plot.py"
 
 import functools
-from itertools import count, chain
+import itertools
 
 from lxml import etree
 import more_itertools
@@ -201,7 +201,7 @@ class Plot(Graph):
 		return [p[data_index] for p in dataset['data']]
 
 	def data_max(self, axis):
-		max_value = max(chain(*[
+		max_value = max(itertools.chain(*[
 			self.get_single_axis_values(axis, ds) for ds in self.data]))
 		spec_max = getattr(self, 'max_%s_value' % axis)
 		if spec_max is not None:
@@ -209,7 +209,7 @@ class Plot(Graph):
 		return max_value
 
 	def data_min(self, axis):
-		min_value = min(chain(*[
+		min_value = min(itertools.chain(*[
 			self.get_single_axis_values(axis, ds) for ds in self.data]))
 		spec_min = getattr(self, 'min_%s_value' % axis)
 		if spec_min is not None:
@@ -285,7 +285,7 @@ class Plot(Graph):
 
 	def draw_data(self):
 		self.load_transform_parameters()
-		for line, data in zip(count(1), self.data):
+		for line, data in zip(itertools.count(1), self.data):
 			x_start, y_start = self.transform_output_coordinates((
 				data['data'][0][self.x_data_index],
 				data['data'][0][self.y_data_index],
