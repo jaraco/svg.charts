@@ -1,7 +1,0 @@
-How to make a release:
-
-- Double-check that CHANGES.rst includes release notes suitable for
-  notifying users of relevant changes.
-- Use your Git client to tag the released version and push.
-
-Watch https://travis-ci.org/jaraco/svg.charts test, build, and release.
