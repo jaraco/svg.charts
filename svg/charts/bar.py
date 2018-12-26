@@ -1,4 +1,3 @@
-#!python
 
 from itertools import chain
 
