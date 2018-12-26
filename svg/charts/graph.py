@@ -16,8 +16,6 @@ except Exception:
 	import collections
 	collections.abc = collections
 
-from six.moves import map
-
 import pkg_resources
 import cssutils
 from lxml import etree
