@@ -4,8 +4,7 @@ import samples
 
 
 @pytest.mark.parametrize(
-	'sample',
-	[chart for name, chart in samples.generate_samples()],
+    'sample', [chart for name, chart in samples.generate_samples()]
 )
 def test_sample(sample):
-	sample.burn()
+    sample.burn()
