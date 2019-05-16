@@ -4,6 +4,7 @@
 * Rely on `importlib.resources
   <https://docs.python.org/3.7/library/importlib.html#module-importlib.resources>`_
   for loading resources from the package.
+* Packaging refresh.
 
 6.0
 ===
