@@ -166,7 +166,7 @@ class Schedule(Graph):
     def process_data(self, conf):
         super(Schedule, self).process_data(conf)
         data = conf['data']
-        triples = grouper(3, data)
+        triples = grouper(data, 3)
 
         labels, begin_dates, end_dates = zip(*triples)
 
