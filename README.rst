@@ -1,7 +1,13 @@
 .. image:: https://img.shields.io/pypi/v/svg.charts.svg
-   :target: https://pypi.org/project/svg.charts
+   :target: `PyPI link`_
 
 .. image:: https://img.shields.io/pypi/pyversions/svg.charts.svg
+   :target: `PyPI link`_
+
+.. _PyPI link: https://pypi.org/project/svg.charts
+
+.. image:: https://dev.azure.com/jaraco/svg.charts/_apis/build/status/jaraco.svg.charts?branchName=master
+   :target: https://dev.azure.com/jaraco/svg.charts/_build/latest?definitionId=1&branchName=master
 
 .. image:: https://img.shields.io/travis/jaraco/svg.charts/master.svg
    :target: https://travis-ci.org/jaraco/svg.charts
