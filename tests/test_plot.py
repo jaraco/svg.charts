@@ -1,3 +1,6 @@
+import pathlib
+import csv
+
 import pytest
 from more_itertools.recipes import flatten
 
@@ -84,3 +87,35 @@ class TestPlot:
         spec = dict(data=pairs, title='test')
         g.add_data(spec)
         g.burn()
+
+    @staticmethod
+    def read_data(filename):
+        with pathlib.Path(__file__).parent.joinpath(filename).open() as strm:
+            return list(
+                csv.reader(strm, skipinitialspace=True, quoting=csv.QUOTE_NONNUMERIC)
+            )
+
+    def test_rounding(self):
+        """
+        Labels should be rounded to 4 digits of precision.
+        """
+        g = Plot(
+            {
+                'show_data_values': False,
+                'show_data_points': False,
+                'min_x_value': 0,
+                'max_x_value': 0.5,
+                'min_y_value': 0,
+                'max_y_value': 1,
+                'scale_y_divisions': 0.1,
+                'scale_x_divisions': 0.1,
+                'area_fill': False,
+                'show_x_guidelines': True,
+                'show_y_guidelines': True,
+            }
+        )
+
+        g.add_data({'data': self.read_data('source.csv'), 'title': 'title'})
+        res = g.burn()
+        assert '0.30' not in res
+        assert '0.3' in res
