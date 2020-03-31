@@ -1,3 +1,8 @@
+v7.1.0
+======
+
+* #23: Plots now round labels to 4 digits of precision.
+
 v7.0.0
 ======
 
