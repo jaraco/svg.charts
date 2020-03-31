@@ -256,11 +256,15 @@ class Plot(Graph):
     def get_y_values(self):
         return self.get_data_values('y')
 
+    @staticmethod
+    def _make_label(value):
+        return str(round(value, 4))
+
     def get_x_labels(self):
-        return list(map(str, self.get_x_values()))
+        return list(map(self._make_label, self.get_x_values()))
 
     def get_y_labels(self):
-        return list(map(str, self.get_y_values()))
+        return list(map(self._make_label, self.get_y_values()))
 
     def field_size(self, axis):
         size = {'x': 'width', 'y': 'height'}[axis]
