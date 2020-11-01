@@ -154,7 +154,8 @@ class Plot(svg.charts.plot.Plot):
     def set_min_x_value(self, date):
         self._min_x_value = self.parse_date(date)
 
-    min_x_value = property(get_min_x_value, set_min_x_value)
+    # type check disabled due to python/mypy#4125
+    min_x_value = property(get_min_x_value, set_min_x_value)  # type: ignore
 
     def format(self, x, y):
         return fromtimestamp(x).strftime(self.popup_format)
