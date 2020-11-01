@@ -6,18 +6,13 @@
 
 .. _PyPI link: https://pypi.org/project/svg.charts
 
-.. image:: https://dev.azure.com/jaraco/svg.charts/_apis/build/status/jaraco.svg.charts?branchName=master
-   :target: https://dev.azure.com/jaraco/svg.charts/_build/latest?definitionId=1&branchName=master
-
-.. image:: https://img.shields.io/travis/jaraco/svg.charts/master.svg
-   :target: https://travis-ci.org/jaraco/svg.charts
+.. image:: https://github.com/jaraco/svg.charts/workflows/Automated%20Tests/badge.svg
+   :target: https://github.com/jaraco/svg.charts/actions?query=workflow%3A%22Automated+Tests%22
+   :alt: Automated Tests
 
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://github.com/psf/black
    :alt: Code style: Black
-
-.. .. image:: https://img.shields.io/appveyor/ci/jaraco/skeleton/master.svg
-..    :target: https://ci.appveyor.com/project/jaraco/skeleton/branch/master
 
 .. .. image:: https://readthedocs.org/projects/skeleton/badge/?version=latest
 ..    :target: https://skeleton.readthedocs.io/en/latest/?badge=latest
