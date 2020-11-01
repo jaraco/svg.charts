@@ -11,6 +11,8 @@ v7.1.0
 v7.0.0
 ======
 
+(unreleased)
+
 * Require Python 3.6 or later.
 
 6.1
