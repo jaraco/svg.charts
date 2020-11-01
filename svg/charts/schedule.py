@@ -4,7 +4,7 @@ from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
 from lxml import etree
 from more_itertools.recipes import grouper
-from tempora import divide_timedelta_float, date_range, divide_timedelta
+from tempora import date_range
 
 from .graph import Graph
 from .util import reverse_mapping, flatten_mapping
@@ -20,8 +20,7 @@ class TimeScale:
         self.range = range
 
     def __mul__(self, delta):
-        scale = divide_timedelta(delta, self.range)
-        return scale * self.width
+        return delta / self.range * self.width
 
 
 class Schedule(Graph):
@@ -261,13 +260,13 @@ class Schedule(Graph):
             all_dates.append(self.min_x_value)
         min_value = min(all_dates)
         range = max_value - min_value
-        right_pad = divide_timedelta_float(range, 20.0) or relativedelta(days=10)
+        right_pad = range / 20.0 or relativedelta(days=10)
         scale_range = (max_value + right_pad) - min_value
 
         # scale_division = self.scale_x_divisions or (scale_range / 10.0)
         # todo, remove timescale_x_divisions and use scale_x_divisions only
         # but as a time delta
-        scale_division = divide_timedelta_float(scale_range, 10.0)
+        scale_division = scale_range / 10.0
 
         # this doesn't make sense, because x is a timescale
         # if self.scale_x_integers:
