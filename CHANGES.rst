@@ -1,3 +1,8 @@
+v7.1.1
+======
+
+Refresh package metadata and minor cleanups.
+
 v7.1.0
 ======
 
