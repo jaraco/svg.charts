@@ -10,9 +10,9 @@ import functools
 import collections.abc
 
 try:
-    import importlib.resources as importlib_resources
+    import importlib.resources as importlib_resources  # type: ignore
 except ImportError:
-    import importlib_resources
+    import importlib_resources  # type: ignore
 
 import cssutils
 from lxml import etree
