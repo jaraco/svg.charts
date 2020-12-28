@@ -1,7 +1,12 @@
+v7.2.0
+======
+
+* #27: Switched to native ``svg`` namespace (PEP 420).
+
 v7.1.1
 ======
 
-Refresh package metadata and minor cleanups.
+* Refresh package metadata and minor cleanups.
 
 v7.1.0
 ======
