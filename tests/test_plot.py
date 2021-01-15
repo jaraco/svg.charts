@@ -119,5 +119,3 @@ class TestPlot:
         res = g.burn()
         assert '0.30' not in res
         assert '0.3' in res
-
-        pathlib.Path('test.svg').write_text(res)
