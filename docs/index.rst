@@ -1,5 +1,5 @@
-Welcome to svg.charts documentation!
-====================================
+Welcome to |project| documentation!
+===================================
 
 .. toctree::
    :maxdepth: 2
