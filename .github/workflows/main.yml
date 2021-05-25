@@ -9,7 +9,8 @@ jobs:
         python:
         - 3.6
         - 3.9
-        - 3.10.0-alpha - 3.10.99
+        # disabled as lxml doesn't build
+        # - 3.10.0-alpha - 3.10.99
         platform: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.platform }}
     steps:
