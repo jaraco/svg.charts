@@ -9,8 +9,7 @@ jobs:
         python:
         - 3.7
         - 3.9
-        # disabled as lxml doesn't build
-        # - "3.10"
+        - "3.10"
         platform:
         - ubuntu-latest
         - macos-latest
