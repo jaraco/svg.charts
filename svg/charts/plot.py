@@ -165,7 +165,7 @@ class Plot(Graph):
 
     def validate_data_pairs(self, series):
         # Should be pairs (or wider tuples).
-        for (i, p) in enumerate(series):
+        for i, p in enumerate(series):
             if len(p) < 2:
                 tmpl = "Expecting (x,y) pairs for data points for %s."
                 msg = tmpl % self.__class__.__name__
@@ -375,7 +375,7 @@ class Plot(Graph):
     def draw_data_points(self, line, data_points, graph_points):
         if not self.show_data_points and not self.show_data_values:
             return
-        for (dp, (gx, gy)) in zip(data_points, graph_points):
+        for dp, (gx, gy) in zip(data_points, graph_points):
             dx = dp[0]
             dy = dp[1]
             if self.show_data_points:

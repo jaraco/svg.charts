@@ -96,7 +96,6 @@ class SampleBar:
 
     @classmethod
     def vertical(cls):
-
         g = bar.VerticalBar(cls.fields)
 
         g.stack = 'side'
