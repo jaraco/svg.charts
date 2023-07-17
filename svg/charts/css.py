@@ -33,10 +33,6 @@ properties = {
     'color-interpolation': 'auto|sRGB|linearRGB|inherit',
     'color-interpolation-filters': 'auto|sRGB|linearRGB|inherit',
     'color-rendering': 'auto|optimizeSpeed|optimizeQuality|inherit',
-    'shape-rendering': 'auto|optimizeSpeed|crispEdges|geometricPrecision|inherit',
-    'text-rendering': (
-        'auto|optimizeSpeed|optimizeLegibility|geometricPrecision|inherit'
-    ),
     'fill': '{paint}',
     'fill-opacity': '{num}|inherit',
     'fill-rule': 'nonzero|evenodd|inherit',
@@ -66,6 +62,9 @@ properties = {
     'glyph-orientation-vertical': 'auto|{angle}|inherit',
     'kerning': 'auto|{length}|inherit',
     'text-anchor': 'start|middle|end|inherit',
+    'text-rendering': (
+        'auto|optimizeSpeed|optimizeLegibility|geometricPrecision|inherit'
+    ),
     'writing-mode': 'lr-tb|rl-tb|tb-rl|lr|rl|tb|inherit',
 }
 

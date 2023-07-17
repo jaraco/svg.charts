@@ -114,7 +114,7 @@ class Bar(Graph):
         # return max(map(lambda set: max(set['data']), self.data))
 
     def data_min(self):
-        if not getattr(self, 'min_scale_value') is None:
+        if getattr(self, 'min_scale_value') is not None:
             return self.min_scale_value
         min_value = min(
             itertools.chain.from_iterable(map(lambda set: set['data'], self.data))
