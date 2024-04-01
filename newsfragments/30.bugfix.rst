@@ -1,1 +1,0 @@
-Override data_range in time_series to allow scale_?_integers to work.

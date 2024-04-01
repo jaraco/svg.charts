@@ -1,3 +1,12 @@
+v7.3.1
+======
+
+Bugfixes
+--------
+
+- Override data_range in time_series to allow scale_?_integers to work. (#30)
+
+
 v7.3.0
 ======
 
