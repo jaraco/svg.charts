@@ -13,11 +13,9 @@ def test_field_width():
     g.stagger_x_labels = True
     g.x_label_format = '%d-%b %H:%M'
 
-    g.add_data(
-        {
-            'data': [('2005-12-21T00:00:00', 20), ('2005-12-22T00:00:00', 21)],
-            'title': 'series 1',
-        }
-    )
+    g.add_data({
+        'data': [('2005-12-21T00:00:00', 20), ('2005-12-22T00:00:00', 21)],
+        'title': 'series 1',
+    })
     g.burn()
     assert g.field_width() > 1

@@ -186,16 +186,14 @@ class Pie(Graph):
             x_end = radius + (math.sin(radians) * radius)
             y_end = radius - (math.cos(radians) * radius)
             percent_greater_fifty = int(percent >= 50)
-            path = ' '.join(
-                (
-                    "M%(radius)s,%(radius)s",
-                    "L%(x_start)s,%(y_start)s",
-                    "A%(radius)s,%(radius)s",
-                    "0,",
-                    "%(percent_greater_fifty)s,1,",
-                    "%(x_end)s %(y_end)s Z",
-                )
-            )
+            path = ' '.join((
+                "M%(radius)s,%(radius)s",
+                "L%(x_start)s,%(y_start)s",
+                "A%(radius)s,%(radius)s",
+                "0,",
+                "%(percent_greater_fifty)s,1,",
+                "%(x_end)s %(y_end)s Z",
+            ))
             path = path % vars()
 
             wedge = etree.SubElement(

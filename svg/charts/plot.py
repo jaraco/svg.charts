@@ -293,9 +293,10 @@ class Plot(Graph):
     def draw_data(self):
         self.load_transform_parameters()
         for line, data in zip(itertools.count(1), self.data):
-            x_start, y_start = self.transform_output_coordinates(
-                (data['data'][0][self.x_data_index], data['data'][0][self.y_data_index])
-            )
+            x_start, y_start = self.transform_output_coordinates((
+                data['data'][0][self.x_data_index],
+                data['data'][0][self.y_data_index],
+            ))
             data_points = data['data']
             graph_points = self.get_graph_points(data_points)
             lpath = self.get_lpath(graph_points)
