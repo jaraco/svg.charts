@@ -138,7 +138,9 @@ class Line(Graph):
 
                 d = ' '.join(('M', origin, 'L', line_path, area_path, 'Z'))
                 etree.SubElement(
-                    self.graph, 'path', {'class': 'fill{line_n}'.format(**vars()), 'd': d}
+                    self.graph,
+                    'path',
+                    {'class': 'fill{line_n}'.format(**vars()), 'd': d},
                 )
 
             # now draw the line itself

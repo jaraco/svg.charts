@@ -196,7 +196,7 @@ class Plot(Graph):
         """
         Return all the values for a single axis of the data.
         """
-        data_index = getattr(self, '%s_data_index' % axis)
+        data_index = getattr(self, f'{axis}_data_index')
         return [p[data_index] for p in dataset['data']]
 
     def data_max(self, axis):
@@ -205,7 +205,7 @@ class Plot(Graph):
                 self.get_single_axis_values(axis, ds) for ds in self.data
             )
         )
-        spec_max = getattr(self, 'max_%s_value' % axis)
+        spec_max = getattr(self, f'max_{axis}_value')
         if spec_max is not None:
             max_value = max(max_value, spec_max)
         return max_value
@@ -216,7 +216,7 @@ class Plot(Graph):
                 self.get_single_axis_values(axis, ds) for ds in self.data
             )
         )
-        spec_min = getattr(self, 'min_%s_value' % axis)
+        spec_min = getattr(self, f'min_{axis}_value')
         if spec_min is not None:
             min_value = min(min_value, spec_min)
         return min_value
@@ -227,7 +227,7 @@ class Plot(Graph):
     def data_range(self, axis):
         min_value = self.data_min(axis)
         max_value = self.data_max(axis)
-        if getattr(self, 'scale_%s_integers' % axis):
+        if getattr(self, f'scale_{axis}_integers'):
             min_value = math.floor(min_value)
             max_value = math.ceil(max_value)
 
@@ -236,11 +236,11 @@ class Plot(Graph):
         side_pad = range / 20.0 or 10
         scale_range = (max_value + side_pad) - min_value
 
-        scale_division = getattr(self, 'scale_%s_divisions' % axis) or (
+        scale_division = getattr(self, f'scale_{axis}_divisions') or (
             scale_range / 10.0
         )
 
-        if getattr(self, 'scale_%s_integers' % axis):
+        if getattr(self, f'scale_{axis}_integers'):
             scale_division = round(scale_division) or 1
 
         return min_value, max_value, scale_division
