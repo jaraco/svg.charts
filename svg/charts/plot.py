@@ -227,6 +227,8 @@ class Plot(Graph):
     def data_range(self, axis):
         min_value = self.data_min(axis)
         max_value = self.data_max(axis)
+
+        # ensure scale works (#30)
         if getattr(self, f'scale_{axis}_integers'):
             min_value = math.floor(min_value)
             max_value = math.ceil(max_value)
