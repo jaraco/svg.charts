@@ -2,6 +2,7 @@
 
 import functools
 import itertools
+import math
 
 from lxml import etree
 import more_itertools
@@ -226,6 +227,10 @@ class Plot(Graph):
     def data_range(self, axis):
         min_value = self.data_min(axis)
         max_value = self.data_max(axis)
+        if getattr(self, 'scale_%s_integers' % axis):
+            min_value = math.floor(min_value)
+            max_value = math.ceil(max_value)
+
         range = max_value - min_value
 
         side_pad = range / 20.0 or 10
