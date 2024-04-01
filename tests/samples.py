@@ -5,12 +5,8 @@ samples.
 
 import os
 
+from svg.charts import bar, line, pie, schedule, time_series
 from svg.charts.plot import Plot
-from svg.charts import bar
-from svg.charts import time_series
-from svg.charts import pie
-from svg.charts import schedule
-from svg.charts import line
 
 
 def sample_Plot():

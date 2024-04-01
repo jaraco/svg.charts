@@ -4,12 +4,12 @@ import functools
 import itertools
 import math
 
-from lxml import etree
 import more_itertools
+from lxml import etree
 
 from svg.charts.graph import Graph
-from .util import float_range
 
+from .util import float_range
 
 get_pairs = functools.partial(more_itertools.chunked, n=2)
 
@@ -148,7 +148,7 @@ class Plot(Graph):
         self._scale_x_divisions = val
 
     def validate_data(self, conf):
-        super(Plot, self).validate_data(conf)
+        super().validate_data(conf)
         series = conf['data']
         try:
             [len(x) for x in series]
@@ -166,7 +166,7 @@ class Plot(Graph):
 
     def validate_data_pairs(self, series):
         # Should be pairs (or wider tuples).
-        for i, p in enumerate(series):
+        for _i, p in enumerate(series):
             if len(p) < 2:
                 tmpl = "Expecting (x,y) pairs for data points for %s."
                 msg = tmpl % self.__class__.__name__
@@ -181,13 +181,13 @@ class Plot(Graph):
         data['data'] = sorted(series)
 
     def calculate_left_margin(self):
-        super(Plot, self).calculate_left_margin()
+        super().calculate_left_margin()
         left_label_text = str(self.get_x_labels()[0])
         label_left = len(left_label_text) / 2 * self.font_size * 0.6
         self.border_left = max(label_left, self.border_left)
 
     def calculate_right_margin(self):
-        super(Plot, self).calculate_right_margin()
+        super().calculate_right_margin()
         right_label_text = str(self.get_x_labels()[-1])
         label_right = len(right_label_text) / 2 * self.font_size * 0.6
         self.border_right = max(label_right, self.border_right)
@@ -308,14 +308,14 @@ class Plot(Graph):
             if self.area_fill:
                 graph_height = self.graph_height
                 path_spec = {
-                    'd': 'M%(x_start)f %(graph_height)f '
-                    '%(lpath)s V%(graph_height)f Z' % locals(),
+                    'd': 'M{x_start:f} {graph_height:f} '
+                    '{lpath} V{graph_height:f} Z'.format(**locals()),
                     'class': 'fill%(line)d' % locals(),
                 }
                 etree.SubElement(self.graph, 'path', path_spec)
             if self.draw_lines_between_points:
                 path_spec = {
-                    'd': 'M%(x_start)f %(y_start)f %(lpath)s' % locals(),
+                    'd': 'M{x_start:f} {y_start:f} {lpath}'.format(**locals()),
                     'class': 'line%(line)d' % locals(),
                 }
                 etree.SubElement(self.graph, 'path', path_spec)
@@ -339,7 +339,7 @@ class Plot(Graph):
         path = etree.SubElement(
             self.graph,
             'path',
-            {'d': 'M 0 %(start)s h%(stop)s' % locals(), 'class': 'constantLine'},
+            {'d': 'M 0 {start} h{stop}'.format(**locals()), 'class': 'constantLine'},
         )
         if style:
             path.set('style', style)
@@ -363,7 +363,7 @@ class Plot(Graph):
         return list(map(self.transform_output_coordinates, data_points))
 
     def get_lpath(self, points):
-        points = map(lambda p: "%f %f" % p, points)
+        points = map(lambda p: "{:f} {:f}".format(*p), points)
         return 'L' + ' '.join(points)
 
     def transform_output_coordinates(self, point):
@@ -389,7 +389,7 @@ class Plot(Graph):
                     'cx': str(gx),
                     'cy': str(gy),
                     'r': '2.5',
-                    'class': 'dataPoint%(line)s' % locals(),
+                    'class': 'dataPoint{line}'.format(**locals()),
                 }
                 etree.SubElement(self.graph, 'circle', doc)
             if self.show_data_values:
@@ -398,4 +398,4 @@ class Plot(Graph):
             self.make_datapoint_text(gx, gy - 6, text)
 
     def format(self, x, y):
-        return '(%0.2f, %0.2f)' % (x, y)
+        return f'({x:0.2f}, {y:0.2f})'

@@ -1,6 +1,7 @@
 import itertools
 
 from lxml import etree
+
 from svg.charts.graph import Graph
 
 __all__ = 'Bar', 'VerticalBar', 'HorizontalBar'
@@ -72,7 +73,7 @@ class Bar(Graph):
 
     def __init__(self, fields, *args, **kargs):
         self.fields = fields
-        super(Bar, self).__init__(*args, **kargs)
+        super().__init__(*args, **kargs)
 
     # adapted from Plot
     def get_data_values(self):
@@ -114,7 +115,7 @@ class Bar(Graph):
         # return max(map(lambda set: max(set['data']), self.data))
 
     def data_min(self):
-        if getattr(self, 'min_scale_value') is not None:
+        if self.min_scale_value is not None:
             return self.min_scale_value
         min_value = min(
             itertools.chain.from_iterable(map(lambda set: set['data'], self.data))
@@ -177,7 +178,7 @@ class VerticalBar(Bar):
 
         bottom = self.graph_height
 
-        for field_count, field in enumerate(self.fields):
+        for field_count, _field in enumerate(self.fields):
             for dataset_count, dataset in enumerate(self.data):
                 # cases (assume 0 = +ve):
                 #   value  min  length
@@ -239,7 +240,7 @@ class HorizontalBar(Bar):
 
         y_mod = (bar_height // 2) + (self.font_size // 2)
 
-        for field_count, field in enumerate(self.fields):
+        for field_count, _field in enumerate(self.fields):
             for dataset_count, dataset in enumerate(self.data):
                 value = dataset['data'][field_count]
 

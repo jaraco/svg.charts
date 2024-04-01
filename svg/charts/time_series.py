@@ -1,13 +1,13 @@
+import datetime
 import re
 from time import mktime
-import datetime
 
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
 
 import svg.charts.plot
-from .util import float_range
 
+from .util import float_range
 
 fromtimestamp = datetime.datetime.fromtimestamp
 
@@ -137,10 +137,10 @@ class Plot(svg.charts.plot.Plot):
         the date format
         may be any date that is parseable by dateutil.
         """
-        super(Plot, self).add_data(data)
+        super().add_data(data)
 
     def process_data(self, data):
-        super(Plot, self).process_data(data)
+        super().process_data(data)
         # the date should be in the first axis;
         # replace value with parsed date.
         series = data['data']

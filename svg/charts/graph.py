@@ -4,10 +4,10 @@ svg.charts.graph
 The base module for `svg.charts` classes.
 """
 
-from operator import itemgetter
-import itertools
-import functools
 import collections.abc
+import functools
+import itertools
+from operator import itemgetter
 
 try:
     import importlib.resources as importlib_resources  # type: ignore
@@ -16,7 +16,6 @@ except ImportError:
 
 import cssutils
 from lxml import etree
-
 
 # cause the SVG profile to be loaded
 __import__('svg.charts.css')
@@ -87,8 +86,10 @@ class Graph:
 
     stylesheet_names = ['graph.css']
 
-    def __init__(self, config={}):
+    def __init__(self, config=None):
         """Initialize the graph object with the graph settings."""
+        if config is None:
+            config = {}
         if self.__class__ is Graph:
             raise NotImplementedError("Graph is an abstract base class")
         self.load_config(config)
@@ -287,7 +288,7 @@ class Graph:
 
         Sets self.graph (the 'g' element in the SVG root)
         """
-        transform = 'translate (%s %s)' % (self.border_left, self.border_top)
+        transform = f'translate ({self.border_left} {self.border_top})'
         self.graph = etree.SubElement(self.root, 'g', transform=transform)
 
         etree.SubElement(
@@ -312,7 +313,7 @@ class Graph:
             self.graph,
             'path',
             {
-                'd': 'M 0 %s h%s' % (self.graph_height, self.graph_width),
+                'd': f'M 0 {self.graph_height} h{self.graph_width}',
                 'class': 'axis',
                 'id': 'yAxis',
             },
@@ -344,7 +345,7 @@ class Graph:
                 'x': str(x),
                 'y': str(y),
                 'class': 'dataPointLabel',
-                'style': '%(style)s stroke: #fff; stroke-width: 2;' % vars(),
+                'style': '{style} stroke: #fff; stroke-width: 2;'.format(**vars()),
             },
         )
         e.text = str(value)
@@ -382,9 +383,7 @@ class Graph:
         if self.stagger_x_labels and (index % 2):
             stagger = self.x_label_font_size + 5
             y += stagger
-            move = 'M{x} {graph_height} v{stagger}'.format(
-                x=x, graph_height=self.graph_height, stagger=stagger
-            )
+            move = f'M{x} {self.graph_height} v{stagger}'
             path = {'d': move, 'class': 'staggerGuideLine'}
             etree.SubElement(self.graph, 'path', path)
 
@@ -484,9 +483,7 @@ class Graph:
             return
         # skip the first one
         for count in range(1, count):
-            move = 'M {start} 0 v{stop}'.format(
-                start=label_height * count, stop=self.graph_height
-            )
+            move = f'M {label_height * count} 0 v{self.graph_height}'
             path = {'d': move, 'class': 'guideLines'}
             etree.SubElement(self.graph, 'path', path)
 
@@ -495,9 +492,7 @@ class Graph:
         if not self.show_y_guidelines:
             return
         for count in range(1, count):
-            move = 'M 0 {start} h{stop}'.format(
-                start=self.graph_height - label_height * count, stop=self.graph_width
-            )
+            move = f'M 0 {self.graph_height - label_height * count} h{self.graph_width}'
             path = {'d': move, 'class': 'guideLines'}
             etree.SubElement(self.graph, 'path', path)
 
@@ -561,7 +556,7 @@ class Graph:
             self.root, 'text', {'x': str(x), 'y': str(y), 'class': 'yAxisTitle'}
         )
         text.text = self.y_title
-        transform = 'rotate({rotate}, {x}, {y})'.format(x=x, y=y, rotate=rotate)
+        transform = f'rotate({rotate}, {x}, {y})'
         text.set('transform', transform)
 
     def keys(self):
@@ -662,7 +657,7 @@ class Graph:
         return {
             'width': str(self.width),
             'height': str(self.height),
-            'viewBox': '0 0 %s %s' % (self.width, self.height),
+            'viewBox': f'0 0 {self.width} {self.height}',
             ADOBE_EXT_NS + 'scriptImplementation': 'Adobe',
         }
 
@@ -726,7 +721,9 @@ class Graph:
         self.graph_height = self.height - self.border_top - self.border_bottom
 
     @staticmethod
-    def load_resource_stylesheet(name, subs=dict()):
+    def load_resource_stylesheet(name, subs=None):
+        if subs is None:
+            subs = dict()
         template = importlib_resources.read_text('svg.charts', name)
         source = template % subs
         return cssutils.parseString(source)
@@ -763,7 +760,7 @@ class DrawHooks:
 
     def draw_data(self):
         self.before_draw_data()
-        super(DrawHooks, self).draw_data()
+        super().draw_data()
         self.after_draw_data()
 
     def before_draw_data(self):

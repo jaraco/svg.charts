@@ -7,7 +7,7 @@ from more_itertools.recipes import grouper
 from tempora import date_range
 
 from .graph import Graph
-from .util import reverse_mapping, flatten_mapping
+from .util import flatten_mapping, reverse_mapping
 
 __all__ = ('Schedule',)
 
@@ -144,7 +144,7 @@ class Schedule(Graph):
         """
         # The ruby version does something different here, throwing out
         #  any previously added data.
-        super(Schedule, self).add_data(data)
+        super().add_data(data)
 
     # copied from Bar
     # TODO, refactor this into a common base class (or mix-in)
@@ -158,12 +158,12 @@ class Schedule(Graph):
         return bar_gap
 
     def validate_data(self, conf):
-        super(Schedule, self).validate_data(conf)
+        super().validate_data(conf)
         msg = "Data supplied must be (title, from, to) tripples!"
         assert len(conf['data']) % 3 == 0, msg
 
     def process_data(self, conf):
-        super(Schedule, self).process_data(conf)
+        super().process_data(conf)
         data = conf['data']
         triples = grouper(data, 3)
 
@@ -230,7 +230,7 @@ class Schedule(Graph):
         last = -1
         data = self.data[last]['data']
 
-        for index, (x_start, x_end, label) in enumerate(data):
+        for index, (x_start, x_end, _label) in enumerate(data):
             count = index + 1  # index is 0-based, count is 1-based
             y = self.graph_height - (self.get_field_height() * count)
             bar_width = scale * (x_end - x_start)

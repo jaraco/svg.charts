@@ -1,5 +1,5 @@
-import pathlib
 import csv
+import pathlib
 
 import pytest
 from more_itertools.recipes import flatten

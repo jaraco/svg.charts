@@ -1,12 +1,12 @@
-import itertools
 import functools
-from operator import itemgetter, add
+import itertools
+from operator import add, itemgetter
 
 from lxml import etree
 from more_itertools.recipes import flatten
 
-from .util import float_range
 from .graph import Graph
+from .util import float_range
 
 
 class Line(Graph):
@@ -60,7 +60,7 @@ class Line(Graph):
         return self.fields
 
     def calculate_left_margin(self):
-        super(Line, self).calculate_left_margin()
+        super().calculate_left_margin()
         label_left = len(self.fields[0]) / 2 * self.font_size * 0.6
         self.border_left = max(label_left, self.border_left)
 
@@ -133,12 +133,12 @@ class Line(Graph):
                     area_path = ' '.join(paths)
                     origin = paths[-1]
                 else:
-                    area_path = "V%(graph_height)s" % vars(self)
+                    area_path = "V{graph_height}".format(**vars(self))
                     origin = coord_format(get_coords(0, 0))
 
                 d = ' '.join(('M', origin, 'L', line_path, area_path, 'Z'))
                 etree.SubElement(
-                    self.graph, 'path', {'class': 'fill%(line_n)s' % vars(), 'd': d}
+                    self.graph, 'path', {'class': 'fill{line_n}'.format(**vars()), 'd': d}
                 )
 
             # now draw the line itself
@@ -146,8 +146,8 @@ class Line(Graph):
                 self.graph,
                 'path',
                 {
-                    'd': 'M0 %s L%s' % (self.graph_height, line_path),
-                    'class': 'line%(line_n)s' % vars(),
+                    'd': f'M0 {self.graph_height} L{line_path}',
+                    'class': 'line{line_n}'.format(**vars()),
                 },
             )
 
@@ -157,7 +157,7 @@ class Line(Graph):
                         etree.SubElement(
                             self.graph,
                             'circle',
-                            {'class': 'dataPoint%(line_n)s' % vars()},
+                            {'class': 'dataPoint{line_n}'.format(**vars())},
                             cx=str(field_width * i),
                             cy=str(self.graph_height - value * field_height),
                             r='2.5',

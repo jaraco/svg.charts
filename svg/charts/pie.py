@@ -1,5 +1,5 @@
-import math
 import itertools
+import math
 
 from lxml import etree
 
@@ -140,7 +140,7 @@ class Pie(Graph):
             result = [field]
             result.append('[%s]' % value)
             if self.show_key_percent:
-                percent = str(round((value / total * 100))) + '%'
+                percent = str(round(value / total * 100)) + '%'
                 result.append(percent)
             return ' '.join(result)
 
@@ -163,7 +163,7 @@ class Pie(Graph):
         xoff = (self.width - diameter) / 2
         yoff = self.height - self.border_bottom - diameter
         yoff -= 10 * int(self.show_shadow)
-        transform = 'translate(%(xoff)s %(yoff)s)' % locals()
+        transform = 'translate({xoff} {yoff})'.format(**locals())
         self.graph.set('transform', transform)
 
         wedge_text_pad = 5
@@ -227,14 +227,14 @@ class Pie(Graph):
             if self.expanded or (self.expand_greatest and value == max_value):
                 tx = math.sin(radians) * self.expand_gap
                 ty = -(math.cos(radians) * self.expand_gap)
-                translate = "translate(%(tx)s %(ty)s)" % vars()
+                translate = "translate({tx} {ty})".format(**vars())
                 wedge.set('transform', translate)
                 clear.set('transform', translate)
 
             if self.show_shadow:
                 shadow_tx = self.shadow_offset + tx
                 shadow_ty = self.shadow_offset + ty
-                translate = 'translate(%(shadow_tx)s %(shadow_ty)s)' % vars()
+                translate = 'translate({shadow_tx} {shadow_ty})'.format(**vars())
                 shadow.set('transform', translate)
 
             if self.show_data_labels and value != 0:
