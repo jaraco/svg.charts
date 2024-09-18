@@ -24,7 +24,6 @@ dependencies = [
 	"lxml>=2.0",
 	"more_itertools>=6",
 	"tempora>=1.3",
-	'importlib_resources; python_version < "3.7"',
 ]
 dynamic = ["version"]
 
@@ -69,11 +68,8 @@ type = [
 	"pytest-mypy",
 
 	# local
+	"lxml-stubs",
 ]
 
 
 [tool.setuptools_scm]
-
-
-[tool.pytest-enabler.mypy]
-# Disabled due to jaraco/skeleton#143
