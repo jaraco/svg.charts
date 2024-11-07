@@ -724,7 +724,13 @@ class Graph:
     def load_resource_stylesheet(name, subs=None):
         if subs is None:
             subs = dict()
-        template = importlib_resources.read_text('svg.charts', name)
+        try:
+            # attempt read from library files
+            template = importlib_resources.read_text('svg.charts', name)
+        except FileNotFoundError:
+            # attempt read from calling code local files
+            with open(name, "r") as f:
+                template = f.read()
         source = template % subs
         return cssutils.parseString(source)
 
