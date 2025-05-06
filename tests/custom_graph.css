@@ -1,0 +1,91 @@
+/*
+Customized styles for svg.charts.Graph
+*/
+
+.svgBackground{
+  fill:#222222;
+}
+.graphBackground{
+  fill:#343434;
+}
+
+/* graphs titles */
+.mainTitle{
+  text-anchor: middle;
+  fill: #454545;
+  font-size: %(title_font_size)dpx;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+.subTitle{
+  text-anchor: middle;
+  fill: #999999;
+  font-size: %(subtitle_font_size)dpx;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.axis{
+  stroke: #aaaaaa;
+  stroke-width: 1px;
+}
+
+.guideLines{
+  stroke: #666666;
+  stroke-width: 1px;
+  stroke-dasharray: 5,5;
+}
+
+.xAxisLabels{
+  text-anchor: middle;
+  fill: #aaaaaa;
+  font-size: %(x_label_font_size)dpx;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.yAxisLabels{
+  text-anchor: end;
+  fill: #aaaaaa;
+  font-size: %(y_label_font_size)dpx;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.xAxisTitle{
+  text-anchor: middle;
+  fill: #ff0000;
+  font-size: %(x_title_font_size)dpx;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.yAxisTitle{
+  fill: #ff0000;
+  text-anchor: middle;
+  font-size: %(y_title_font_size)dpx;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.dataPointLabel{
+  fill: #aaaaaa;
+  text-anchor:middle;
+  font-size: 10px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.staggerGuideLine{
+  fill: none;
+  stroke: #aaaaaa;
+  stroke-width: 0.5px;
+}
+
+.keyText{
+  fill: #aaaaaa;
+  text-anchor:start;
+  font-size: %(key_font_size)dpx;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
