@@ -6,13 +6,9 @@ The base module for `svg.charts` classes.
 
 import collections.abc
 import functools
+import importlib.resources
 import itertools
 from operator import itemgetter
-
-try:
-    import importlib.resources as importlib_resources  # type: ignore
-except ImportError:
-    import importlib_resources  # type: ignore
 
 import cssutils
 from lxml import etree
@@ -724,7 +720,7 @@ class Graph:
     def load_resource_stylesheet(name, subs=None):
         if subs is None:
             subs = dict()
-        template = importlib_resources.read_text('svg.charts', name)
+        template = importlib.resources.read_text('svg.charts', name)
         source = template % subs
         return cssutils.parseString(source)
 
