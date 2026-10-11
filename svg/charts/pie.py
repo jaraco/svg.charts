@@ -195,6 +195,16 @@ class Pie(Graph):
                 "%(x_end)s %(y_end)s Z",
             ))
             path = path % vars()
+            # One arc cannot draw a full circle with coincident endpoints.
+            path = (
+                (
+                    f'M{radius},0 '
+                    f'A{radius},{radius} 0,1,1,{radius} {diameter} '
+                    f'A{radius},{radius} 0,1,1,{radius} 0 Z'
+                )
+                if value == total
+                else path
+            )
 
             wedge = etree.SubElement(
                 self.foreground, 'path', {'d': path, 'class': 'fill%s' % (index + 1)}
