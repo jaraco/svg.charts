@@ -254,7 +254,6 @@ class Plot(Graph):
         return self.data_range('y')
 
     def get_data_values(self, axis):
-        min_value, max_value, scale_division = self.data_range(axis)
         return tuple(float_range(*self.data_range(axis)))
 
     def get_x_values(self):
@@ -276,16 +275,16 @@ class Plot(Graph):
     def field_size(self, axis):
         size = {'x': 'width', 'y': 'height'}[axis]
         side = {'x': 'right', 'y': 'top'}[axis]
-        values = getattr(self, 'get_%s_values' % axis)()
+        values = getattr(self, f'get_{axis}_values')()
         max_d = self.data_max(axis)
         dx = (
             float(max_d - values[-1]) / (values[-1] - values[-2])
             if len(values) > 1
             else max_d
         )
-        graph_size = getattr(self, 'graph_%s' % size)
-        side_font = getattr(self, '%s_font' % side)
-        side_align = getattr(self, '%s_align' % side)
+        graph_size = getattr(self, f'graph_{size}')
+        side_font = getattr(self, f'{side}_font')
+        side_align = getattr(self, f'{side}_align')
         result = (float(graph_size) - self.font_size * 2 * side_font) / (
             len(values) + dx - side_align
         )
@@ -312,13 +311,13 @@ class Plot(Graph):
                 path_spec = {
                     'd': 'M{x_start:f} {graph_height:f} '
                     '{lpath} V{graph_height:f} Z'.format(**locals()),
-                    'class': 'fill%(line)d' % locals(),
+                    'class': f'fill{line}',
                 }
                 etree.SubElement(self.graph, 'path', path_spec)
             if self.draw_lines_between_points:
                 path_spec = {
                     'd': 'M{x_start:f} {y_start:f} {lpath}'.format(**locals()),
-                    'class': 'line%(line)d' % locals(),
+                    'class': f'line{line}',
                 }
                 etree.SubElement(self.graph, 'path', path_spec)
             self.draw_data_points(line, data_points, graph_points)
@@ -365,7 +364,7 @@ class Plot(Graph):
         return list(map(self.transform_output_coordinates, data_points))
 
     def get_lpath(self, points):
-        points = map(lambda p: "{:f} {:f}".format(*p), points)
+        points = ("{:f} {:f}".format(*p) for p in points)
         return 'L' + ' '.join(points)
 
     def transform_output_coordinates(self, point):

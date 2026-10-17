@@ -5,6 +5,6 @@ def test_import_star():
     mod_src = 'from svg.charts import *\n'
     code = compile(mod_src, 'test_import_star_module.py', 'exec')
     ns = {}
-    exec(code, ns)
+    exec(code, ns)  # noqa: S102
     assert 'graph' in ns
     assert 'plot' in ns

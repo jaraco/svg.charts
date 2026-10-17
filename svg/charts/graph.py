@@ -8,6 +8,7 @@ import collections.abc
 import functools
 import itertools
 from operator import itemgetter
+from typing import ClassVar
 
 try:
     import importlib.resources as importlib_resources  # type: ignore
@@ -84,7 +85,7 @@ class Graph:
 
     top_align = top_font = right_align = right_font = 0
 
-    stylesheet_names = ['graph.css']
+    stylesheet_names: ClassVar = ['graph.css']
 
     def __init__(self, config=None):
         """Initialize the graph object with the graph settings."""
@@ -236,8 +237,8 @@ class Graph:
         txt_width = len(label) * self.font_size * 0.6 + 10
         tx = x + [5, -5][int(x + txt_width > self.width)]
         anchor = ['start', 'end'][x + txt_width > self.width]
-        style = 'fill: #000; text-anchor: %s;' % anchor
-        id = 'label-%s' % self._w3c_name(label)
+        style = f'fill: #000; text-anchor: {anchor};'
+        id = f'label-{self._w3c_name(label)}'
         attrs = {
             'x': str(tx),
             'y': str(y - self.font_size),
@@ -307,7 +308,7 @@ class Graph:
         etree.SubElement(
             self.graph,
             'path',
-            {'d': 'M 0 0 v%s' % self.graph_height, 'class': 'axis', 'id': 'xAxis'},
+            {'d': f'M 0 0 v{self.graph_height}', 'class': 'axis', 'id': 'xAxis'},
         )
         etree.SubElement(
             self.graph,
@@ -391,10 +392,9 @@ class Graph:
         text.set('y', str(y))
 
         if self.rotate_x_labels:
-            transform = 'rotate(90 %d %d) translate(0 -%d)' % (
-                x,
-                y - self.x_label_font_size,
-                self.x_label_font_size / 4,
+            transform = (
+                f'rotate(90 {int(x)} {int(y - self.x_label_font_size)}) '
+                f'translate(0 -{int(self.x_label_font_size / 4)})'
             )
             text.set('transform', transform)
             text.set('style', 'text-anchor: start')
@@ -461,7 +461,7 @@ class Graph:
                 self.graph,
                 'path',
                 {
-                    'd': 'M%(x)f %(y)f h%(stagger)d' % vars(),
+                    'd': f'M{x:f} {y:f} h{int(stagger)}',
                     'class': 'staggerGuideLine',
                 },
             )
@@ -470,7 +470,9 @@ class Graph:
         text.set('y', str(y))
 
         if self.rotate_y_labels:
-            transform = 'translate(-%d 0) rotate (90 %d %d)' % (self.font_size, x, y)
+            transform = (
+                f'translate(-{int(self.font_size)} 0) rotate (90 {int(x)} {int(y)})'
+            )
             text.set('transform', transform)
             text.set('style', 'text-anchor: middle')
         else:
@@ -482,8 +484,8 @@ class Graph:
         if not self.show_x_guidelines:
             return
         # skip the first one
-        for count in range(1, count):
-            move = f'M {label_height * count} 0 v{self.graph_height}'
+        for index in range(1, count):
+            move = f'M {label_height * index} 0 v{self.graph_height}'
             path = {'d': move, 'class': 'guideLines'}
             etree.SubElement(self.graph, 'path', path)
 
@@ -491,8 +493,8 @@ class Graph:
         "Draw the Y-axis guidelines"
         if not self.show_y_guidelines:
             return
-        for count in range(1, count):
-            move = f'M 0 {self.graph_height - label_height * count} h{self.graph_width}'
+        for index in range(1, count):
+            move = f'M 0 {self.graph_height - label_height * index} h{self.graph_width}'
             path = {'d': move, 'class': 'guideLines'}
             etree.SubElement(self.graph, 'path', path)
 
@@ -598,7 +600,7 @@ class Graph:
             y_offset = self.border_top + 20
         if self.key_position == 'bottom':
             x_offset, y_offset = self.calculate_offsets_bottom()
-        group.set('transform', 'translate(%(x_offset)d %(y_offset)d)' % vars())
+        group.set('transform', f'translate({int(x_offset)} {int(y_offset)})')
 
     def calculate_offsets_bottom(self):
         x_offset = self.border_left + 20
@@ -664,7 +666,7 @@ class Graph:
     def start_svg(self):
         "Base SVG Document Creation"
         SVG_NAMESPACE = 'http://www.w3.org/2000/svg'
-        SVG = '{%s}' % SVG_NAMESPACE
+        SVG = f'{{{SVG_NAMESPACE}}}'
         NSMAP = {
             None: SVG_NAMESPACE,
             'xlink': 'http://www.w3.org/1999/xlink',
@@ -674,7 +676,7 @@ class Graph:
         self.root = etree.Element(SVG + "svg", attrib=root_attrs, nsmap=NSMAP)
         if hasattr(self, 'style_sheet_href'):
             pi = etree.ProcessingInstruction(
-                'xml-stylesheet', 'href="%s" type="text/css"' % self.style_sheet_href
+                'xml-stylesheet', f'href="{self.style_sheet_href}" type="text/css"'
             )
             self.root.addprevious(pi)
 
@@ -723,7 +725,7 @@ class Graph:
     @staticmethod
     def load_resource_stylesheet(name, subs=None):
         if subs is None:
-            subs = dict()
+            subs = {}
         template = importlib_resources.read_text('svg.charts', name)
         source = template % subs
         return cssutils.parseString(source)

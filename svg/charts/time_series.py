@@ -161,12 +161,9 @@ class Plot(svg.charts.plot.Plot):
         return fromtimestamp(x).strftime(self.popup_format)
 
     def get_x_labels(self):
-        return list(
-            map(
-                lambda t: fromtimestamp(t).strftime(self.x_label_format),
-                self.get_x_values(),
-            )
-        )
+        return [
+            fromtimestamp(t).strftime(self.x_label_format) for t in self.get_x_values()
+        ]
 
     def get_x_values(self):
         result = self.get_x_timescale_division_values()
@@ -177,7 +174,7 @@ class Plot(svg.charts.plot.Plot):
     def get_x_timescale_division_values(self):
         if not self.timescale_divisions:
             return
-        min, max, scale_division = self.x_range()
+        min, max, _scale_division = self.x_range()
         m = re.match(
             r'(?P<amount>\d+) '
             '?(?P<division_units>days|weeks|months|years|hours|minutes|seconds)?',

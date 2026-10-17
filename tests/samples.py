@@ -4,6 +4,7 @@ samples.
 """
 
 import os
+from typing import ClassVar, NamedTuple
 
 from svg.charts import bar, line, pie, schedule, time_series
 from svg.charts.plot import Plot
@@ -33,11 +34,12 @@ def sample_PlotTextLabels():
     })
     # Processed Apple production 2015
     # Any object with a .text attribute will do;
-    # we like namedtuple().
+    # we like NamedTuple.
 
-    from collections import namedtuple
-
-    Datum = namedtuple("Datum", "x y text")
+    class Datum(NamedTuple):
+        x: float
+        y: float
+        text: str
 
     g.add_data({
         'data': [
@@ -80,7 +82,7 @@ def generate_samples():
 
 
 class SampleBar:
-    fields = ['Internet', 'TV', 'Newspaper', 'Magazine', 'Radio']
+    fields: ClassVar = ['Internet', 'TV', 'Newspaper', 'Magazine', 'Radio']
 
     @classmethod
     def vertical(cls):

@@ -4,7 +4,7 @@ from lxml import etree
 
 from svg.charts.graph import Graph
 
-__all__ = 'Bar', 'VerticalBar', 'HorizontalBar'
+__all__ = 'Bar', 'HorizontalBar', 'VerticalBar'
 
 
 class Bar(Graph):
@@ -108,18 +108,14 @@ class Bar(Graph):
         return list(map(str, self.get_data_values()))
 
     def data_max(self):
-        return max(
-            itertools.chain.from_iterable(map(lambda set: set['data'], self.data))
-        )
+        return max(itertools.chain.from_iterable(set['data'] for set in self.data))
         # above is same as
         # return max(map(lambda set: max(set['data']), self.data))
 
     def data_min(self):
         if self.min_scale_value is not None:
             return self.min_scale_value
-        min_value = min(
-            itertools.chain.from_iterable(map(lambda set: set['data'], self.data))
-        )
+        min_value = min(itertools.chain.from_iterable(set['data'] for set in self.data))
         min_value = min(min_value, 0)
         return min_value
 

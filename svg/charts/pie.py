@@ -123,7 +123,6 @@ class Pie(Graph):
 
     def draw_graph(self):
         "Here we don't need the graph (consider refactoring)"
-        pass
 
     def get_y_labels(self):
         "Definitely consider refactoring"
@@ -138,7 +137,7 @@ class Pie(Graph):
 
         def key(field, value):
             result = [field]
-            result.append('[%s]' % value)
+            result.append(f'[{value}]')
             if self.show_key_percent:
                 percent = str(round(value / total * 100)) + '%'
                 result.append(percent)
@@ -186,7 +185,7 @@ class Pie(Graph):
             x_end = radius + (math.sin(radians) * radius)
             y_end = radius - (math.cos(radians) * radius)
             percent_greater_fifty = int(percent >= 50)
-            path = ' '.join((
+            path = ' '.join((  # noqa: FLY002
                 "M%(radius)s,%(radius)s",
                 "L%(x_start)s,%(y_start)s",
                 "A%(radius)s,%(radius)s",
@@ -242,9 +241,9 @@ class Pie(Graph):
                 if self.show_key_data_labels:
                     label.append(field)
                 if self.show_actual_values:
-                    label.append('[%s]' % value)
+                    label.append(f'[{value}]')
                 if self.show_percent:
-                    label.append('%d%%' % round(percent))
+                    label.append(f'{round(percent)}%')
                 label = ' '.join(label)
 
                 msr = math.sin(radians)

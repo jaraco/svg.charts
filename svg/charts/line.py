@@ -136,7 +136,7 @@ class Line(Graph):
                     area_path = "V{graph_height}".format(**vars(self))
                     origin = coord_format(get_coords(0, 0))
 
-                d = ' '.join(('M', origin, 'L', line_path, area_path, 'Z'))
+                d = f"M {origin} L {line_path} {area_path} Z"
                 etree.SubElement(
                     self.graph,
                     'path',

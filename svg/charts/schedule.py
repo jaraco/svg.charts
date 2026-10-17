@@ -210,7 +210,7 @@ class Schedule(Graph):
         # ruby version uses the last data supplied
         last = -1
         data = self.data[last]['data']
-        begin_dates, start_dates, labels = zip(*data)
+        _begin_dates, _start_dates, labels = zip(*data)
         return labels
 
     def draw_data(self):
@@ -219,7 +219,7 @@ class Schedule(Graph):
         subbar_height = self.get_field_height() - bar_gap
 
         # y_mod = (subbar_height / 2) + (self.font_size / 2)
-        x_min, x_max, div = self._x_range()
+        x_min, x_max, _div = self._x_range()
         x_range = x_max - x_min
         width = float(self.graph_width) - self.font_size * 2
         # time_scale
@@ -253,7 +253,7 @@ class Schedule(Graph):
         last = -1
         data = self.data[last]['data']
 
-        start_dates, end_dates, labels = zip(*data)
+        start_dates, end_dates, _labels = zip(*data)
         all_dates = start_dates + end_dates
         max_value = max(all_dates)
         if self.min_x_value is not None:
@@ -281,7 +281,7 @@ class Schedule(Graph):
             m = pattern.match(self.timescale_divisions)
             if not m:
                 raise ValueError(
-                    "Invalid timescale_divisions: %s" % self.timescale_divisions
+                    f"Invalid timescale_divisions: {self.timescale_divisions}"
                 )
 
             magnitude = int(m.group(1))

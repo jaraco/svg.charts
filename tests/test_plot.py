@@ -1,5 +1,6 @@
 import csv
 import pathlib
+from typing import NamedTuple
 
 import pytest
 from more_itertools.recipes import flatten
@@ -48,9 +49,11 @@ class TestPlot:
         Test that data with .text attributes make
         text labels.
         """
-        from collections import namedtuple
 
-        D = namedtuple("D", 'x y text')
+        class D(NamedTuple):
+            x: int
+            y: int
+            text: str
 
         g = Plot(dict(show_data_values=True))
         g.add_data(dict(data=[D(1, 0, 'Sam'), D(2, 1, 'Dan')], title='labels'))
